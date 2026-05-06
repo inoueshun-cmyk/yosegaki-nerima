@@ -37,8 +37,14 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 .shikishi{background:#fff9e6;border:3px solid #d4a017;border-radius:16px;padding:24px;min-height:180px;margin-bottom:14px}
 .shtitle{text-align:center;font-size:15px;font-weight:700;color:#8b6914;margin-bottom:18px;padding-bottom:10px;border-bottom:2px dashed #d4a017}
 .fgrid{display:flex;flex-wrap:wrap;gap:12px}
-.fusen{border-radius:4px;padding:12px;min-width:100px;max-width:140px;font-size:12px;line-height:1.5;box-shadow:2px 3px 8px rgba(0,0,0,.12)}
-.ffrom{font-size:10px;font-weight:700;margin-top:6px;opacity:.75;text-align:right}
+.fusen{border-radius:4px;padding:12px;min-width:110px;max-width:150px;font-size:12px;line-height:1.5;box-shadow:2px 3px 8px rgba(0,0,0,.12);position:relative}
+.fusen-msg{margin-bottom:4px}
+.ffrom{font-size:10px;font-weight:700;margin-top:4px;opacity:.75;text-align:right}
+.fusen-btns{display:flex;gap:4px;margin-top:6px;justify-content:flex-end}
+.fbtn{border:none;border-radius:4px;padding:2px 7px;font-size:10px;cursor:pointer;font-weight:700;opacity:.8}
+.fbtn:hover{opacity:1}
+.fbtn-edit{background:rgba(255,255,255,.7);color:#333}
+.fbtn-del{background:rgba(231,76,60,.15);color:#c0392b}
 .nomsg{text-align:center;padding:40px 20px;color:#b8a86a;font-size:13px}
 .wbox{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:14px}
 .wbox h3{font-size:14px;font-weight:700;margin-bottom:12px;color:#555}
@@ -47,6 +53,12 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 .btn-send:disabled{background:#ccc;cursor:default}
 .btn-pdf{margin-bottom:14px;width:100%;padding:12px;background:#f5576c;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
 .alr{color:#667eea;font-size:12px;text-align:center;margin-top:8px;padding:8px;background:#f0f0ff;border-radius:8px}
+.edit-box{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:14px;border:2px solid #667eea}
+.edit-box h3{font-size:14px;font-weight:700;margin-bottom:12px;color:#667eea}
+.edit-box textarea{width:100%;height:90px;padding:12px;border:1.5px solid #667eea;border-radius:10px;font-size:13px;font-family:inherit;resize:vertical;outline:none;display:block}
+.edit-btns{display:flex;gap:8px;margin-top:10px}
+.btn-update{flex:1;padding:12px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
+.btn-cancel{flex:1;padding:12px;background:#aaa;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
 .ahdr{background:#2d3748;color:#fff;padding:16px 20px;margin:-20px -20px 20px;border-radius:0 0 24px 24px}
 .ahdr h2{font-size:18px;font-weight:700}
 .asec{background:#fff;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
@@ -57,13 +69,12 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 .mrow{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:13px;gap:8px;flex-wrap:wrap}
 .mrow:last-child{border-bottom:none}
 .btn-del{background:none;border:1px solid #e74c3c;color:#e74c3c;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer}
-.csv-area{border:2px dashed #ccc;border-radius:10px;padding:16px;text-align:center;cursor:pointer;margin-bottom:10px;font-size:13px;color:#888;transition:border .2s}
-.csv-area:hover{border-color:#667eea;color:#667eea}
+.btn-edit2{background:none;border:1px solid #667eea;color:#667eea;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer}
+.csv-area{border:2px dashed #ccc;border-radius:10px;padding:16px;text-align:center;cursor:pointer;margin-bottom:10px;font-size:13px;color:#888}
 .csv-preview{background:#f9f9f9;border-radius:8px;padding:12px;font-size:12px;margin-top:10px;max-height:200px;overflow-y:auto}
 .csv-preview table{width:100%;border-collapse:collapse}
 .csv-preview th{background:#667eea;color:#fff;padding:6px 8px;font-size:11px;text-align:left}
 .csv-preview td{padding:5px 8px;border-bottom:1px solid #eee;font-size:11px}
-.csv-preview tr:last-child td{border-bottom:none}
 .hint-box{background:#f0f4ff;border-radius:8px;padding:10px 14px;font-size:11px;color:#555;line-height:1.8;margin-bottom:10px}
 .hint-box b{color:#4a3f8f}
 .btn-green{padding:10px 18px;background:#27ae60;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
@@ -74,7 +85,7 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 <div id="loginScreen" class="screen active">
   <div class="login-box">
     <h1>&#127800; 寄せ書きアプリ</h1>
-    <p>練馬区青少年委員会 大泉地区</p>
+    <p>練馬区青少年委員会</p>
     <input class="inp" type="text" id="loginId" placeholder="ユーザーID" autocomplete="off">
     <input class="inp" type="password" id="loginPw" placeholder="パスワード">
     <button class="btn-blue" onclick="doLogin()">ログイン</button>
@@ -83,18 +94,47 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 </div>
 
 <div id="topScreen" class="screen">
-  <div class="hdr"><h2>&#127800; 寄せ書きアプリ</h2><p>練馬区青少年委員会 大泉地区</p><div class="rbadge" id="roleBadge"></div></div>
+  <div class="hdr"><h2>&#127800; 寄せ書きアプリ</h2><p>練馬区青少年委員会</p><div class="rbadge" id="roleBadge"></div></div>
   <div id="sotsuSection" style="display:none"><div class="stitle">&#128238; 退任委員への寄せ書き</div><div class="mgrid" id="sotsuGrid"></div></div>
   <div id="shinninSection" style="display:none"><div class="stitle">&#127807; 新任委員への寄せ書き</div><div class="mgrid" id="shinninGrid"></div></div>
   <div id="mySection" style="display:none"><div class="stitle">&#128140; 自分への寄せ書きを見る</div><div class="mgrid" id="myGrid"></div></div>
   <div id="adminLink" style="display:none;text-align:center;margin-bottom:16px"><button class="btn-add" style="border-radius:10px;padding:12px 24px" onclick="showAdmin()">&#9881; 管理者メニュー</button></div>
+  <div style="text-align:center;margin-top:12px">
+    <button class="btn-add" style="background:#888;border-radius:10px;padding:10px 24px;font-size:13px" onclick="showPwChange()">&#128274; パスワード変更</button>
+  </div>
   <button class="btn-out" onclick="doLogout()">ログアウト</button>
+</div>
+
+<div id="pwScreen" class="screen">
+  <div class="hdr"><h2>&#128274; パスワード変更</h2><p>練馬区青少年委員会</p></div>
+  <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:16px">
+    <p style="font-size:13px;color:#555;margin-bottom:16px">新しいパスワードを設定してください。</p>
+    <input class="inp" type="password" id="pwCurrent" placeholder="現在のパスワード">
+    <input class="inp" type="password" id="pwNew" placeholder="新しいパスワード">
+    <input class="inp" type="password" id="pwNew2" placeholder="新しいパスワード（確認）">
+    <button class="btn-blue" onclick="doChangePw()">変更する</button>
+    <div class="err" id="pwErr"></div>
+    <div style="color:#27ae60;font-size:12px;margin-top:8px" id="pwOk"></div>
+  </div>
+  <button class="btn-out" onclick="showTop()">&#8592; トップへ戻る</button>
 </div>
 
 <div id="yosegakiScreen" class="screen">
   <div class="yhdr"><button class="btn-bk" onclick="showTop()">&#8592; 戻る</button><h2 id="yoseTitle"></h2></div>
-  <div class="shikishi"><div class="shtitle" id="shtitle"></div><div class="fgrid" id="fusenGrid"></div><div class="nomsg" id="noMsg" style="display:none">まだメッセージがありません</div></div>
+  <div class="shikishi">
+    <div class="shtitle" id="shtitle"></div>
+    <div class="fgrid" id="fusenGrid"></div>
+    <div class="nomsg" id="noMsg" style="display:none">まだメッセージがありません</div>
+  </div>
   <button class="btn-pdf" onclick="downloadPDF()">&#128196; PDFでダウンロード</button>
+  <div class="edit-box" id="editBox" style="display:none">
+    <h3>&#9997; メッセージを編集</h3>
+    <textarea id="editInput"></textarea>
+    <div class="edit-btns">
+      <button class="btn-update" onclick="updateMsg()">更新する</button>
+      <button class="btn-cancel" onclick="cancelEdit()">キャンセル</button>
+    </div>
+  </div>
   <div class="wbox" id="writeBox" style="display:none">
     <h3 id="writeTitle"></h3>
     <textarea id="msgInput" placeholder="メッセージを入力してください..."></textarea>
@@ -105,22 +145,10 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 
 <div id="adminScreen" class="screen">
   <div class="ahdr"><h2>&#9881; 管理者メニュー</h2></div>
-
-  <!-- CSV一括登録 -->
   <div class="asec">
     <h3>&#128196; CSV一括登録</h3>
-    <div class="hint-box">
-      <b>CSVフォーマット（1行目はヘッダー）：</b><br>
-      名前,役割,ユーザーID,パスワード<br>
-      田中花子,退任委員,tanaka,0000<br>
-      佐藤次郎,新任委員,sato,0000<br>
-      伊藤健太,委員,ito,0000<br>
-      <b>役割：</b>退任委員 / 新任委員 / 委員
-    </div>
-    <div class="csv-area" id="csvArea" onclick="document.getElementById('csvFile').click()">
-      &#128196; クリックしてCSVファイルを選択
-      <input type="file" id="csvFile" accept=".csv" style="display:none" onchange="loadCSV(this)">
-    </div>
+    <div class="hint-box"><b>CSVフォーマット（1行目はヘッダー）：</b><br>名前,役割,ユーザーID,パスワード<br>田中花子,退任委員,tanaka,0000<br>佐藤次郎,新任委員,sato,0000<br>伊藤健太,委員,ito,0000<br><b>役割：</b>退任委員 / 新任委員 / 委員</div>
+    <div class="csv-area" id="csvArea" onclick="document.getElementById('csvFile').click()">&#128196; クリックしてCSVファイルを選択<input type="file" id="csvFile" accept=".csv" style="display:none" onchange="loadCSV(this)"></div>
     <div id="csvPreview" style="display:none">
       <div class="csv-preview" id="csvTable"></div>
       <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
@@ -131,15 +159,16 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
       <div class="err" id="csvErr"></div>
     </div>
   </div>
-
-  <!-- 手動登録 -->
   <div class="asec">
     <h3>&#9997; 手動で1件登録</h3>
     <div class="frow"><input type="text" id="newName" placeholder="氏名"><select id="newRole"><option value="sotsu">退任委員</option><option value="shinnin">新任委員</option><option value="geneki">委員</option></select></div>
     <div class="frow"><input type="text" id="newId" placeholder="ユーザーID（半角英数）"><input type="password" id="newPw" placeholder="パスワード"><button class="btn-add" onclick="addMember()">追加</button></div>
     <div class="err" id="addErr"></div>
   </div>
-
+  <div class="asec">
+    <h3>&#128274; パスワード管理</h3>
+    <div id="adminPwList"></div>
+  </div>
   <div class="asec"><h3>登録済み委員一覧</h3><div id="adminMemberList"></div></div>
   <div class="asec"><h3>メッセージ管理</h3><div id="adminMsgList"></div></div>
   <button class="btn-add" style="background:#555;border-radius:10px;padding:12px 24px;display:block;margin:0 auto 20px" onclick="showTop()">&#8592; トップへ戻る</button>
@@ -150,8 +179,8 @@ var DB='https://yosegaki-nerima-default-rtdb.asia-southeast1.firebasedatabase.ap
 var FC=['#fff9c4','#f8bbd0','#b3e5fc','#c8e6c9','#ffe0b2','#e1bee7','#b2dfdb','#fce4ec','#dcedc8'];
 var FT=['#5d4037','#880e4f','#01579b','#1b5e20','#e65100','#4a148c','#004d40','#b71c1c','#33691e'];
 var RO=[-3,-2,-1,0,1,2,3,-2,1];
-var cu=null,ct=null,members={},messages={};
-var csvData=[];
+var cu=null,ct=null,members={},messages={},csvData=[];
+var editingMsgKey=null;
 
 function g(id){return document.getElementById(id);}
 function ss(id){var s=document.querySelectorAll('.screen');for(var i=0;i<s.length;i++)s[i].classList.remove('active');g(id).classList.add('active');}
@@ -159,7 +188,6 @@ function rl(r){return {sotsu:'退任委員',shinnin:'新任委員',geneki:'委�
 function bc(r){return r==='sotsu'?'bs':r==='shinnin'?'bn':'bg';}
 function ac(r){return r==='sotsu'?'ap':r==='shinnin'?'ab':r==='admin'?'agr':'ag';}
 function mc(k){return messages[k]?Object.keys(messages[k]).length:0;}
-
 function parseRole(s){
   s=s.trim();
   if(s==='sotsu'||s==='退任委員')return 'sotsu';
@@ -167,7 +195,6 @@ function parseRole(s){
   if(s==='geneki'||s==='委員')return 'geneki';
   return null;
 }
-
 function cw(tk){
   var t=members[tk];
   if(!t||cu.key===tk)return false;
@@ -176,34 +203,15 @@ function cw(tk){
   if(t.role==='shinnin')return cu.role==='sotsu'||cu.role==='geneki'||cu.role==='shinnin';
   return false;
 }
+function canEditMsg(msg){
+  if(cu.role==='admin')return true;
+  return msg.fromKey===cu.key;
+}
 
-function fbGet(path,cb){
-  var xhr=new XMLHttpRequest();
-  xhr.open('GET',DB+'/'+path+'.json');
-  xhr.onload=function(){cb(JSON.parse(xhr.responseText));};
-  xhr.onerror=function(){cb(null);};
-  xhr.send();
-}
-function fbSet(path,data,cb){
-  var xhr=new XMLHttpRequest();
-  xhr.open('PUT',DB+'/'+path+'.json');
-  xhr.setRequestHeader('Content-Type','application/json');
-  xhr.onload=function(){if(cb)cb();};
-  xhr.send(JSON.stringify(data));
-}
-function fbPush(path,data,cb){
-  var xhr=new XMLHttpRequest();
-  xhr.open('POST',DB+'/'+path+'.json');
-  xhr.setRequestHeader('Content-Type','application/json');
-  xhr.onload=function(){if(cb)cb();};
-  xhr.send(JSON.stringify(data));
-}
-function fbDel(path,cb){
-  var xhr=new XMLHttpRequest();
-  xhr.open('DELETE',DB+'/'+path+'.json');
-  xhr.onload=function(){if(cb)cb();};
-  xhr.send();
-}
+function fbGet(path,cb){var xhr=new XMLHttpRequest();xhr.open('GET',DB+'/'+path+'.json');xhr.onload=function(){cb(JSON.parse(xhr.responseText));};xhr.onerror=function(){cb(null);};xhr.send();}
+function fbSet(path,data,cb){var xhr=new XMLHttpRequest();xhr.open('PUT',DB+'/'+path+'.json');xhr.setRequestHeader('Content-Type','application/json');xhr.onload=function(){if(cb)cb();};xhr.send(JSON.stringify(data));}
+function fbPush(path,data,cb){var xhr=new XMLHttpRequest();xhr.open('POST',DB+'/'+path+'.json');xhr.setRequestHeader('Content-Type','application/json');xhr.onload=function(){if(cb)cb();};xhr.send(JSON.stringify(data));}
+function fbDel(path,cb){var xhr=new XMLHttpRequest();xhr.open('DELETE',DB+'/'+path+'.json');xhr.onload=function(){if(cb)cb();};xhr.send();}
 
 function cardHTML(key){
   var m=members[key];
@@ -230,7 +238,6 @@ function doLogin(){
     fbGet('messages',function(mdata){messages=mdata||{};renderTop();ss('topScreen');});
   });
 }
-
 function doLogout(){cu=null;members={};messages={};g('loginId').value='';g('loginPw').value='';ss('loginScreen');}
 
 function renderTop(){
@@ -251,36 +258,21 @@ function renderTop(){
   if(my)g('myGrid').innerHTML=cardHTML(cu.key);
   g('adminLink').style.display=cu.role==='admin'?'block':'none';
 }
-
-function showTop(){
-  fbGet('members',function(data){
-    members=data||{};
-    fbGet('messages',function(mdata){messages=mdata||{};renderTop();ss('topScreen');});
-  });
-}
+function showTop(){fbGet('members',function(data){members=data||{};fbGet('messages',function(mdata){messages=mdata||{};renderTop();ss('topScreen');});});}
 
 function openY(tk){
   ct=tk;
+  cancelEdit();
   fbGet('messages/'+tk,function(data){
     var msgs=data||{};messages[tk]=msgs;
     var t=members[tk];
     g('yoseTitle').textContent=t.name+'さんへの寄せ書き';
     g('shtitle').innerHTML='&#127800; '+t.name+' さんへ &#127800;';
-    var me=Object.keys(msgs);
-    if(me.length===0){g('fusenGrid').innerHTML='';g('noMsg').style.display='block';}
-    else{
-      g('noMsg').style.display='none';
-      var h='';
-      for(var i=0;i<me.length;i++){
-        var v=msgs[me[i]];
-        h+='<div class="fusen" style="background:'+FC[i%FC.length]+';color:'+FT[i%FT.length]+';transform:rotate('+RO[i%RO.length]+'deg)">'
-          +'<div>'+v.msg+'</div><div class="ffrom">— '+v.fromName+'</div></div>';
-      }
-      g('fusenGrid').innerHTML=h;
-    }
+    renderFusen(msgs);
     if(cw(tk)){
       g('writeBox').style.display='block';
       g('writeTitle').textContent=t.name+'さんへメッセージを書く';
+      var me=Object.keys(msgs);
       var alr=false;
       for(var i=0;i<me.length;i++){if(msgs[me[i]].fromKey===cu.key){alr=true;break;}}
       g('msgInput').disabled=alr;g('sendBtn').disabled=alr;
@@ -291,11 +283,73 @@ function openY(tk){
   });
 }
 
+function renderFusen(msgs){
+  var me=Object.keys(msgs);
+  if(me.length===0){g('fusenGrid').innerHTML='';g('noMsg').style.display='block';return;}
+  g('noMsg').style.display='none';
+  var h='';
+  for(var i=0;i<me.length;i++){
+    var mk=me[i],v=msgs[mk];
+    var ci=i%FC.length;
+    var canE=canEditMsg(v);
+    h+='<div class="fusen" style="background:'+FC[ci]+';color:'+FT[ci]+';transform:rotate('+RO[i%RO.length]+'deg)">'
+      +'<div class="fusen-msg">'+v.msg+'</div>'
+      +'<div class="ffrom">— '+v.fromName+'</div>';
+    if(canE){
+      h+='<div class="fusen-btns">'
+        +'<button class="fbtn fbtn-edit" onclick="startEdit(\''+mk+'\',\''+v.msg.replace(/'/g,'\\\'').replace(/\n/g,'\\n')+'\')">編集</button>'
+        +'<button class="fbtn fbtn-del" onclick="delMsgUser(\''+mk+'\')">削除</button>'
+        +'</div>';
+    }
+    h+='</div>';
+  }
+  g('fusenGrid').innerHTML=h;
+}
+
+function startEdit(mk,msg){
+  editingMsgKey=mk;
+  g('editInput').value=msg.replace(/\\n/g,'\n');
+  g('editBox').style.display='block';
+  g('editInput').focus();
+  g('editBox').scrollIntoView({behavior:'smooth'});
+}
+function cancelEdit(){
+  editingMsgKey=null;
+  g('editBox').style.display='none';
+  g('editInput').value='';
+}
+function updateMsg(){
+  var msg=g('editInput').value.trim();
+  if(!msg){alert('メッセージを入力してください');return;}
+  if(!editingMsgKey)return;
+  var old=messages[ct][editingMsgKey];
+  var updated={msg:msg,fromKey:old.fromKey,fromName:old.fromName,ts:old.ts||0,edited:true};
+  fbSet('messages/'+ct+'/'+editingMsgKey,updated,function(){
+    messages[ct][editingMsgKey]=updated;
+    cancelEdit();
+    renderFusen(messages[ct]);
+    // 送信済み表示更新
+    var me=Object.keys(messages[ct]);
+    var alr=false;
+    for(var i=0;i<me.length;i++){if(messages[ct][me[i]].fromKey===cu.key){alr=true;break;}}
+    if(cw(ct)){g('msgInput').disabled=alr;g('sendBtn').disabled=alr;g('alreadyMsg').style.display=alr?'block':'none';}
+  });
+}
+function delMsgUser(mk){
+  if(!confirm('このメッセージを削除しますか？'))return;
+  fbDel('messages/'+ct+'/'+mk,function(){
+    delete messages[ct][mk];
+    renderFusen(messages[ct]);
+    // 削除後は投稿可能に
+    if(cw(ct)){g('msgInput').disabled=false;g('sendBtn').disabled=false;g('alreadyMsg').style.display='none';}
+  });
+}
+
 function sendMsg(){
   var msg=g('msgInput').value.trim();
   if(!msg){alert('メッセージを入力してください');return;}
   g('sendBtn').disabled=true;g('sendBtn').textContent='送信中...';
-  fbPush('messages/'+ct,{msg:msg,fromKey:cu.key,fromName:cu.name},function(){openY(ct);});
+  fbPush('messages/'+ct,{msg:msg,fromKey:cu.key,fromName:cu.name,ts:Date.now()},function(){openY(ct);});
 }
 
 function downloadPDF(){
@@ -330,97 +384,99 @@ function downloadPDF(){
   setTimeout(function(){URL.revokeObjectURL(url);},10000);
 }
 
-function showAdmin(){
-  fbGet('members',function(data){
-    members=data||{};
-    fbGet('messages',function(mdata){
-      messages=mdata||{};
-      renderAdminMemberList();renderAdminMsgList();ss('adminScreen');
-    });
+function showPwChange(){
+  g('pwCurrent').value='';g('pwNew').value='';g('pwNew2').value='';
+  g('pwErr').textContent='';g('pwOk').textContent='';
+  ss('pwScreen');
+}
+function doChangePw(){
+  var cur=g('pwCurrent').value,nw=g('pwNew').value,nw2=g('pwNew2').value;
+  g('pwErr').textContent='';g('pwOk').textContent='';
+  if(!cur||!nw||!nw2){g('pwErr').textContent='全項目を入力してください';return;}
+  if(cur!==cu.pw){g('pwErr').textContent='現在のパスワードが違います';return;}
+  if(nw!==nw2){g('pwErr').textContent='新しいパスワードが一致しません';return;}
+  if(nw.length<4){g('pwErr').textContent='4文字以上で設定してください';return;}
+  cu.pw=nw;
+  fbSet('members/'+cu.key+'/pw',nw,function(){
+    members[cu.key].pw=nw;
+    g('pwOk').textContent='パスワードを変更しました！';
+    g('pwCurrent').value='';g('pwNew').value='';g('pwNew2').value='';
   });
 }
+function renderAdminPwList(){
+  var ks=Object.keys(members),h='';
+  for(var i=0;i<ks.length;i++){
+    var k=ks[i],v=members[k];
+    if(k==='admin')continue;
+    h+='<div class="mrow">'
+      +'<span>'+v.name+' <span class="tbadge '+bc(v.role)+'">'+rl(v.role)+'</span></span>'
+      +'<span style="color:#555;font-size:12px;font-family:monospace">'+v.pw+'</span>'
+      +'<button class="btn-edit2" onclick="adminResetPw(\''+k+'\')">リセット</button>'
+      +'</div>';
+  }
+  g('adminPwList').innerHTML=h||'<div style="color:#aaa;font-size:13px">委員がいません</div>';
+}
+function adminResetPw(k){
+  var m=members[k];
+  var newPw=prompt(m.name+'さんの新しいパスワードを入力してください：','0000');
+  if(newPw===null)return;
+  newPw=newPw.trim();
+  if(!newPw){alert('パスワードを入力してください');return;}
+  if(newPw.length<4){alert('4文字以上で設定してください');return;}
+  fbSet('members/'+k+'/pw',newPw,function(){
+    members[k].pw=newPw;
+    renderAdminPwList();
+    alert(m.name+'さんのパスワードを「'+newPw+'」にリセットしました');
+  });
+}
+function showAdmin(){fbGet('members',function(data){members=data||{};fbGet('messages',function(mdata){messages=mdata||{};renderAdminMemberList();renderAdminMsgList();renderAdminPwList();ss('adminScreen');});});}
 
-// CSV関連
 function loadCSV(input){
-  var file=input.files[0];
-  if(!file)return;
+  var file=input.files[0];if(!file)return;
   var reader=new FileReader();
   reader.onload=function(e){
     var text=e.target.result;
-    // BOM除去
     if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);
     var lines=text.split(/\r?\n/).filter(function(l){return l.trim()!=='';});
     if(lines.length<2){g('csvErr').textContent='データがありません';return;}
-    // ヘッダー除去
-    var rows=[];
-    var errs=[];
+    var rows=[],errs=[];
     for(var i=1;i<lines.length;i++){
       var cols=lines[i].split(',');
-      if(cols.length<4){errs.push((i+1)+'行目：列数が足りません');continue;}
+      if(cols.length<4){errs.push((i+1)+'行目：列数不足');continue;}
       var name=cols[0].trim(),roleStr=cols[1].trim(),uid=cols[2].trim(),pw=cols[3].trim();
       var role=parseRole(roleStr);
-      if(!role){errs.push((i+1)+'行目：役割「'+roleStr+'」が不正です');continue;}
-      if(!name||!uid||!pw){errs.push((i+1)+'行目：空欄があります');continue;}
-      if(!/^[a-zA-Z0-9_]+$/.test(uid)){errs.push((i+1)+'行目：ID「'+uid+'」は半角英数字のみ');continue;}
+      if(!role){errs.push((i+1)+'行目：役割不正');continue;}
+      if(!name||!uid||!pw){errs.push((i+1)+'行目：空欄あり');continue;}
+      if(!/^[a-zA-Z0-9_]+$/.test(uid)){errs.push((i+1)+'行目：ID半角英数のみ');continue;}
       rows.push({name:name,role:role,id:uid,pw:pw});
     }
     csvData=rows;
-    // プレビュー表示
-    var th='<tr><th>氏名</th><th>役割</th><th>ユーザーID</th><th>パスワード</th></tr>';
-    var td='';
-    for(var i=0;i<rows.length;i++){
-      td+='<tr><td>'+rows[i].name+'</td><td>'+rl(rows[i].role)+'</td><td>'+rows[i].id+'</td><td>'+rows[i].pw+'</td></tr>';
-    }
+    var th='<tr><th>氏名</th><th>役割</th><th>ID</th><th>PW</th></tr>';
+    var td='';for(var i=0;i<rows.length;i++){td+='<tr><td>'+rows[i].name+'</td><td>'+rl(rows[i].role)+'</td><td>'+rows[i].id+'</td><td>'+rows[i].pw+'</td></tr>';}
     g('csvTable').innerHTML='<table>'+th+td+'</table>';
-    g('csvCount').textContent=rows.length+'件のデータを読み込みました'+(errs.length?'（'+errs.length+'件エラー）':'');
+    g('csvCount').textContent=rows.length+'件'+(errs.length?'（'+errs.length+'件エラー）':'');
     g('csvErr').textContent=errs.join(' / ');
     g('csvPreview').style.display='block';
     input.value='';
   };
   reader.readAsText(file,'UTF-8');
 }
-
 function importCSV(){
   if(!csvData.length){alert('登録するデータがありません');return;}
-  // 既存IDチェック
-  var ks=Object.keys(members);
-  var dups=[];
-  for(var i=0;i<csvData.length;i++){
-    for(var j=0;j<ks.length;j++){
-      if(members[ks[j]].id===csvData[i].id){dups.push(csvData[i].id);break;}
-    }
-  }
-  if(dups.length){
-    if(!confirm('ID「'+dups.join('、')+'」はすでに登録されています。スキップして続けますか？'))return;
-    csvData=csvData.filter(function(r){return dups.indexOf(r.id)===-1;});
-  }
+  var ks=Object.keys(members),dups=[];
+  for(var i=0;i<csvData.length;i++){for(var j=0;j<ks.length;j++){if(members[ks[j]].id===csvData[i].id){dups.push(csvData[i].id);break;}}}
+  if(dups.length){if(!confirm('ID「'+dups.join('、')+'」は既存。スキップして続けますか？'))return;csvData=csvData.filter(function(r){return dups.indexOf(r.id)===-1;});}
   if(!csvData.length){alert('登録できるデータがありません');return;}
-
-  var done=0;
-  for(var i=0;i<csvData.length;i++){
+  var done=0,total=csvData.length;
+  for(var i=0;i<total;i++){
     (function(row){
       var k='u'+Date.now()+'_'+Math.random().toString(36).slice(2,6);
       var m={key:k,name:row.name,role:row.role,id:row.id,pw:row.pw};
-      fbSet('members/'+k,m,function(){
-        members[k]=m;
-        done++;
-        if(done===csvData.length){
-          clearCSV();
-          renderAdminMemberList();
-          alert(done+'件の委員を登録しました');
-        }
-      });
+      fbSet('members/'+k,m,function(){members[k]=m;done++;if(done===total){clearCSV();renderAdminMemberList();alert(done+'件登録しました');}});
     })(csvData[i]);
   }
 }
-
-function clearCSV(){
-  csvData=[];
-  g('csvPreview').style.display='none';
-  g('csvTable').innerHTML='';
-  g('csvErr').textContent='';
-  g('csvCount').textContent='';
-}
+function clearCSV(){csvData=[];g('csvPreview').style.display='none';g('csvTable').innerHTML='';g('csvErr').textContent='';g('csvCount').textContent='';}
 
 function renderAdminMemberList(){
   var ks=Object.keys(members),h='';
@@ -433,15 +489,9 @@ function renderAdminMemberList(){
   }
   g('adminMemberList').innerHTML=h;
 }
-
 function delMember(k){
   if(!confirm('この委員を削除しますか？'))return;
-  fbDel('members/'+k,function(){
-    fbDel('messages/'+k,function(){
-      delete members[k];delete messages[k];
-      renderAdminMemberList();renderAdminMsgList();
-    });
-  });
+  fbDel('members/'+k,function(){fbDel('messages/'+k,function(){delete members[k];delete messages[k];renderAdminMemberList();renderAdminMsgList();});});
 }
 
 function renderAdminMsgList(){
@@ -455,17 +505,28 @@ function renderAdminMsgList(){
     for(var mi=0;mi<mks.length;mi++){
       var mk=mks[mi],m=ms[mk];
       h+='<div style="display:flex;align-items:flex-start;justify-content:space-between;padding:8px;background:#f9f9f9;border-radius:8px;margin-bottom:6px;gap:8px">'
-        +'<div style="font-size:12px;flex:1"><span style="color:#888">'+m.fromName+'：</span>'+m.msg+'</div>'
-        +'<button class="btn-del" onclick="delMsg(\''+rk+'\',\''+mk+'\')">削除</button></div>';
+        +'<div style="font-size:12px;flex:1"><span style="color:#888">'+m.fromName+'：</span>'+m.msg+(m.edited?' <span style="font-size:10px;color:#aaa">（編集済）</span>':'')+'</div>'
+        +'<div style="display:flex;gap:4px">'
+        +'<button class="btn-edit2" onclick="adminEditMsg(\''+rk+'\',\''+mk+'\')">編集</button>'
+        +'<button class="btn-del" onclick="adminDelMsg(\''+rk+'\',\''+mk+'\')">削除</button>'
+        +'</div></div>';
     }
     h+='</div>';
   }
   g('adminMsgList').innerHTML=h;
 }
-
-function delMsg(rk,mk){
+function adminDelMsg(rk,mk){
   if(!confirm('このメッセージを削除しますか？'))return;
   fbDel('messages/'+rk+'/'+mk,function(){delete messages[rk][mk];renderAdminMsgList();});
+}
+function adminEditMsg(rk,mk){
+  var m=messages[rk][mk];
+  var newMsg=prompt('メッセージを編集してください：',m.msg);
+  if(newMsg===null)return;
+  newMsg=newMsg.trim();
+  if(!newMsg){alert('メッセージを入力してください');return;}
+  var updated={msg:newMsg,fromKey:m.fromKey,fromName:m.fromName,ts:m.ts||0,edited:true};
+  fbSet('messages/'+rk+'/'+mk,updated,function(){messages[rk][mk]=updated;renderAdminMsgList();});
 }
 
 function addMember(){
@@ -477,16 +538,10 @@ function addMember(){
   for(var i=0;i<ks.length;i++){if(members[ks[i]].id===id){g('addErr').textContent='このIDはすでに使用されています';return;}}
   var k='u'+Date.now();
   var nm={key:k,name:name,role:role,id:id,pw:pw};
-  fbSet('members/'+k,nm,function(){
-    members[k]=nm;
-    g('newName').value='';g('newId').value='';g('newPw').value='';
-    renderAdminMemberList();alert(name+'さんを登録しました');
-  });
+  fbSet('members/'+k,nm,function(){members[k]=nm;g('newName').value='';g('newId').value='';g('newPw').value='';renderAdminMemberList();alert(name+'さんを登録しました');});
 }
 
-fbGet('members/admin',function(data){
-  if(!data){fbSet('members/admin',{key:'admin',name:'管理者',role:'admin',id:'admin',pw:'admin2025'});}
-});
+fbGet('members/admin',function(data){if(!data){fbSet('members/admin',{key:'admin',name:'管理者',role:'admin',id:'admin',pw:'admin2025'});}});
 </script>
 </body>
 </html>
