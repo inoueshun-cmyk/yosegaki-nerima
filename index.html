@@ -126,7 +126,7 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
     <div class="fgrid" id="fusenGrid"></div>
     <div class="nomsg" id="noMsg" style="display:none">まだメッセージがありません</div>
   </div>
-  <button class="btn-pdf" onclick="downloadPDF()">&#128196; PDFでダウンロード</button>
+  <button class="btn-pdf" id="pdfBtn" onclick="downloadPDF()" style="display:none">&#128196; PDFでダウンロード</button>
   <div class="edit-box" id="editBox" style="display:none">
     <h3>&#9997; メッセージを編集</h3>
     <textarea id="editInput"></textarea>
@@ -269,6 +269,8 @@ function openY(tk){
     g('yoseTitle').textContent=t.name+'さんへの寄せ書き';
     g('shtitle').innerHTML='&#127800; '+t.name+' さんへ &#127800;';
     renderFusen(msgs);
+    var canPdf=(cu.role==='sotsu'||cu.role==='shinnin'||cu.role==='admin');
+    g('pdfBtn').style.display=canPdf?'block':'none';
     if(cw(tk)){
       g('writeBox').style.display='block';
       g('writeTitle').textContent=t.name+'さんへメッセージを書く';
