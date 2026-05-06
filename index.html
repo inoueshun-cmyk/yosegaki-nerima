@@ -14,7 +14,7 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 .login-box h1{font-size:18px;font-weight:700;color:#4a3f8f;margin-bottom:6px}
 .login-box p{font-size:12px;color:#888;margin-bottom:24px}
 .inp{width:100%;padding:12px 16px;border:1.5px solid #ddd;border-radius:10px;font-size:14px;margin-bottom:12px;outline:none;display:block}
-.btn-blue{width:100%;padding:13px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer}
+.btn-login{width:100%;padding:13px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;display:block}
 .err{color:#e74c3c;font-size:12px;margin-top:8px}
 .hdr{background:#667eea;color:#fff;padding:20px;text-align:center;border-radius:0 0 24px 24px;margin:-20px -20px 24px}
 .hdr h2{font-size:20px;font-weight:700}
@@ -37,22 +37,20 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 .shikishi{background:#fff9e6;border:3px solid #d4a017;border-radius:16px;padding:24px;min-height:180px;margin-bottom:14px}
 .shtitle{text-align:center;font-size:15px;font-weight:700;color:#8b6914;margin-bottom:18px;padding-bottom:10px;border-bottom:2px dashed #d4a017}
 .fgrid{display:flex;flex-wrap:wrap;gap:12px}
-.fusen{border-radius:4px;padding:12px;min-width:110px;max-width:150px;font-size:12px;line-height:1.5;box-shadow:2px 3px 8px rgba(0,0,0,.12);position:relative}
+.fusen{border-radius:4px;padding:12px;min-width:110px;max-width:150px;font-size:12px;line-height:1.5;box-shadow:2px 3px 8px rgba(0,0,0,.12)}
 .fusen-msg{margin-bottom:4px}
 .ffrom{font-size:10px;font-weight:700;margin-top:4px;opacity:.75;text-align:right}
 .fusen-btns{display:flex;gap:4px;margin-top:6px;justify-content:flex-end}
-.fbtn{border:none;border-radius:4px;padding:2px 7px;font-size:10px;cursor:pointer;font-weight:700;opacity:.8}
-.fbtn:hover{opacity:1}
+.fbtn{border:none;border-radius:4px;padding:2px 7px;font-size:10px;cursor:pointer;font-weight:700}
 .fbtn-edit{background:rgba(255,255,255,.7);color:#333}
 .fbtn-del{background:rgba(231,76,60,.15);color:#c0392b}
 .nomsg{text-align:center;padding:40px 20px;color:#b8a86a;font-size:13px}
 .wbox{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:14px}
 .wbox h3{font-size:14px;font-weight:700;margin-bottom:12px;color:#555}
 .wbox textarea{width:100%;height:90px;padding:12px;border:1.5px solid #ddd;border-radius:10px;font-size:13px;font-family:inherit;resize:vertical;outline:none;display:block}
-.btn-send{margin-top:10px;width:100%;padding:12px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
+.btn-send{margin-top:10px;width:100%;padding:12px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;display:block}
 .btn-send:disabled{background:#ccc;cursor:default}
-.btn-pdf{margin-bottom:14px;width:100%;padding:12px;background:#f5576c;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
-.alr{color:#667eea;font-size:12px;text-align:center;margin-top:8px;padding:8px;background:#f0f0ff;border-radius:8px}
+.btn-pdf{margin-bottom:14px;width:100%;padding:12px;background:#f5576c;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;display:block}
 .edit-box{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:14px;border:2px solid #667eea}
 .edit-box h3{font-size:14px;font-weight:700;margin-bottom:12px;color:#667eea}
 .edit-box textarea{width:100%;height:90px;padding:12px;border:1.5px solid #667eea;border-radius:10px;font-size:13px;font-family:inherit;resize:vertical;outline:none;display:block}
@@ -66,6 +64,7 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 .frow{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
 .frow input,.frow select{flex:1;min-width:100px;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:13px;font-family:inherit;outline:none}
 .btn-add{padding:10px 18px;background:#667eea;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
+.btn-green{padding:10px 18px;background:#27ae60;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;margin-top:10px}
 .mrow{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:13px;gap:8px;flex-wrap:wrap}
 .mrow:last-child{border-bottom:none}
 .btn-del{background:none;border:1px solid #e74c3c;color:#e74c3c;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer}
@@ -77,7 +76,6 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 .csv-preview td{padding:5px 8px;border-bottom:1px solid #eee;font-size:11px}
 .hint-box{background:#f0f4ff;border-radius:8px;padding:10px 14px;font-size:11px;color:#555;line-height:1.8;margin-bottom:10px}
 .hint-box b{color:#4a3f8f}
-.btn-green{padding:10px 18px;background:#27ae60;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
 </style>
 </head>
 <body>
@@ -88,7 +86,7 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
     <p>練馬区青少年委員会</p>
     <input class="inp" type="text" id="loginId" placeholder="ユーザーID" autocomplete="off">
     <input class="inp" type="password" id="loginPw" placeholder="パスワード">
-    <button class="btn-blue" onclick="doLogin()">ログイン</button>
+    <button class="btn-login" id="loginBtn">ログイン</button>
     <div class="err" id="loginErr"></div>
   </div>
 </div>
@@ -98,11 +96,13 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
   <div id="sotsuSection" style="display:none"><div class="stitle">&#128238; 退任委員への寄せ書き</div><div class="mgrid" id="sotsuGrid"></div></div>
   <div id="shinninSection" style="display:none"><div class="stitle">&#127807; 新任委員への寄せ書き</div><div class="mgrid" id="shinninGrid"></div></div>
   <div id="mySection" style="display:none"><div class="stitle">&#128140; 自分への寄せ書きを見る</div><div class="mgrid" id="myGrid"></div></div>
-  <div id="adminLink" style="display:none;text-align:center;margin-bottom:16px"><button class="btn-add" style="border-radius:10px;padding:12px 24px" onclick="showAdmin()">&#9881; 管理者メニュー</button></div>
-  <div style="text-align:center;margin-top:12px">
-    <button class="btn-add" style="background:#888;border-radius:10px;padding:10px 24px;font-size:13px" onclick="showPwChange()">&#128274; パスワード変更</button>
+  <div id="adminLink" style="display:none;text-align:center;margin-bottom:16px">
+    <button class="btn-add" id="adminMenuBtn" style="border-radius:10px;padding:12px 24px">&#9881; 管理者メニュー</button>
   </div>
-  <button class="btn-out" onclick="doLogout()">ログアウト</button>
+  <div style="text-align:center;margin-top:12px">
+    <button class="btn-add" id="pwChangeBtn" style="background:#888;border-radius:10px;padding:10px 24px;font-size:13px">&#128274; パスワード変更</button>
+  </div>
+  <button class="btn-out" id="logoutBtn">ログアウト</button>
 </div>
 
 <div id="pwScreen" class="screen">
@@ -112,34 +112,33 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
     <input class="inp" type="password" id="pwCurrent" placeholder="現在のパスワード">
     <input class="inp" type="password" id="pwNew" placeholder="新しいパスワード">
     <input class="inp" type="password" id="pwNew2" placeholder="新しいパスワード（確認）">
-    <button class="btn-blue" onclick="doChangePw()">変更する</button>
+    <button class="btn-login" id="pwChangeSubmit">変更する</button>
     <div class="err" id="pwErr"></div>
     <div style="color:#27ae60;font-size:12px;margin-top:8px" id="pwOk"></div>
   </div>
-  <button class="btn-out" onclick="showTop()">&#8592; トップへ戻る</button>
+  <button class="btn-out" id="pwBackBtn">&#8592; トップへ戻る</button>
 </div>
 
 <div id="yosegakiScreen" class="screen">
-  <div class="yhdr"><button class="btn-bk" onclick="showTop()">&#8592; 戻る</button><h2 id="yoseTitle"></h2></div>
+  <div class="yhdr"><button class="btn-bk" id="backBtn">&#8592; 戻る</button><h2 id="yoseTitle"></h2></div>
   <div class="shikishi">
     <div class="shtitle" id="shtitle"></div>
     <div class="fgrid" id="fusenGrid"></div>
     <div class="nomsg" id="noMsg" style="display:none">まだメッセージがありません</div>
   </div>
-  <button class="btn-pdf" id="pdfBtn" onclick="downloadPDF()" style="display:none">&#128196; PDFでダウンロード</button>
+  <button class="btn-pdf" id="pdfBtn" style="display:none">&#128196; PDFでダウンロード</button>
   <div class="edit-box" id="editBox" style="display:none">
     <h3>&#9997; メッセージを編集</h3>
     <textarea id="editInput"></textarea>
     <div class="edit-btns">
-      <button class="btn-update" onclick="updateMsg()">更新する</button>
-      <button class="btn-cancel" onclick="cancelEdit()">キャンセル</button>
+      <button class="btn-update" id="updateBtn">更新する</button>
+      <button class="btn-cancel" id="cancelEditBtn">キャンセル</button>
     </div>
   </div>
   <div class="wbox" id="writeBox" style="display:none">
     <h3 id="writeTitle"></h3>
     <textarea id="msgInput" placeholder="メッセージを入力してください..."></textarea>
-    <button class="btn-send" id="sendBtn" onclick="sendMsg()">送る &#128140;</button>
-    <div class="alr" id="alreadyMsg" style="display:none">&#10003; すでにメッセージを送りました</div>
+    <button class="btn-send" id="sendBtn">送る &#128140;</button>
   </div>
 </div>
 
@@ -148,12 +147,12 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
   <div class="asec">
     <h3>&#128196; CSV一括登録</h3>
     <div class="hint-box"><b>CSVフォーマット（1行目はヘッダー）：</b><br>名前,役割,ユーザーID,パスワード<br>田中花子,退任委員,tanaka,0000<br>佐藤次郎,新任委員,sato,0000<br>伊藤健太,委員,ito,0000<br><b>役割：</b>退任委員 / 新任委員 / 委員</div>
-    <div class="csv-area" id="csvArea" onclick="document.getElementById('csvFile').click()">&#128196; クリックしてCSVファイルを選択<input type="file" id="csvFile" accept=".csv" style="display:none" onchange="loadCSV(this)"></div>
+    <div class="csv-area" id="csvArea">&#128196; クリックしてCSVファイルを選択<input type="file" id="csvFile" accept=".csv" style="display:none"></div>
     <div id="csvPreview" style="display:none">
       <div class="csv-preview" id="csvTable"></div>
       <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
-        <button class="btn-green" onclick="importCSV()">&#10003; この内容で登録する</button>
-        <button class="btn-add" style="background:#aaa" onclick="clearCSV()">キャンセル</button>
+        <button class="btn-green" id="importBtn">&#10003; この内容で登録する</button>
+        <button class="btn-add" id="clearCsvBtn" style="background:#aaa">キャンセル</button>
         <span id="csvCount" style="font-size:12px;color:#555"></span>
       </div>
       <div class="err" id="csvErr"></div>
@@ -162,20 +161,17 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
   <div class="asec">
     <h3>&#9997; 手動で1件登録</h3>
     <div class="frow"><input type="text" id="newName" placeholder="氏名"><select id="newRole"><option value="sotsu">退任委員</option><option value="shinnin">新任委員</option><option value="geneki">委員</option></select></div>
-    <div class="frow"><input type="text" id="newId" placeholder="ユーザーID（半角英数）"><input type="password" id="newPw" placeholder="パスワード"><button class="btn-add" onclick="addMember()">追加</button></div>
+    <div class="frow"><input type="text" id="newId" placeholder="ユーザーID（半角英数）"><input type="password" id="newPw" placeholder="パスワード"><button class="btn-add" id="addMemberBtn">追加</button></div>
     <div class="err" id="addErr"></div>
-  </div>
-  <div class="asec">
-    <h3>&#128274; パスワード管理</h3>
-    <div id="adminPwList"></div>
   </div>
   <div class="asec">
     <h3>登録済み委員一覧</h3>
     <div id="adminMemberList"></div>
-    <button class="btn-green" style="margin-top:12px" onclick="printIdList()">&#128438; ログインID一覧を印刷</button>
+    <button class="btn-green" id="printIdBtn">&#128438; ログインID一覧を印刷</button>
   </div>
+  <div class="asec"><h3>&#128274; パスワード管理</h3><div id="adminPwList"></div></div>
   <div class="asec"><h3>メッセージ管理</h3><div id="adminMsgList"></div></div>
-  <button class="btn-add" style="background:#555;border-radius:10px;padding:12px 24px;display:block;margin:0 auto 20px" onclick="showTop()">&#8592; トップへ戻る</button>
+  <button class="btn-add" id="backToTopBtn" style="background:#555;border-radius:10px;padding:12px 24px;display:block;margin:0 auto 20px">&#8592; トップへ戻る</button>
 </div>
 
 <script>
@@ -183,8 +179,7 @@ var DB='https://yosegaki-nerima-default-rtdb.asia-southeast1.firebasedatabase.ap
 var FC=['#fff9c4','#f8bbd0','#b3e5fc','#c8e6c9','#ffe0b2','#e1bee7','#b2dfdb','#fce4ec','#dcedc8'];
 var FT=['#5d4037','#880e4f','#01579b','#1b5e20','#e65100','#4a148c','#004d40','#b71c1c','#33691e'];
 var RO=[-3,-2,-1,0,1,2,3,-2,1];
-var cu=null,ct=null,members={},messages={},csvData=[];
-var editingMsgKey=null;
+var cu=null,ct=null,members={},messages={},csvData=[],editingMsgKey=null;
 
 function g(id){return document.getElementById(id);}
 function ss(id){var s=document.querySelectorAll('.screen');for(var i=0;i<s.length;i++)s[i].classList.remove('active');g(id).classList.add('active');}
@@ -207,19 +202,16 @@ function cw(tk){
   if(t.role==='shinnin')return cu.role==='sotsu'||cu.role==='geneki'||cu.role==='shinnin';
   return false;
 }
-function canEditMsg(msg){
-  if(cu.role==='admin')return true;
-  return msg.fromKey===cu.key;
-}
+function canEditMsg(msg){return cu.role==='admin'||msg.fromKey===cu.key;}
 
-function fbGet(path,cb){var xhr=new XMLHttpRequest();xhr.open('GET',DB+'/'+path+'.json');xhr.onload=function(){cb(JSON.parse(xhr.responseText));};xhr.onerror=function(){cb(null);};xhr.send();}
-function fbSet(path,data,cb){var xhr=new XMLHttpRequest();xhr.open('PUT',DB+'/'+path+'.json');xhr.setRequestHeader('Content-Type','application/json');xhr.onload=function(){if(cb)cb();};xhr.send(JSON.stringify(data));}
-function fbPush(path,data,cb){var xhr=new XMLHttpRequest();xhr.open('POST',DB+'/'+path+'.json');xhr.setRequestHeader('Content-Type','application/json');xhr.onload=function(){if(cb)cb();};xhr.send(JSON.stringify(data));}
-function fbDel(path,cb){var xhr=new XMLHttpRequest();xhr.open('DELETE',DB+'/'+path+'.json');xhr.onload=function(){if(cb)cb();};xhr.send();}
+function fbGet(path,cb){var x=new XMLHttpRequest();x.open('GET',DB+'/'+path+'.json');x.onload=function(){cb(JSON.parse(x.responseText));};x.onerror=function(){cb(null);};x.send();}
+function fbSet(path,data,cb){var x=new XMLHttpRequest();x.open('PUT',DB+'/'+path+'.json');x.setRequestHeader('Content-Type','application/json');x.onload=function(){if(cb)cb();};x.send(JSON.stringify(data));}
+function fbPush(path,data,cb){var x=new XMLHttpRequest();x.open('POST',DB+'/'+path+'.json');x.setRequestHeader('Content-Type','application/json');x.onload=function(){if(cb)cb();};x.send(JSON.stringify(data));}
+function fbDel(path,cb){var x=new XMLHttpRequest();x.open('DELETE',DB+'/'+path+'.json');x.onload=function(){if(cb)cb();};x.send();}
 
 function cardHTML(key){
   var m=members[key];
-  return '<div class="mcard" onclick="openY(\''+key+'\')">'
+  return '<div class="mcard" data-key="'+key+'">'
     +'<div class="ava '+ac(m.role)+'">'+m.name.charAt(0)+'</div>'
     +'<h3>'+m.name+'</h3>'
     +'<span class="tbadge '+bc(m.role)+'">'+rl(m.role)+'</span>'
@@ -242,7 +234,6 @@ function doLogin(){
     fbGet('messages',function(mdata){messages=mdata||{};renderTop();ss('topScreen');});
   });
 }
-function doLogout(){cu=null;members={};messages={};g('loginId').value='';g('loginPw').value='';ss('loginScreen');}
 
 function renderTop(){
   g('roleBadge').textContent=rl(cu.role);
@@ -261,34 +252,39 @@ function renderTop(){
   g('mySection').style.display=my?'block':'none';
   if(my)g('myGrid').innerHTML=cardHTML(cu.key);
   g('adminLink').style.display=cu.role==='admin'?'block':'none';
+  var cards=document.querySelectorAll('.mcard');
+  for(var i=0;i<cards.length;i++){
+    (function(card){card.addEventListener('click',function(){openY(card.getAttribute('data-key'));});})(cards[i]);
+  }
 }
+
 function showTop(){fbGet('members',function(data){members=data||{};fbGet('messages',function(mdata){messages=mdata||{};renderTop();ss('topScreen');});});}
 
 function openY(tk){
-  ct=tk;
-  cancelEdit();
+  ct=tk;cancelEdit();
   fbGet('messages/'+tk,function(data){
     var msgs=data||{};messages[tk]=msgs;
     var t=members[tk];
     g('yoseTitle').textContent=t.name+'さんへの寄せ書き';
     g('shtitle').innerHTML='&#127800; '+t.name+' さんへ &#127800;';
     renderFusen(msgs);
-    var canPdf=(cu.role==='sotsu'||cu.role==='shinnin'||cu.role==='admin');
+    var canPdf=cu.role==='sotsu'||cu.role==='shinnin'||cu.role==='admin';
     g('pdfBtn').style.display=canPdf?'block':'none';
     if(cw(tk)){
-      g('writeBox').style.display='block';
-      g('writeTitle').textContent=t.name+'さんへメッセージを書く';
       var me=Object.keys(msgs);
       var alr=false;
       for(var i=0;i<me.length;i++){if(msgs[me[i]].fromKey===cu.key){alr=true;break;}}
       if(alr){
         g('writeBox').style.display='none';
       } else {
-        g('msgInput').disabled=false;g('sendBtn').disabled=false;
-        g('alreadyMsg').style.display='none';
+        g('writeBox').style.display='block';
+        g('writeTitle').textContent=t.name+'さんへメッセージを書く';
         g('msgInput').value='';
+        g('sendBtn').disabled=false;
       }
-    }else{g('writeBox').style.display='none';}
+    } else {
+      g('writeBox').style.display='none';
+    }
     ss('yosegakiScreen');
   });
 }
@@ -304,35 +300,17 @@ function renderFusen(msgs){
     var ci=i%FC.length;
     var div=document.createElement('div');
     div.className='fusen';
-    div.style.background=FC[ci];
-    div.style.color=FT[ci];
+    div.style.background=FC[ci];div.style.color=FT[ci];
     div.style.transform='rotate('+RO[i%RO.length]+'deg)';
-    var msgDiv=document.createElement('div');
-    msgDiv.className='fusen-msg';
-    msgDiv.textContent=v.msg;
-    div.appendChild(msgDiv);
-    var fromDiv=document.createElement('div');
-    fromDiv.className='ffrom';
-    fromDiv.textContent='— '+v.fromName;
-    div.appendChild(fromDiv);
+    var msgDiv=document.createElement('div');msgDiv.className='fusen-msg';msgDiv.textContent=v.msg;div.appendChild(msgDiv);
+    var fromDiv=document.createElement('div');fromDiv.className='ffrom';fromDiv.textContent='— '+v.fromName;div.appendChild(fromDiv);
     if(canEditMsg(v)){
-      var btns=document.createElement('div');
-      btns.className='fusen-btns';
-      var editBtn=document.createElement('button');
-      editBtn.className='fbtn fbtn-edit';
-      editBtn.textContent='編集';
-      (function(key,msg){
-        editBtn.addEventListener('click',function(){startEdit(key,msg);});
-      })(mk,v.msg);
-      var delBtn=document.createElement('button');
-      delBtn.className='fbtn fbtn-del';
-      delBtn.textContent='削除';
-      (function(key){
-        delBtn.addEventListener('click',function(){delMsgUser(key);});
-      })(mk);
-      btns.appendChild(editBtn);
-      btns.appendChild(delBtn);
-      div.appendChild(btns);
+      var btns=document.createElement('div');btns.className='fusen-btns';
+      var eb=document.createElement('button');eb.className='fbtn fbtn-edit';eb.textContent='編集';
+      (function(key,msg){eb.addEventListener('click',function(){startEdit(key,msg);});})(mk,v.msg);
+      var db=document.createElement('button');db.className='fbtn fbtn-del';db.textContent='削除';
+      (function(key){db.addEventListener('click',function(){delMsgUser(key);});})(mk);
+      btns.appendChild(eb);btns.appendChild(db);div.appendChild(btns);
     }
     grid.appendChild(div);
   }
@@ -340,16 +318,12 @@ function renderFusen(msgs){
 
 function startEdit(mk,msg){
   editingMsgKey=mk;
-  g('editInput').value=msg.replace(/\\n/g,'\n');
+  g('editInput').value=msg;
   g('editBox').style.display='block';
   g('editInput').focus();
   g('editBox').scrollIntoView({behavior:'smooth'});
 }
-function cancelEdit(){
-  editingMsgKey=null;
-  g('editBox').style.display='none';
-  g('editInput').value='';
-}
+function cancelEdit(){editingMsgKey=null;g('editBox').style.display='none';g('editInput').value='';}
 function updateMsg(){
   var msg=g('editInput').value.trim();
   if(!msg){alert('メッセージを入力してください');return;}
@@ -358,25 +332,16 @@ function updateMsg(){
   var updated={msg:msg,fromKey:old.fromKey,fromName:old.fromName,ts:old.ts||0,edited:true};
   fbSet('messages/'+ct+'/'+editingMsgKey,updated,function(){
     messages[ct][editingMsgKey]=updated;
-    cancelEdit();
-    renderFusen(messages[ct]);
-    // 送信済み表示更新
-    var me=Object.keys(messages[ct]);
-    var alr=false;
-    for(var i=0;i<me.length;i++){if(messages[ct][me[i]].fromKey===cu.key){alr=true;break;}}
-    if(cw(ct)){g('msgInput').disabled=alr;g('sendBtn').disabled=alr;g('alreadyMsg').style.display=alr?'block':'none';}
+    cancelEdit();renderFusen(messages[ct]);
   });
 }
 function delMsgUser(mk){
   if(!confirm('このメッセージを削除しますか？'))return;
   fbDel('messages/'+ct+'/'+mk,function(){
-    delete messages[ct][mk];
-    renderFusen(messages[ct]);
-    // 削除後は投稿可能に
-    if(cw(ct)){g('msgInput').disabled=false;g('sendBtn').disabled=false;g('alreadyMsg').style.display='none';}
+    delete messages[ct][mk];renderFusen(messages[ct]);
+    if(cw(ct)){g('writeBox').style.display='block';g('writeTitle').textContent=members[ct].name+'さんへメッセージを書く';g('msgInput').value='';g('sendBtn').disabled=false;}
   });
 }
-
 function sendMsg(){
   var msg=g('msgInput').value.trim();
   if(!msg){alert('メッセージを入力してください');return;}
@@ -387,40 +352,20 @@ function sendMsg(){
 function downloadPDF(){
   var t=members[ct],msgs=messages[ct]||{},me=Object.keys(msgs),fh='';
   if(me.length===0){fh='<p style="text-align:center;color:#b8a86a;margin-top:60px">まだメッセージがありません</p>';}
-  else{
-    for(var i=0;i<me.length;i++){
-      var v=msgs[me[i]];
-      fh+='<div style="display:inline-block;background:'+FC[i%FC.length]+';color:'+FT[i%FT.length]
-        +';border-radius:4px;padding:12px;min-width:100px;max-width:140px;font-size:11px;line-height:1.5'
-        +';box-shadow:2px 3px 8px rgba(0,0,0,.15);transform:rotate('+RO[i%RO.length]+'deg);margin:8px;vertical-align:top">'
-        +'<div>'+v.msg+'</div>'
-        +'<div style="font-size:9px;font-weight:700;margin-top:6px;opacity:.75;text-align:right">— '+v.fromName+'</div></div>';
-    }
-  }
+  else{for(var i=0;i<me.length;i++){var v=msgs[me[i]];fh+='<div style="display:inline-block;background:'+FC[i%FC.length]+';color:'+FT[i%FT.length]+';border-radius:4px;padding:12px;min-width:100px;max-width:140px;font-size:11px;line-height:1.5;box-shadow:2px 3px 8px rgba(0,0,0,.15);transform:rotate('+RO[i%RO.length]+'deg);margin:8px;vertical-align:top"><div>'+v.msg+'</div><div style="font-size:9px;font-weight:700;margin-top:6px;opacity:.75;text-align:right">— '+v.fromName+'</div></div>';}}
   var p=[];
-  p.push('<!DOCTYPE html><html><head><meta charset="UTF-8">');
-  p.push('<title>'+t.name+'さんへの寄せ書き</title>');
-  p.push('<style>body{font-family:Hiragino Sans,Meiryo,sans-serif;background:#f5f0e8;margin:0;padding:20px}');
-  p.push('.s{background:#fff9e6;border:4px solid #d4a017;border-radius:16px;padding:30px;min-height:400px}');
-  p.push('.tt{text-align:center;font-size:18px;font-weight:700;color:#8b6914;margin-bottom:24px;padding-bottom:14px;border-bottom:2px dashed #d4a017}');
-  p.push('.fa{display:flex;flex-wrap:wrap;gap:4px}@media print{body{background:#fff}}</style></head><body>');
-  p.push('<div class="s"><div class="tt">&#127800; '+t.name+' さんへ &#127800;</div>');
-  p.push('<div class="fa">'+fh+'</div></div>');
-  p.push('<'+'script>window.addEventListener("load",function(){window.print();});<'+'/scr'+'ipt>');
-  p.push('</body></html>');
+  p.push('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>'+t.name+'さんへの寄せ書き</title>');
+  p.push('<style>body{font-family:Hiragino Sans,Meiryo,sans-serif;background:#f5f0e8;margin:0;padding:20px}.s{background:#fff9e6;border:4px solid #d4a017;border-radius:16px;padding:30px;min-height:400px}.tt{text-align:center;font-size:18px;font-weight:700;color:#8b6914;margin-bottom:24px;padding-bottom:14px;border-bottom:2px dashed #d4a017}.fa{display:flex;flex-wrap:wrap;gap:4px}@media print{body{background:#fff}}</style></head><body>');
+  p.push('<div class="s"><div class="tt">&#127800; '+t.name+' さんへ &#127800;</div><div class="fa">'+fh+'</div></div>');
+  p.push('<'+'script>window.addEventListener("load",function(){window.print();});<'+'/scr'+'ipt></body></html>');
   var blob=new Blob([p.join('')],{type:'text/html;charset=utf-8'});
   var url=URL.createObjectURL(blob);
-  var a=document.createElement('a');
-  a.href=url;a.download=t.name+'_寄せ書き.html';
+  var a=document.createElement('a');a.href=url;a.download=t.name+'_寄せ書き.html';
   document.body.appendChild(a);a.click();document.body.removeChild(a);
   setTimeout(function(){URL.revokeObjectURL(url);},10000);
 }
 
-function showPwChange(){
-  g('pwCurrent').value='';g('pwNew').value='';g('pwNew2').value='';
-  g('pwErr').textContent='';g('pwOk').textContent='';
-  ss('pwScreen');
-}
+function showPwChange(){g('pwCurrent').value='';g('pwNew').value='';g('pwNew2').value='';g('pwErr').textContent='';g('pwOk').textContent='';ss('pwScreen');}
 function doChangePw(){
   var cur=g('pwCurrent').value,nw=g('pwNew').value,nw2=g('pwNew2').value;
   g('pwErr').textContent='';g('pwOk').textContent='';
@@ -429,90 +374,9 @@ function doChangePw(){
   if(nw!==nw2){g('pwErr').textContent='新しいパスワードが一致しません';return;}
   if(nw.length<4){g('pwErr').textContent='4文字以上で設定してください';return;}
   cu.pw=nw;
-  fbSet('members/'+cu.key+'/pw',nw,function(){
-    members[cu.key].pw=nw;
-    g('pwOk').textContent='パスワードを変更しました！';
-    g('pwCurrent').value='';g('pwNew').value='';g('pwNew2').value='';
-  });
+  fbSet('members/'+cu.key+'/pw',nw,function(){members[cu.key].pw=nw;g('pwOk').textContent='パスワードを変更しました！';g('pwCurrent').value='';g('pwNew').value='';g('pwNew2').value='';});
 }
-function printIdList(){
-  var ks=Object.keys(members);
-  var sotsu=[],shinnin=[],geneki=[];
-  for(var i=0;i<ks.length;i++){
-    var k=ks[i],v=members[k];
-    if(k==='admin')continue;
-    if(v.role==='sotsu')sotsu.push(v);
-    else if(v.role==='shinnin')shinnin.push(v);
-    else geneki.push(v);
-  }
-  function tableRows(list){
-    var h='';
-    for(var i=0;i<list.length;i++){
-      h+='<tr><td>'+(i+1)+'</td><td>'+list[i].name+'</td><td>'+list[i].id+'</td><td>'+list[i].pw+'</td><td style="width:80px"></td></tr>';
-    }
-    return h;
-  }
-  function section(title,list){
-    if(!list.length)return '';
-    return '<h2>'+title+'</h2>'
-      +'<table><thead><tr><th>No</th><th>氏名</th><th>ログインID</th><th>パスワード</th><th>確認</th></tr></thead>'
-      +'<tbody>'+tableRows(list)+'</tbody></table>';
-  }
-  var p=[];
-  p.push('<!DOCTYPE html><html><head><meta charset="UTF-8">');
-  p.push('<title>ログインID一覧</title>');
-  p.push('<style>');
-  p.push('body{font-family:Hiragino Sans,Meiryo,sans-serif;padding:20px;color:#333;font-size:12px}');
-  p.push('h1{font-size:16px;margin-bottom:4px;text-align:center}');
-  p.push('.sub{text-align:center;font-size:11px;color:#666;margin-bottom:20px}');
-  p.push('h2{font-size:13px;font-weight:700;margin:16px 0 6px;padding:4px 10px;background:#667eea;color:#fff;border-radius:4px}');
-  p.push('table{width:100%;border-collapse:collapse;margin-bottom:12px}');
-  p.push('th{background:#f0f0f0;padding:6px 8px;border:1px solid #ccc;font-size:11px;text-align:left}');
-  p.push('td{padding:6px 8px;border:1px solid #ccc;font-size:12px}');
-  p.push('.note{font-size:11px;color:#888;margin-top:16px;border-top:1px solid #eee;padding-top:10px}');
-  p.push('.url{font-size:12px;font-weight:700;text-align:center;margin-bottom:16px;padding:8px;background:#f0f4ff;border-radius:6px;border:1px solid #667eea}');
-  p.push('@media print{body{padding:10px}}');
-  p.push('</style></head><body>');
-  p.push('<h1>&#127800; 寄せ書きアプリ　ログインID一覧</h1>');
-  p.push('<p class="sub">練馬区青少年委員会</p>');
-  p.push('<div class="url">アクセス先：yosegaki-nerima.vercel.app</div>');
-  p.push(section('退任委員',sotsu));
-  p.push(section('新任委員',shinnin));
-  p.push(section('委員',geneki));
-  p.push('<p class="note">※パスワードは各自ログイン後に変更できます。「確認」欄は受け取った方がサインしてください。</p>');
-  p.push('<'+'script>window.addEventListener("load",function(){window.print();});<'+'/scr'+'ipt>');
-  p.push('</body></html>');
-  var blob=new Blob([p.join('')],{type:'text/html;charset=utf-8'});
-  var url=URL.createObjectURL(blob);
-  var a=document.createElement('a');
-  a.href=url;a.target='_blank';a.click();
-  setTimeout(function(){URL.revokeObjectURL(url);},30000);
-}
-  var ks=Object.keys(members),h='';
-  for(var i=0;i<ks.length;i++){
-    var k=ks[i],v=members[k];
-    if(k==='admin')continue;
-    h+='<div class="mrow">'
-      +'<span>'+v.name+' <span class="tbadge '+bc(v.role)+'">'+rl(v.role)+'</span></span>'
-      +'<span style="color:#555;font-size:12px;font-family:monospace">'+v.pw+'</span>'
-      +'<button class="btn-edit2" onclick="adminResetPw(\''+k+'\')">リセット</button>'
-      +'</div>';
-  }
-  g('adminPwList').innerHTML=h||'<div style="color:#aaa;font-size:13px">委員がいません</div>';
-}
-function adminResetPw(k){
-  var m=members[k];
-  var newPw=prompt(m.name+'さんの新しいパスワードを入力してください：','0000');
-  if(newPw===null)return;
-  newPw=newPw.trim();
-  if(!newPw){alert('パスワードを入力してください');return;}
-  if(newPw.length<4){alert('4文字以上で設定してください');return;}
-  fbSet('members/'+k+'/pw',newPw,function(){
-    members[k].pw=newPw;
-    renderAdminPwList();
-    alert(m.name+'さんのパスワードを「'+newPw+'」にリセットしました');
-  });
-}
+
 function showAdmin(){fbGet('members',function(data){members=data||{};fbGet('messages',function(mdata){messages=mdata||{};renderAdminMemberList();renderAdminMsgList();renderAdminPwList();ss('adminScreen');});});}
 
 function loadCSV(input){
@@ -535,8 +399,8 @@ function loadCSV(input){
       rows.push({name:name,role:role,id:uid,pw:pw});
     }
     csvData=rows;
-    var th='<tr><th>氏名</th><th>役割</th><th>ID</th><th>PW</th></tr>';
-    var td='';for(var i=0;i<rows.length;i++){td+='<tr><td>'+rows[i].name+'</td><td>'+rl(rows[i].role)+'</td><td>'+rows[i].id+'</td><td>'+rows[i].pw+'</td></tr>';}
+    var th='<tr><th>氏名</th><th>役割</th><th>ID</th><th>PW</th></tr>',td='';
+    for(var i=0;i<rows.length;i++){td+='<tr><td>'+rows[i].name+'</td><td>'+rl(rows[i].role)+'</td><td>'+rows[i].id+'</td><td>'+rows[i].pw+'</td></tr>';}
     g('csvTable').innerHTML='<table>'+th+td+'</table>';
     g('csvCount').textContent=rows.length+'件'+(errs.length?'（'+errs.length+'件エラー）':'');
     g('csvErr').textContent=errs.join(' / ');
@@ -556,7 +420,7 @@ function importCSV(){
     (function(row){
       var k='u'+Date.now()+'_'+Math.random().toString(36).slice(2,6);
       var m={key:k,name:row.name,role:row.role,id:row.id,pw:row.pw};
-      fbSet('members/'+k,m,function(){members[k]=m;done++;if(done===total){clearCSV();renderAdminMemberList();alert(done+'件登録しました');}});
+      fbSet('members/'+k,m,function(){members[k]=m;done++;if(done===total){clearCSV();renderAdminMemberList();renderAdminPwList();alert(done+'件登録しました');}});
     })(csvData[i]);
   }
 }
@@ -567,15 +431,41 @@ function renderAdminMemberList(){
   for(var i=0;i<ks.length;i++){
     var k=ks[i],v=members[k];
     h+='<div class="mrow"><span>'+v.name+' <span class="tbadge '+bc(v.role)+'">'+rl(v.role)+'</span></span>'
-      +'<span style="color:#aaa;font-size:12px">ID:'+v.id+' / PW:'+v.pw+'</span>'
-      +(k!=='admin'?'<button class="btn-del" onclick="delMember(\''+k+'\')">削除</button>':'<span style="font-size:11px;color:#aaa">削除不可</span>')
+      +'<span style="color:#aaa;font-size:12px">ID:'+v.id+'</span>'
+      +(k!=='admin'?'<button class="btn-del" data-key="'+k+'">削除</button>':'<span style="font-size:11px;color:#aaa">削除不可</span>')
       +'</div>';
   }
   g('adminMemberList').innerHTML=h;
+  var btns=g('adminMemberList').querySelectorAll('.btn-del');
+  for(var i=0;i<btns.length;i++){
+    (function(btn){btn.addEventListener('click',function(){
+      if(!confirm('この委員を削除しますか？'))return;
+      var k=btn.getAttribute('data-key');
+      fbDel('members/'+k,function(){fbDel('messages/'+k,function(){delete members[k];delete messages[k];renderAdminMemberList();renderAdminPwList();renderAdminMsgList();});});
+    });})(btns[i]);
+  }
 }
-function delMember(k){
-  if(!confirm('この委員を削除しますか？'))return;
-  fbDel('members/'+k,function(){fbDel('messages/'+k,function(){delete members[k];delete messages[k];renderAdminMemberList();renderAdminMsgList();});});
+
+function renderAdminPwList(){
+  var ks=Object.keys(members),h='';
+  for(var i=0;i<ks.length;i++){
+    var k=ks[i],v=members[k];
+    if(k==='admin')continue;
+    h+='<div class="mrow"><span>'+v.name+' <span class="tbadge '+bc(v.role)+'">'+rl(v.role)+'</span></span>'
+      +'<span style="color:#555;font-size:12px;font-family:monospace">'+v.pw+'</span>'
+      +'<button class="btn-edit2" data-key="'+k+'">リセット</button></div>';
+  }
+  g('adminPwList').innerHTML=h||'<div style="color:#aaa;font-size:13px">委員がいません</div>';
+  var btns=g('adminPwList').querySelectorAll('.btn-edit2');
+  for(var i=0;i<btns.length;i++){
+    (function(btn){btn.addEventListener('click',function(){
+      var k=btn.getAttribute('data-key'),m=members[k];
+      var newPw=prompt(m.name+'さんの新しいパスワードを入力してください：','0000');
+      if(newPw===null)return;newPw=newPw.trim();
+      if(!newPw||newPw.length<4){alert('4文字以上で設定してください');return;}
+      fbSet('members/'+k+'/pw',newPw,function(){members[k].pw=newPw;renderAdminPwList();alert(m.name+'さんのパスワードを「'+newPw+'」にリセットしました');});
+    });})(btns[i]);
+  }
 }
 
 function renderAdminMsgList(){
@@ -591,27 +481,76 @@ function renderAdminMsgList(){
       h+='<div style="display:flex;align-items:flex-start;justify-content:space-between;padding:8px;background:#f9f9f9;border-radius:8px;margin-bottom:6px;gap:8px">'
         +'<div style="font-size:12px;flex:1"><span style="color:#888">'+m.fromName+'：</span>'+m.msg+(m.edited?' <span style="font-size:10px;color:#aaa">（編集済）</span>':'')+'</div>'
         +'<div style="display:flex;gap:4px">'
-        +'<button class="btn-edit2" onclick="adminEditMsg(\''+rk+'\',\''+mk+'\')">編集</button>'
-        +'<button class="btn-del" onclick="adminDelMsg(\''+rk+'\',\''+mk+'\')">削除</button>'
+        +'<button class="btn-edit2" data-rkey="'+rk+'" data-mkey="'+mk+'">編集</button>'
+        +'<button class="btn-del" data-rkey="'+rk+'" data-mkey="'+mk+'">削除</button>'
         +'</div></div>';
     }
     h+='</div>';
   }
   g('adminMsgList').innerHTML=h;
+  var editBtns=g('adminMsgList').querySelectorAll('.btn-edit2');
+  for(var i=0;i<editBtns.length;i++){
+    (function(btn){btn.addEventListener('click',function(){
+      var rk=btn.getAttribute('data-rkey'),mk=btn.getAttribute('data-mkey'),m=messages[rk][mk];
+      var newMsg=prompt('メッセージを編集してください：',m.msg);
+      if(newMsg===null)return;newMsg=newMsg.trim();
+      if(!newMsg){alert('メッセージを入力してください');return;}
+      var updated={msg:newMsg,fromKey:m.fromKey,fromName:m.fromName,ts:m.ts||0,edited:true};
+      fbSet('messages/'+rk+'/'+mk,updated,function(){messages[rk][mk]=updated;renderAdminMsgList();});
+    });})(editBtns[i]);
+  }
+  var delBtns=g('adminMsgList').querySelectorAll('.btn-del');
+  for(var i=0;i<delBtns.length;i++){
+    (function(btn){btn.addEventListener('click',function(){
+      if(!confirm('このメッセージを削除しますか？'))return;
+      var rk=btn.getAttribute('data-rkey'),mk=btn.getAttribute('data-mkey');
+      fbDel('messages/'+rk+'/'+mk,function(){delete messages[rk][mk];renderAdminMsgList();});
+    });})(delBtns[i]);
+  }
 }
-function adminDelMsg(rk,mk){
-  if(!confirm('このメッセージを削除しますか？'))return;
-  fbDel('messages/'+rk+'/'+mk,function(){delete messages[rk][mk];renderAdminMsgList();});
+
+function printIdList(){
+  var ks=Object.keys(members),sotsu=[],shinnin=[],geneki=[];
+  for(var i=0;i<ks.length;i++){var k=ks[i],v=members[k];if(k==='admin')continue;if(v.role==='sotsu')sotsu.push(v);else if(v.role==='shinnin')shinnin.push(v);else geneki.push(v);}
+  function rows(list){var h='';for(var i=0;i<list.length;i++){h+='<tr><td>'+(i+1)+'</td><td>'+list[i].name+'</td><td>'+list[i].id+'</td><td>'+list[i].pw+'</td><td style="width:60px"></td></tr>';}return h;}
+  function sec(title,list){if(!list.length)return '';return '<h2>'+title+'</h2><table><thead><tr><th>No</th><th>氏名</th><th>ログインID</th><th>パスワード</th><th>確認</th></tr></thead><tbody>'+rows(list)+'</tbody></table>';}
+  var p=[];
+  p.push('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>ログインID一覧</title>');
+  p.push('<style>body{font-family:Hiragino Sans,Meiryo,sans-serif;padding:20px;color:#333;font-size:12px}h1{font-size:16px;margin-bottom:4px;text-align:center}.sub{text-align:center;font-size:11px;color:#666;margin-bottom:16px}h2{font-size:13px;font-weight:700;margin:16px 0 6px;padding:4px 10px;background:#667eea;color:#fff;border-radius:4px}table{width:100%;border-collapse:collapse;margin-bottom:12px}th{background:#f0f0f0;padding:6px 8px;border:1px solid #ccc;font-size:11px;text-align:left}td{padding:6px 8px;border:1px solid #ccc;font-size:12px}.url{font-size:12px;font-weight:700;text-align:center;margin-bottom:16px;padding:8px;background:#f0f4ff;border-radius:6px;border:1px solid #667eea}.note{font-size:11px;color:#888;margin-top:16px;border-top:1px solid #eee;padding-top:10px}@media print{body{padding:10px}}</style></head><body>');
+  p.push('<h1>&#127800; 寄せ書きアプリ　ログインID一覧</h1><p class="sub">練馬区青少年委員会</p>');
+  p.push('<div class="url">アクセス先：yosegaki-nerima.vercel.app</div>');
+  p.push(sec('退任委員',sotsu)+sec('新任委員',shinnin)+sec('委員',geneki));
+  p.push('<p class="note">※パスワードは各自ログイン後に変更できます。「確認」欄は受け取った方がサインしてください。</p>');
+  p.push('<'+'script>window.addEventListener("load",function(){window.print();});<'+'/scr'+'ipt></body></html>');
+  var blob=new Blob([p.join('')],{type:'text/html;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;a.target='_blank';a.click();
+  setTimeout(function(){URL.revokeObjectURL(url);},30000);
 }
-function adminEditMsg(rk,mk){
-  var m=messages[rk][mk];
-  var newMsg=prompt('メッセージを編集してください：',m.msg);
-  if(newMsg===null)return;
-  newMsg=newMsg.trim();
-  if(!newMsg){alert('メッセージを入力してください');return;}
-  var updated={msg:newMsg,fromKey:m.fromKey,fromName:m.fromName,ts:m.ts||0,edited:true};
-  fbSet('messages/'+rk+'/'+mk,updated,function(){messages[rk][mk]=updated;renderAdminMsgList();});
-}
+
+// イベント登録
+window.onload=function(){
+  g('loginBtn').addEventListener('click',doLogin);
+  g('loginId').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
+  g('loginPw').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
+  g('logoutBtn').addEventListener('click',function(){cu=null;members={};messages={};g('loginId').value='';g('loginPw').value='';ss('loginScreen');});
+  g('adminMenuBtn').addEventListener('click',showAdmin);
+  g('pwChangeBtn').addEventListener('click',showPwChange);
+  g('pwChangeSubmit').addEventListener('click',doChangePw);
+  g('pwBackBtn').addEventListener('click',showTop);
+  g('backBtn').addEventListener('click',function(){showTop();});
+  g('pdfBtn').addEventListener('click',downloadPDF);
+  g('updateBtn').addEventListener('click',updateMsg);
+  g('cancelEditBtn').addEventListener('click',cancelEdit);
+  g('sendBtn').addEventListener('click',sendMsg);
+  g('addMemberBtn').addEventListener('click',addMember);
+  g('backToTopBtn').addEventListener('click',showTop);
+  g('printIdBtn').addEventListener('click',printIdList);
+  g('csvArea').addEventListener('click',function(){g('csvFile').click();});
+  g('csvFile').addEventListener('change',function(){loadCSV(this);});
+  g('importBtn').addEventListener('click',importCSV);
+  g('clearCsvBtn').addEventListener('click',clearCSV);
+};
 
 function addMember(){
   var name=g('newName').value.trim(),role=g('newRole').value,id=g('newId').value.trim(),pw=g('newPw').value.trim();
@@ -622,7 +561,7 @@ function addMember(){
   for(var i=0;i<ks.length;i++){if(members[ks[i]].id===id){g('addErr').textContent='このIDはすでに使用されています';return;}}
   var k='u'+Date.now();
   var nm={key:k,name:name,role:role,id:id,pw:pw};
-  fbSet('members/'+k,nm,function(){members[k]=nm;g('newName').value='';g('newId').value='';g('newPw').value='';renderAdminMemberList();alert(name+'さんを登録しました');});
+  fbSet('members/'+k,nm,function(){members[k]=nm;g('newName').value='';g('newId').value='';g('newPw').value='';renderAdminMemberList();renderAdminPwList();alert(name+'さんを登録しました');});
 }
 
 fbGet('members/admin',function(data){if(!data){fbSet('members/admin',{key:'admin',name:'管理者',role:'admin',id:'admin',pw:'admin2025'});}});
