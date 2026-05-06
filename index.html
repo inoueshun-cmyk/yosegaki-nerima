@@ -285,25 +285,47 @@ function openY(tk){
 
 function renderFusen(msgs){
   var me=Object.keys(msgs);
-  if(me.length===0){g('fusenGrid').innerHTML='';g('noMsg').style.display='block';return;}
+  var grid=g('fusenGrid');
+  grid.innerHTML='';
+  if(me.length===0){g('noMsg').style.display='block';return;}
   g('noMsg').style.display='none';
-  var h='';
   for(var i=0;i<me.length;i++){
     var mk=me[i],v=msgs[mk];
     var ci=i%FC.length;
-    var canE=canEditMsg(v);
-    h+='<div class="fusen" style="background:'+FC[ci]+';color:'+FT[ci]+';transform:rotate('+RO[i%RO.length]+'deg)">'
-      +'<div class="fusen-msg">'+v.msg+'</div>'
-      +'<div class="ffrom">— '+v.fromName+'</div>';
-    if(canE){
-      h+='<div class="fusen-btns">'
-        +'<button class="fbtn fbtn-edit" onclick="startEdit(\''+mk+'\',\''+v.msg.replace(/'/g,'\\\'').replace(/\n/g,'\\n')+'\')">編集</button>'
-        +'<button class="fbtn fbtn-del" onclick="delMsgUser(\''+mk+'\')">削除</button>'
-        +'</div>';
+    var div=document.createElement('div');
+    div.className='fusen';
+    div.style.background=FC[ci];
+    div.style.color=FT[ci];
+    div.style.transform='rotate('+RO[i%RO.length]+'deg)';
+    var msgDiv=document.createElement('div');
+    msgDiv.className='fusen-msg';
+    msgDiv.textContent=v.msg;
+    div.appendChild(msgDiv);
+    var fromDiv=document.createElement('div');
+    fromDiv.className='ffrom';
+    fromDiv.textContent='— '+v.fromName;
+    div.appendChild(fromDiv);
+    if(canEditMsg(v)){
+      var btns=document.createElement('div');
+      btns.className='fusen-btns';
+      var editBtn=document.createElement('button');
+      editBtn.className='fbtn fbtn-edit';
+      editBtn.textContent='編集';
+      (function(key,msg){
+        editBtn.addEventListener('click',function(){startEdit(key,msg);});
+      })(mk,v.msg);
+      var delBtn=document.createElement('button');
+      delBtn.className='fbtn fbtn-del';
+      delBtn.textContent='削除';
+      (function(key){
+        delBtn.addEventListener('click',function(){delMsgUser(key);});
+      })(mk);
+      btns.appendChild(editBtn);
+      btns.appendChild(delBtn);
+      div.appendChild(btns);
     }
-    h+='</div>';
+    grid.appendChild(div);
   }
-  g('fusenGrid').innerHTML=h;
 }
 
 function startEdit(mk,msg){
