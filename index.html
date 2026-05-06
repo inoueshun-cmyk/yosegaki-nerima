@@ -169,7 +169,11 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
     <h3>&#128274; パスワード管理</h3>
     <div id="adminPwList"></div>
   </div>
-  <div class="asec"><h3>登録済み委員一覧</h3><div id="adminMemberList"></div></div>
+  <div class="asec">
+    <h3>登録済み委員一覧</h3>
+    <div id="adminMemberList"></div>
+    <button class="btn-green" style="margin-top:12px" onclick="printIdList()">&#128438; ログインID一覧を印刷</button>
+  </div>
   <div class="asec"><h3>メッセージ管理</h3><div id="adminMsgList"></div></div>
   <button class="btn-add" style="background:#555;border-radius:10px;padding:12px 24px;display:block;margin:0 auto 20px" onclick="showTop()">&#8592; トップへ戻る</button>
 </div>
@@ -431,7 +435,59 @@ function doChangePw(){
     g('pwCurrent').value='';g('pwNew').value='';g('pwNew2').value='';
   });
 }
-function renderAdminPwList(){
+function printIdList(){
+  var ks=Object.keys(members);
+  var sotsu=[],shinnin=[],geneki=[];
+  for(var i=0;i<ks.length;i++){
+    var k=ks[i],v=members[k];
+    if(k==='admin')continue;
+    if(v.role==='sotsu')sotsu.push(v);
+    else if(v.role==='shinnin')shinnin.push(v);
+    else geneki.push(v);
+  }
+  function tableRows(list){
+    var h='';
+    for(var i=0;i<list.length;i++){
+      h+='<tr><td>'+(i+1)+'</td><td>'+list[i].name+'</td><td>'+list[i].id+'</td><td>'+list[i].pw+'</td><td style="width:80px"></td></tr>';
+    }
+    return h;
+  }
+  function section(title,list){
+    if(!list.length)return '';
+    return '<h2>'+title+'</h2>'
+      +'<table><thead><tr><th>No</th><th>氏名</th><th>ログインID</th><th>パスワード</th><th>確認</th></tr></thead>'
+      +'<tbody>'+tableRows(list)+'</tbody></table>';
+  }
+  var p=[];
+  p.push('<!DOCTYPE html><html><head><meta charset="UTF-8">');
+  p.push('<title>ログインID一覧</title>');
+  p.push('<style>');
+  p.push('body{font-family:Hiragino Sans,Meiryo,sans-serif;padding:20px;color:#333;font-size:12px}');
+  p.push('h1{font-size:16px;margin-bottom:4px;text-align:center}');
+  p.push('.sub{text-align:center;font-size:11px;color:#666;margin-bottom:20px}');
+  p.push('h2{font-size:13px;font-weight:700;margin:16px 0 6px;padding:4px 10px;background:#667eea;color:#fff;border-radius:4px}');
+  p.push('table{width:100%;border-collapse:collapse;margin-bottom:12px}');
+  p.push('th{background:#f0f0f0;padding:6px 8px;border:1px solid #ccc;font-size:11px;text-align:left}');
+  p.push('td{padding:6px 8px;border:1px solid #ccc;font-size:12px}');
+  p.push('.note{font-size:11px;color:#888;margin-top:16px;border-top:1px solid #eee;padding-top:10px}');
+  p.push('.url{font-size:12px;font-weight:700;text-align:center;margin-bottom:16px;padding:8px;background:#f0f4ff;border-radius:6px;border:1px solid #667eea}');
+  p.push('@media print{body{padding:10px}}');
+  p.push('</style></head><body>');
+  p.push('<h1>&#127800; 寄せ書きアプリ　ログインID一覧</h1>');
+  p.push('<p class="sub">練馬区青少年委員会</p>');
+  p.push('<div class="url">アクセス先：yosegaki-nerima.vercel.app</div>');
+  p.push(section('退任委員',sotsu));
+  p.push(section('新任委員',shinnin));
+  p.push(section('委員',geneki));
+  p.push('<p class="note">※パスワードは各自ログイン後に変更できます。「確認」欄は受け取った方がサインしてください。</p>');
+  p.push('<'+'script>window.addEventListener("load",function(){window.print();});<'+'/scr'+'ipt>');
+  p.push('</body></html>');
+  var blob=new Blob([p.join('')],{type:'text/html;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.target='_blank';a.click();
+  setTimeout(function(){URL.revokeObjectURL(url);},30000);
+}
   var ks=Object.keys(members),h='';
   for(var i=0;i<ks.length;i++){
     var k=ks[i],v=members[k];
