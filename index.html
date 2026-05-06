@@ -57,7 +57,16 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 .mrow{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:13px;gap:8px;flex-wrap:wrap}
 .mrow:last-child{border-bottom:none}
 .btn-del{background:none;border:1px solid #e74c3c;color:#e74c3c;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer}
-.loading{text-align:center;padding:40px;color:#aaa;font-size:13px}
+.csv-area{border:2px dashed #ccc;border-radius:10px;padding:16px;text-align:center;cursor:pointer;margin-bottom:10px;font-size:13px;color:#888;transition:border .2s}
+.csv-area:hover{border-color:#667eea;color:#667eea}
+.csv-preview{background:#f9f9f9;border-radius:8px;padding:12px;font-size:12px;margin-top:10px;max-height:200px;overflow-y:auto}
+.csv-preview table{width:100%;border-collapse:collapse}
+.csv-preview th{background:#667eea;color:#fff;padding:6px 8px;font-size:11px;text-align:left}
+.csv-preview td{padding:5px 8px;border-bottom:1px solid #eee;font-size:11px}
+.csv-preview tr:last-child td{border-bottom:none}
+.hint-box{background:#f0f4ff;border-radius:8px;padding:10px 14px;font-size:11px;color:#555;line-height:1.8;margin-bottom:10px}
+.hint-box b{color:#4a3f8f}
+.btn-green{padding:10px 18px;background:#27ae60;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
 </style>
 </head>
 <body>
@@ -75,7 +84,7 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 
 <div id="topScreen" class="screen">
   <div class="hdr"><h2>&#127800; 寄せ書きアプリ</h2><p>練馬区青少年委員会 大泉地区</p><div class="rbadge" id="roleBadge"></div></div>
-  <div id="sotsuSection" style="display:none"><div class="stitle">&#128238; 卒業委員への寄せ書き</div><div class="mgrid" id="sotsuGrid"></div></div>
+  <div id="sotsuSection" style="display:none"><div class="stitle">&#128238; 退任委員への寄せ書き</div><div class="mgrid" id="sotsuGrid"></div></div>
   <div id="shinninSection" style="display:none"><div class="stitle">&#127807; 新任委員への寄せ書き</div><div class="mgrid" id="shinninGrid"></div></div>
   <div id="mySection" style="display:none"><div class="stitle">&#128140; 自分への寄せ書きを見る</div><div class="mgrid" id="myGrid"></div></div>
   <div id="adminLink" style="display:none;text-align:center;margin-bottom:16px"><button class="btn-add" style="border-radius:10px;padding:12px 24px" onclick="showAdmin()">&#9881; 管理者メニュー</button></div>
@@ -96,12 +105,41 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 
 <div id="adminScreen" class="screen">
   <div class="ahdr"><h2>&#9881; 管理者メニュー</h2></div>
+
+  <!-- CSV一括登録 -->
   <div class="asec">
-    <h3>委員の登録</h3>
-    <div class="frow"><input type="text" id="newName" placeholder="氏名"><select id="newRole"><option value="sotsu">卒業委員</option><option value="shinnin">新任委員</option><option value="geneki">現役委員</option></select></div>
+    <h3>&#128196; CSV一括登録</h3>
+    <div class="hint-box">
+      <b>CSVフォーマット（1行目はヘッダー）：</b><br>
+      名前,役割,ユーザーID,パスワード<br>
+      田中花子,退任委員,tanaka,0000<br>
+      佐藤次郎,新任委員,sato,0000<br>
+      伊藤健太,委員,ito,0000<br>
+      <b>役割：</b>退任委員 / 新任委員 / 委員
+    </div>
+    <div class="csv-area" id="csvArea" onclick="document.getElementById('csvFile').click()">
+      &#128196; クリックしてCSVファイルを選択
+      <input type="file" id="csvFile" accept=".csv" style="display:none" onchange="loadCSV(this)">
+    </div>
+    <div id="csvPreview" style="display:none">
+      <div class="csv-preview" id="csvTable"></div>
+      <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
+        <button class="btn-green" onclick="importCSV()">&#10003; この内容で登録する</button>
+        <button class="btn-add" style="background:#aaa" onclick="clearCSV()">キャンセル</button>
+        <span id="csvCount" style="font-size:12px;color:#555"></span>
+      </div>
+      <div class="err" id="csvErr"></div>
+    </div>
+  </div>
+
+  <!-- 手動登録 -->
+  <div class="asec">
+    <h3>&#9997; 手動で1件登録</h3>
+    <div class="frow"><input type="text" id="newName" placeholder="氏名"><select id="newRole"><option value="sotsu">退任委員</option><option value="shinnin">新任委員</option><option value="geneki">委員</option></select></div>
     <div class="frow"><input type="text" id="newId" placeholder="ユーザーID（半角英数）"><input type="password" id="newPw" placeholder="パスワード"><button class="btn-add" onclick="addMember()">追加</button></div>
     <div class="err" id="addErr"></div>
   </div>
+
   <div class="asec"><h3>登録済み委員一覧</h3><div id="adminMemberList"></div></div>
   <div class="asec"><h3>メッセージ管理</h3><div id="adminMsgList"></div></div>
   <button class="btn-add" style="background:#555;border-radius:10px;padding:12px 24px;display:block;margin:0 auto 20px" onclick="showTop()">&#8592; トップへ戻る</button>
@@ -113,13 +151,23 @@ var FC=['#fff9c4','#f8bbd0','#b3e5fc','#c8e6c9','#ffe0b2','#e1bee7','#b2dfdb','#
 var FT=['#5d4037','#880e4f','#01579b','#1b5e20','#e65100','#4a148c','#004d40','#b71c1c','#33691e'];
 var RO=[-3,-2,-1,0,1,2,3,-2,1];
 var cu=null,ct=null,members={},messages={};
+var csvData=[];
 
 function g(id){return document.getElementById(id);}
 function ss(id){var s=document.querySelectorAll('.screen');for(var i=0;i<s.length;i++)s[i].classList.remove('active');g(id).classList.add('active');}
-function rl(r){return {sotsu:'卒業委員',shinnin:'新任委員',geneki:'現役委員',admin:'管理者'}[r]||r;}
+function rl(r){return {sotsu:'退任委員',shinnin:'新任委員',geneki:'委員',admin:'管理者'}[r]||r;}
 function bc(r){return r==='sotsu'?'bs':r==='shinnin'?'bn':'bg';}
 function ac(r){return r==='sotsu'?'ap':r==='shinnin'?'ab':r==='admin'?'agr':'ag';}
 function mc(k){return messages[k]?Object.keys(messages[k]).length:0;}
+
+function parseRole(s){
+  s=s.trim();
+  if(s==='sotsu'||s==='退任委員')return 'sotsu';
+  if(s==='shinnin'||s==='新任委員')return 'shinnin';
+  if(s==='geneki'||s==='委員')return 'geneki';
+  return null;
+}
+
 function cw(tk){
   var t=members[tk];
   if(!t||cu.key===tk)return false;
@@ -179,11 +227,7 @@ function doLogin(){
     for(var i=0;i<ks.length;i++){if(members[ks[i]].id===id&&members[ks[i]].pw===pw){found=members[ks[i]];break;}}
     if(!found){g('loginErr').textContent='IDまたはパスワードが違います';return;}
     cu=found;
-    fbGet('messages',function(mdata){
-      messages=mdata||{};
-      renderTop();
-      ss('topScreen');
-    });
+    fbGet('messages',function(mdata){messages=mdata||{};renderTop();ss('topScreen');});
   });
 }
 
@@ -211,18 +255,14 @@ function renderTop(){
 function showTop(){
   fbGet('members',function(data){
     members=data||{};
-    fbGet('messages',function(mdata){
-      messages=mdata||{};
-      renderTop();ss('topScreen');
-    });
+    fbGet('messages',function(mdata){messages=mdata||{};renderTop();ss('topScreen');});
   });
 }
 
 function openY(tk){
   ct=tk;
   fbGet('messages/'+tk,function(data){
-    var msgs=data||{};
-    messages[tk]=msgs;
+    var msgs=data||{};messages[tk]=msgs;
     var t=members[tk];
     g('yoseTitle').textContent=t.name+'さんへの寄せ書き';
     g('shtitle').innerHTML='&#127800; '+t.name+' さんへ &#127800;';
@@ -254,16 +294,12 @@ function openY(tk){
 function sendMsg(){
   var msg=g('msgInput').value.trim();
   if(!msg){alert('メッセージを入力してください');return;}
-  g('sendBtn').disabled=true;
-  g('sendBtn').textContent='送信中...';
+  g('sendBtn').disabled=true;g('sendBtn').textContent='送信中...';
   fbPush('messages/'+ct,{msg:msg,fromKey:cu.key,fromName:cu.name},function(){openY(ct);});
 }
 
 function downloadPDF(){
-  var t=members[ct];
-  var msgs=messages[ct]||{};
-  var me=Object.keys(msgs);
-  var fh='';
+  var t=members[ct],msgs=messages[ct]||{},me=Object.keys(msgs),fh='';
   if(me.length===0){fh='<p style="text-align:center;color:#b8a86a;margin-top:60px">まだメッセージがありません</p>';}
   else{
     for(var i=0;i<me.length;i++){
@@ -272,8 +308,7 @@ function downloadPDF(){
         +';border-radius:4px;padding:12px;min-width:100px;max-width:140px;font-size:11px;line-height:1.5'
         +';box-shadow:2px 3px 8px rgba(0,0,0,.15);transform:rotate('+RO[i%RO.length]+'deg);margin:8px;vertical-align:top">'
         +'<div>'+v.msg+'</div>'
-        +'<div style="font-size:9px;font-weight:700;margin-top:6px;opacity:.75;text-align:right">— '+v.fromName+'</div>'
-        +'</div>';
+        +'<div style="font-size:9px;font-weight:700;margin-top:6px;opacity:.75;text-align:right">— '+v.fromName+'</div></div>';
     }
   }
   var p=[];
@@ -282,8 +317,7 @@ function downloadPDF(){
   p.push('<style>body{font-family:Hiragino Sans,Meiryo,sans-serif;background:#f5f0e8;margin:0;padding:20px}');
   p.push('.s{background:#fff9e6;border:4px solid #d4a017;border-radius:16px;padding:30px;min-height:400px}');
   p.push('.tt{text-align:center;font-size:18px;font-weight:700;color:#8b6914;margin-bottom:24px;padding-bottom:14px;border-bottom:2px dashed #d4a017}');
-  p.push('.fa{display:flex;flex-wrap:wrap;gap:4px}');
-  p.push('@media print{body{background:#fff}}</style></head><body>');
+  p.push('.fa{display:flex;flex-wrap:wrap;gap:4px}@media print{body{background:#fff}}</style></head><body>');
   p.push('<div class="s"><div class="tt">&#127800; '+t.name+' さんへ &#127800;</div>');
   p.push('<div class="fa">'+fh+'</div></div>');
   p.push('<'+'script>window.addEventListener("load",function(){window.print();});<'+'/scr'+'ipt>');
@@ -304,6 +338,88 @@ function showAdmin(){
       renderAdminMemberList();renderAdminMsgList();ss('adminScreen');
     });
   });
+}
+
+// CSV関連
+function loadCSV(input){
+  var file=input.files[0];
+  if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var text=e.target.result;
+    // BOM除去
+    if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);
+    var lines=text.split(/\r?\n/).filter(function(l){return l.trim()!=='';});
+    if(lines.length<2){g('csvErr').textContent='データがありません';return;}
+    // ヘッダー除去
+    var rows=[];
+    var errs=[];
+    for(var i=1;i<lines.length;i++){
+      var cols=lines[i].split(',');
+      if(cols.length<4){errs.push((i+1)+'行目：列数が足りません');continue;}
+      var name=cols[0].trim(),roleStr=cols[1].trim(),uid=cols[2].trim(),pw=cols[3].trim();
+      var role=parseRole(roleStr);
+      if(!role){errs.push((i+1)+'行目：役割「'+roleStr+'」が不正です');continue;}
+      if(!name||!uid||!pw){errs.push((i+1)+'行目：空欄があります');continue;}
+      if(!/^[a-zA-Z0-9_]+$/.test(uid)){errs.push((i+1)+'行目：ID「'+uid+'」は半角英数字のみ');continue;}
+      rows.push({name:name,role:role,id:uid,pw:pw});
+    }
+    csvData=rows;
+    // プレビュー表示
+    var th='<tr><th>氏名</th><th>役割</th><th>ユーザーID</th><th>パスワード</th></tr>';
+    var td='';
+    for(var i=0;i<rows.length;i++){
+      td+='<tr><td>'+rows[i].name+'</td><td>'+rl(rows[i].role)+'</td><td>'+rows[i].id+'</td><td>'+rows[i].pw+'</td></tr>';
+    }
+    g('csvTable').innerHTML='<table>'+th+td+'</table>';
+    g('csvCount').textContent=rows.length+'件のデータを読み込みました'+(errs.length?'（'+errs.length+'件エラー）':'');
+    g('csvErr').textContent=errs.join(' / ');
+    g('csvPreview').style.display='block';
+    input.value='';
+  };
+  reader.readAsText(file,'UTF-8');
+}
+
+function importCSV(){
+  if(!csvData.length){alert('登録するデータがありません');return;}
+  // 既存IDチェック
+  var ks=Object.keys(members);
+  var dups=[];
+  for(var i=0;i<csvData.length;i++){
+    for(var j=0;j<ks.length;j++){
+      if(members[ks[j]].id===csvData[i].id){dups.push(csvData[i].id);break;}
+    }
+  }
+  if(dups.length){
+    if(!confirm('ID「'+dups.join('、')+'」はすでに登録されています。スキップして続けますか？'))return;
+    csvData=csvData.filter(function(r){return dups.indexOf(r.id)===-1;});
+  }
+  if(!csvData.length){alert('登録できるデータがありません');return;}
+
+  var done=0;
+  for(var i=0;i<csvData.length;i++){
+    (function(row){
+      var k='u'+Date.now()+'_'+Math.random().toString(36).slice(2,6);
+      var m={key:k,name:row.name,role:row.role,id:row.id,pw:row.pw};
+      fbSet('members/'+k,m,function(){
+        members[k]=m;
+        done++;
+        if(done===csvData.length){
+          clearCSV();
+          renderAdminMemberList();
+          alert(done+'件の委員を登録しました');
+        }
+      });
+    })(csvData[i]);
+  }
+}
+
+function clearCSV(){
+  csvData=[];
+  g('csvPreview').style.display='none';
+  g('csvTable').innerHTML='';
+  g('csvErr').textContent='';
+  g('csvCount').textContent='';
 }
 
 function renderAdminMemberList(){
@@ -349,9 +465,7 @@ function renderAdminMsgList(){
 
 function delMsg(rk,mk){
   if(!confirm('このメッセージを削除しますか？'))return;
-  fbDel('messages/'+rk+'/'+mk,function(){
-    delete messages[rk][mk];renderAdminMsgList();
-  });
+  fbDel('messages/'+rk+'/'+mk,function(){delete messages[rk][mk];renderAdminMsgList();});
 }
 
 function addMember(){
@@ -362,19 +476,16 @@ function addMember(){
   var ks=Object.keys(members);
   for(var i=0;i<ks.length;i++){if(members[ks[i]].id===id){g('addErr').textContent='このIDはすでに使用されています';return;}}
   var k='u'+Date.now();
-  var newMember={key:k,name:name,role:role,id:id,pw:pw};
-  fbSet('members/'+k,newMember,function(){
-    members[k]=newMember;
+  var nm={key:k,name:name,role:role,id:id,pw:pw};
+  fbSet('members/'+k,nm,function(){
+    members[k]=nm;
     g('newName').value='';g('newId').value='';g('newPw').value='';
     renderAdminMemberList();alert(name+'さんを登録しました');
   });
 }
 
-// 初回：adminアカウントがなければ作成
 fbGet('members/admin',function(data){
-  if(!data){
-    fbSet('members/admin',{key:'admin',name:'管理者',role:'admin',id:'admin',pw:'admin2025'});
-  }
+  if(!data){fbSet('members/admin',{key:'admin',name:'管理者',role:'admin',id:'admin',pw:'admin2025'});}
 });
 </script>
 </body>
