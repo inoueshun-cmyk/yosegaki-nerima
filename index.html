@@ -277,9 +277,13 @@ function openY(tk){
       var me=Object.keys(msgs);
       var alr=false;
       for(var i=0;i<me.length;i++){if(msgs[me[i]].fromKey===cu.key){alr=true;break;}}
-      g('msgInput').disabled=alr;g('sendBtn').disabled=alr;
-      g('alreadyMsg').style.display=alr?'block':'none';
-      if(!alr)g('msgInput').value='';
+      if(alr){
+        g('writeBox').style.display='none';
+      } else {
+        g('msgInput').disabled=false;g('sendBtn').disabled=false;
+        g('alreadyMsg').style.display='none';
+        g('msgInput').value='';
+      }
     }else{g('writeBox').style.display='none';}
     ss('yosegakiScreen');
   });
