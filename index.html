@@ -2,12 +2,12 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <title>寄せ書きアプリ｜練馬区青少年委員会</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#333}
-.screen{display:none;min-height:100vh;padding:20px}
+body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#333;overflow-x:hidden}
+.screen{display:none;min-height:100vh;padding:20px;max-width:100vw}
 .screen.active{display:block}
 #loginScreen.active{display:flex;align-items:center;justify-content:center;background:#764ba2;min-height:100vh}
 .login-box{background:#fff;border-radius:16px;padding:40px;width:100%;max-width:380px;text-align:center}
@@ -88,6 +88,7 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
     <input class="inp" type="password" id="loginPw" placeholder="パスワード">
     <button class="btn-login" id="loginBtn">ログイン</button>
     <div class="err" id="loginErr"></div>
+    <a href="/manual" target="_blank" style="display:block;margin-top:16px;font-size:12px;color:#667eea;text-decoration:none">&#128214; 使い方ガイドを見る</a>
   </div>
 </div>
 
