@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>寄せ書きアプリ 使い方ガイド</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#333;font-size:14px}
+.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
+.hdr{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:16px;padding:28px 24px;text-align:center;margin-bottom:28px}
+.hdr h1{font-size:22px;font-weight:700;margin-bottom:6px}
+.hdr p{font-size:13px;opacity:.85}
+.url-box{background:rgba(255,255,255,.2);border-radius:8px;padding:8px 16px;margin-top:12px;font-size:13px;font-weight:700}
+.section{background:#fff;border-radius:14px;padding:20px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
+.section-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:#667eea;color:#fff;border-radius:50%;font-size:14px;font-weight:700;margin-right:10px;flex-shrink:0}
+.section-title{display:flex;align-items:center;font-size:16px;font-weight:700;color:#4a3f8f;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #eef}
+.step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:#e8f0ff;color:#667eea;border-radius:50%;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
+.step-body{flex:1;font-size:13px;line-height:1.7}
+.step-body b{color:#4a3f8f}
+.tip{background:#f0f4ff;border-left:3px solid #667eea;border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:#555;margin-top:10px;line-height:1.7}
+.tip b{color:#4a3f8f}
+.warn{background:#fff8e1;border-left:3px solid #ffc107;border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:#555;margin-top:10px;line-height:1.7}
+.warn b{color:#e65100}
+.role-box{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.role-badge{border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700}
+.rb-sotsu{background:#ffe4e4;color:#c0392b}
+.rb-shinnin{background:#e4f0ff;color:#2471a3}
+.rb-geneki{background:#e8f8e8;color:#1e8449}
+.screen-img{background:#f5f0e8;border:2px solid #ddd;border-radius:10px;padding:16px;margin:12px 0;font-size:12px;color:#888;text-align:center}
+.btn-sample{display:inline-block;padding:6px 16px;border-radius:8px;font-size:12px;font-weight:700;margin:2px}
+.btn-blue-s{background:#667eea;color:#fff}
+.btn-red-s{background:#f5576c;color:#fff}
+.btn-gray-s{background:#888;color:#fff}
+.btn-outline-s{background:#fff;color:#667eea;border:1.5px solid #667eea}
+.divider{border:none;border-top:1px solid #eee;margin:14px 0}
+.faq-q{font-weight:700;color:#4a3f8f;margin-bottom:4px;font-size:13px}
+.faq-a{font-size:13px;color:#555;margin-bottom:14px;line-height:1.7;padding-left:12px;border-left:2px solid #ddd}
+.print-btn{display:block;margin:0 auto 20px;padding:12px 32px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
+.back-btn{display:block;margin:0 auto;padding:10px 28px;background:none;border:1.5px solid #aaa;border-radius:10px;font-size:13px;color:#888;cursor:pointer}
+@media print{
+  .print-btn,.back-btn{display:none}
+  body{background:#fff;font-size:12px}
+  .container{padding:10px}
+  .hdr{border-radius:8px;padding:16px}
+  .section{box-shadow:none;border:1px solid #eee;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<button class="print-btn" onclick="window.print()">&#128438; 印刷する</button>
+
+<div class="hdr">
+  <h1>&#127800; 寄せ書きアプリ<br>使い方ガイド</h1>
+  <p>練馬区青少年委員会</p>
+  <div class="url-box">&#127760; yosegaki-nerima.vercel.app</div>
+</div>
+
+<!-- ログイン -->
+<div class="section">
+  <div class="section-title"><span class="section-num">1</span>ログイン方法</div>
+  <div class="step">
+    <span class="step-num">1</span>
+    <div class="step-body">ブラウザで <b>yosegaki-nerima.vercel.app</b> にアクセスします。</div>
+  </div>
+  <div class="step">
+    <span class="step-num">2</span>
+    <div class="step-body">配布された<b>ユーザーID</b>と<b>パスワード</b>を入力して <span class="btn-sample btn-blue-s">ログイン</span> を押します。</div>
+  </div>
+  <div class="step">
+    <span class="step-num">3</span>
+    <div class="step-body">ログインするとトップ画面が表示されます。画面上部に自分の役割が表示されます。</div>
+  </div>
+  <div class="tip"><b>&#128161; ヒント：</b>スマートフォンのブラウザ（Safari・Chrome）からもアクセスできます。ホーム画面に追加しておくと便利です。</div>
+  <div class="warn"><b>&#9888; 注意：</b>IDとパスワードは他の人に教えないでください。</div>
+</div>
+
+<!-- 寄せ書きを書く -->
+<div class="section">
+  <div class="section-title"><span class="section-num">2</span>寄せ書きを書く</div>
+
+  <div class="role-box">
+    <span>送れる相手：</span>
+    <span class="role-badge rb-sotsu">退任委員</span>
+    <span style="font-size:13px;align-self:center">&#8594; 新任委員・委員から送れます</span>
+  </div>
+  <div class="role-box">
+    <span class="role-badge rb-shinnin">新任委員</span>
+    <span style="font-size:13px;align-self:center">&#8594; 退任委員・委員から送れます</span>
+  </div>
+
+  <hr class="divider">
+
+  <div class="step">
+    <span class="step-num">1</span>
+    <div class="step-body">トップ画面から、寄せ書きを送りたい委員のカードをタップします。</div>
+  </div>
+  <div class="step">
+    <span class="step-num">2</span>
+    <div class="step-body">色紙画面が開きます。下部のメッセージ入力欄にメッセージを入力します。</div>
+  </div>
+  <div class="step">
+    <span class="step-num">3</span>
+    <div class="step-body"><span class="btn-sample btn-blue-s">送る</span> を押すと付箋として色紙に追加されます。</div>
+  </div>
+  <div class="tip"><b>&#128161; ヒント：</b>1人の委員へ送れるメッセージは1件のみです。送信後に編集・削除することもできます（次のページ参照）。</div>
+</div>
+
+<!-- メッセージの編集・削除 -->
+<div class="section">
+  <div class="section-title"><span class="section-num">3</span>メッセージの編集・削除</div>
+  <div class="step">
+    <span class="step-num">1</span>
+    <div class="step-body">寄せ書き画面を開くと、自分が送った付箋に <span class="btn-sample btn-outline-s">編集</span> <span class="btn-sample" style="background:rgba(231,76,60,.15);color:#c0392b;border:none">削除</span> ボタンが表示されます。</div>
+  </div>
+  <div class="step">
+    <span class="step-num">2</span>
+    <div class="step-body"><b>編集</b>する場合：<span class="btn-sample btn-outline-s">編集</span> を押すと編集欄が開きます。内容を修正して <span class="btn-sample btn-blue-s">更新する</span> を押します。</div>
+  </div>
+  <div class="step">
+    <span class="step-num">3</span>
+    <div class="step-body"><b>削除</b>する場合：<span class="btn-sample" style="background:rgba(231,76,60,.15);color:#c0392b;border:none">削除</span> を押して確認ダイアログで「OK」を押します。削除後は再投稿できます。</div>
+  </div>
+  <div class="warn"><b>&#9888; 注意：</b>削除したメッセージは元に戻せません。</div>
+</div>
+
+<!-- 自分への寄せ書きを見る -->
+<div class="section">
+  <div class="section-title"><span class="section-num">4</span>自分への寄せ書きを見る</div>
+  <div class="role-box">
+    <span style="font-size:13px">この機能を使えるのは</span>
+    <span class="role-badge rb-sotsu">退任委員</span>
+    <span class="role-badge rb-shinnin">新任委員</span>
+    <span style="font-size:13px;align-self:center">のみです</span>
+  </div>
+  <div class="step">
+    <span class="step-num">1</span>
+    <div class="step-body">トップ画面の「&#128140; 自分への寄せ書きを見る」セクションに自分のカードが表示されます。</div>
+  </div>
+  <div class="step">
+    <span class="step-num">2</span>
+    <div class="step-body">カードをタップすると、みんなから届いた寄せ書きを色紙風に見ることができます。</div>
+  </div>
+  <div class="step">
+    <span class="step-num">3</span>
+    <div class="step-body"><span class="btn-sample btn-red-s">&#128196; PDFでダウンロード</span> を押すと印刷用のファイルが開きます。印刷ダイアログで「PDFとして保存」を選ぶとPDF保存できます。</div>
+  </div>
+  <div class="tip"><b>&#128161; ヒント：</b>メッセージが増えてから改めてPDFを保存するとより多くのメッセージを印刷できます。</div>
+</div>
+
+<!-- パスワード変更 -->
+<div class="section">
+  <div class="section-title"><span class="section-num">5</span>パスワードの変更</div>
+  <div class="step">
+    <span class="step-num">1</span>
+    <div class="step-body">トップ画面の <span class="btn-sample btn-gray-s">&#128274; パスワード変更</span> を押します。</div>
+  </div>
+  <div class="step">
+    <span class="step-num">2</span>
+    <div class="step-body">現在のパスワード・新しいパスワード（2回）を入力して <span class="btn-sample btn-blue-s">変更する</span> を押します。</div>
+  </div>
+  <div class="tip"><b>&#128161; ヒント：</b>パスワードは4文字以上で設定してください。忘れた場合は管理者にリセットを依頼してください。</div>
+</div>
+
+<!-- よくある質問 -->
+<div class="section">
+  <div class="section-title"><span class="section-num">6</span>よくある質問</div>
+  <div class="faq-q">&#10067; ログインできません</div>
+  <div class="faq-a">IDとパスワードを確認してください。パスワードを変更済みの場合は新しいパスワードでログインしてください。それでもログインできない場合は管理者にお問い合わせください。</div>
+  <div class="faq-q">&#10067; 自分のメッセージが見当たりません</div>
+  <div class="faq-a">送った相手のカードをタップして色紙画面を開いてください。自分のメッセージには「編集」「削除」ボタンが表示されます。</div>
+  <div class="faq-q">&#10067; 同じ人に2件目のメッセージを送れません</div>
+  <div class="faq-a">1人の委員に送れるメッセージは1件のみです。内容を変えたい場合は「編集」ボタンをご利用ください。</div>
+  <div class="faq-q">&#10067; PDFボタンが表示されません</div>
+  <div class="faq-a">PDFダウンロードは退任委員・新任委員のみ利用できます。委員（一般）の方はご利用いただけません。</div>
+  <div class="faq-q">&#10067; パスワードを忘れました</div>
+  <div class="faq-a">管理者にパスワードのリセットを依頼してください。リセット後、ログインしてパスワードを変更することをおすすめします。</div>
+</div>
+
+<button class="print-btn" onclick="window.print()">&#128438; 印刷する</button>
+<button class="back-btn" onclick="history.back()">&#8592; アプリに戻る</button>
+
+</div>
+</body>
+</html>
