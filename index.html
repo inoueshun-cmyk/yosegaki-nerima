@@ -589,6 +589,34 @@ function addMember(){
 }
 
 fbGet('members/admin',function(data){if(!data){fbSet('members/admin',{key:'admin',name:'管理者',role:'admin',id:'admin',pw:'admin2025'});}});
+
+// 大野さんの追加と在任期間の自動書き込み
+var yearsData={
+  hosokawa:'8年',okamura:'10年',sekiguchi:'10年',ise:'10年',matsudaira:'10年',
+  sakamoto:'2年',okubo:'8年',kanasaki:'2年',ikedo_t:'2年',narumi:'10年',
+  taguchi:'1年',ikeda:'10年',takeuchi:'7年',ikedo_n:'2年',iida:'8年',
+  shindo:'10年',watanabe_f:'4年',noda:'10年',nose:'8年',matsunaga:'7年',
+  uchibori:'8年',onomi:'7年'
+};
+
+fbGet('members',function(data){
+  if(!data)return;
+  var ks=Object.keys(data);
+  // 在任期間の書き込み
+  for(var i=0;i<ks.length;i++){
+    var k=ks[i],v=data[k];
+    if(v.role==='sotsu'&&yearsData[v.id]&&v.years!==yearsData[v.id]){
+      fbSet('members/'+k+'/years',yearsData[v.id],null);
+    }
+  }
+  // 大野さんが未登録なら追加
+  var onomiExists=false;
+  for(var i=0;i<ks.length;i++){if(data[ks[i]].id==='onomi'){onomiExists=true;break;}}
+  if(!onomiExists){
+    var k='u_onomi';
+    fbSet('members/'+k,{key:k,name:'大野身和子',role:'sotsu',id:'onomi',pw:'0000',years:'7年'},null);
+  }
+});
 </script>
 </body>
 </html>
