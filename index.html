@@ -89,11 +89,13 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
     <button class="btn-login" id="loginBtn">ログイン</button>
     <div class="err" id="loginErr"></div>
     <a href="/manual.html" target="_blank" style="display:block;margin-top:16px;font-size:12px;color:#667eea;text-decoration:none">&#128214; 使い方ガイドを見る</a>
+    <div style="margin-top:14px;font-size:11px;color:#bbb">&#128337; 利用期限：2026年8月31日</div>
   </div>
 </div>
 
 <div id="topScreen" class="screen">
   <div class="hdr"><h2>&#127800; 寄せ書きアプリ</h2><p>練馬区青少年委員会</p><div class="rbadge" id="roleBadge"></div></div>
+  <div style="text-align:center;font-size:12px;color:#aaa;margin:-16px 0 20px">&#128337; 利用期限：2026年8月31日</div>
   <div id="sotsuSection" style="display:none"><div class="stitle">&#128238; 退任委員への寄せ書き</div><div class="mgrid" id="sotsuGrid"></div></div>
   <div id="shinninSection" style="display:none"><div class="stitle">&#127807; 新任委員への寄せ書き</div><div class="mgrid" id="shinninGrid"></div></div>
   <div id="mySection" style="display:none"><div class="stitle">&#128140; 自分への寄せ書きを見る</div><div class="mgrid" id="myGrid"></div></div>
@@ -212,10 +214,12 @@ function fbDel(path,cb){var x=new XMLHttpRequest();x.open('DELETE',DB+'/'+path+'
 
 function cardHTML(key){
   var m=members[key];
+  var nensu=(m.role==='sotsu'&&m.years)?'<div class="mcnt" style="color:#c0392b">在任'+m.years+'</div>':'';
   return '<div class="mcard" data-key="'+key+'">'
     +'<div class="ava '+ac(m.role)+'">'+m.name.charAt(0)+'</div>'
     +'<h3>'+m.name+'</h3>'
     +'<span class="tbadge '+bc(m.role)+'">'+rl(m.role)+'</span>'
+    +nensu
     +'<div class="mcnt">'+mc(key)+'件のメッセージ</div>'
     +'</div>';
 }
@@ -267,7 +271,8 @@ function openY(tk){
     var msgs=data||{};messages[tk]=msgs;
     var t=members[tk];
     g('yoseTitle').textContent=t.name+'さんへの寄せ書き';
-    g('shtitle').innerHTML='&#127800; '+t.name+' さんへ &#127800;';
+    var yearsStr=t.years?'<span style="font-size:13px;color:#c0392b;margin-left:8px">在任'+t.years+'</span>':'';
+    g('shtitle').innerHTML='&#127800; '+t.name+' さんへ &#127800;'+yearsStr;
     renderFusen(msgs);
     var canPdf=cu.role==='sotsu'||cu.role==='shinnin'||cu.role==='admin';
     g('pdfBtn').style.display=canPdf?'block':'none';
@@ -346,8 +351,14 @@ function delMsgUser(mk){
 function sendMsg(){
   var msg=g('msgInput').value.trim();
   if(!msg){alert('メッセージを入力してください');return;}
+  // 送信中フラグで二重送信防止
+  if(g('sendBtn').getAttribute('data-sending')==='1')return;
+  g('sendBtn').setAttribute('data-sending','1');
   g('sendBtn').disabled=true;g('sendBtn').textContent='送信中...';
-  fbPush('messages/'+ct,{msg:msg,fromKey:cu.key,fromName:cu.name,ts:Date.now()},function(){openY(ct);});
+  fbPush('messages/'+ct,{msg:msg,fromKey:cu.key,fromName:cu.name,ts:Date.now()},function(){
+    g('sendBtn').removeAttribute('data-sending');
+    openY(ct);
+  });
 }
 
 function downloadPDF(){
@@ -431,19 +442,31 @@ function renderAdminMemberList(){
   var ks=Object.keys(members),h='';
   for(var i=0;i<ks.length;i++){
     var k=ks[i],v=members[k];
-    h+='<div class="mrow"><span>'+v.name+' <span class="tbadge '+bc(v.role)+'">'+rl(v.role)+'</span></span>'
+    h+='<div class="mrow"><span>'+v.name+' <span class="tbadge '+bc(v.role)+'">'+rl(v.role)+'</span>'+(v.role==='sotsu'&&v.years?'<span style="font-size:11px;color:#c0392b;margin-left:4px">在任'+v.years+'</span>':'')+'</span>'
       +'<span style="color:#aaa;font-size:12px">ID:'+v.id+'</span>'
+      +'<div style="display:flex;gap:4px">'
+      +(v.role==='sotsu'?'<button class="btn-edit2" data-key="'+k+'">在任期間</button>':'')
       +(k!=='admin'?'<button class="btn-del" data-key="'+k+'">削除</button>':'<span style="font-size:11px;color:#aaa">削除不可</span>')
-      +'</div>';
+      +'</div></div>';
   }
   g('adminMemberList').innerHTML=h;
-  var btns=g('adminMemberList').querySelectorAll('.btn-del');
-  for(var i=0;i<btns.length;i++){
+  var yearBtns=g('adminMemberList').querySelectorAll('.btn-edit2');
+  for(var i=0;i<yearBtns.length;i++){
+    (function(btn){btn.addEventListener('click',function(){
+      var k=btn.getAttribute('data-key'),m=members[k];
+      var val=prompt(m.name+'さんの在任期間を入力してください（例：10年）：',m.years||'');
+      if(val===null)return;
+      val=val.trim();
+      fbSet('members/'+k+'/years',val,function(){members[k].years=val;renderAdminMemberList();});
+    });})(yearBtns[i]);
+  }
+  var delBtns=g('adminMemberList').querySelectorAll('.btn-del');
+  for(var i=0;i<delBtns.length;i++){
     (function(btn){btn.addEventListener('click',function(){
       if(!confirm('この委員を削除しますか？'))return;
       var k=btn.getAttribute('data-key');
       fbDel('members/'+k,function(){fbDel('messages/'+k,function(){delete members[k];delete messages[k];renderAdminMemberList();renderAdminPwList();renderAdminMsgList();});});
-    });})(btns[i]);
+    });})(delBtns[i]);
   }
 }
 
