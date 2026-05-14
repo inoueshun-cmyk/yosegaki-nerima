@@ -28,7 +28,7 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 .ap{background:#f5576c}.ab{background:#4facfe}.ag{background:#43e97b}.agr{background:#a0a0a0}
 .mcard h3{font-size:13px;font-weight:700}
 .tbadge{display:inline-block;border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;margin-top:6px}
-.bs{background:#ffe4e4;color:#c0392b}.bn{background:#e4f0ff;color:#2471a3}.bg{background:#e8f8e8;color:#1e8449}
+.bs{background:#ffe4e4;color:#c0392b}.bn{background:#e4f0ff;color:#2471a3}.bg{background:#e8f8e8;color:#1e8449}.bj{background:#fef3e2;color:#b7660a}
 .mcnt{font-size:11px;color:#aaa;margin-top:4px}
 .btn-out{display:block;margin:16px auto 0;background:none;border:1.5px solid #ccc;border-radius:10px;padding:10px 30px;color:#888;font-size:13px;cursor:pointer}
 .yhdr{background:#667eea;color:#fff;padding:16px 20px;margin:-20px -20px 20px;display:flex;align-items:center;gap:12px;border-radius:0 0 24px 24px}
@@ -186,8 +186,8 @@ var cu=null,ct=null,members={},messages={},csvData=[],editingMsgKey=null;
 
 function g(id){return document.getElementById(id);}
 function ss(id){var s=document.querySelectorAll('.screen');for(var i=0;i<s.length;i++)s[i].classList.remove('active');g(id).classList.add('active');}
-function rl(r){return {sotsu:'退任委員',shinnin:'新任委員',geneki:'委員',admin:'管理者'}[r]||r;}
-function bc(r){return r==='sotsu'?'bs':r==='shinnin'?'bn':'bg';}
+function rl(r){return {sotsu:'退任委員',shinnin:'新任委員',geneki:'委員',jimukyoku:'事務局',admin:'管理者'}[r]||r;}
+function bc(r){return r==='sotsu'?'bs':r==='shinnin'?'bn':r==='jimukyoku'?'bj':'bg';}
 function ac(r){return r==='sotsu'?'ap':r==='shinnin'?'ab':r==='admin'?'agr':'ag';}
 function mc(k){return messages[k]?Object.keys(messages[k]).length:0;}
 function parseRole(s){
@@ -195,14 +195,15 @@ function parseRole(s){
   if(s==='sotsu'||s==='退任委員')return 'sotsu';
   if(s==='shinnin'||s==='新任委員')return 'shinnin';
   if(s==='geneki'||s==='委員')return 'geneki';
+  if(s==='jimukyoku'||s==='事務局')return 'jimukyoku';
   return null;
 }
 function cw(tk){
   var t=members[tk];
   if(!t||cu.key===tk)return false;
   if(cu.role==='admin')return true;
-  if(t.role==='sotsu')return cu.role==='geneki'||cu.role==='shinnin'||cu.role==='sotsu';
-  if(t.role==='shinnin')return cu.role==='sotsu'||cu.role==='geneki'||cu.role==='shinnin';
+  if(t.role==='sotsu')return cu.role==='geneki'||cu.role==='shinnin'||cu.role==='sotsu'||cu.role==='jimukyoku';
+  if(t.role==='shinnin')return cu.role==='sotsu'||cu.role==='geneki'||cu.role==='shinnin'||cu.role==='jimukyoku';
   return false;
 }
 function canEditMsg(msg){return cu.role==='admin'||msg.fromKey===cu.key;}
@@ -247,8 +248,8 @@ function renderTop(){
     if(members[ks[i]].role==='sotsu')so.push(ks[i]);
     if(members[ks[i]].role==='shinnin')sh.push(ks[i]);
   }
-  var cSo=cu.role==='geneki'||cu.role==='shinnin'||cu.role==='admin'||cu.role==='sotsu';
-  var cSh=cu.role==='sotsu'||cu.role==='geneki'||cu.role==='admin'||cu.role==='shinnin';
+  var cSo=cu.role==='geneki'||cu.role==='shinnin'||cu.role==='admin'||cu.role==='sotsu'||cu.role==='jimukyoku';
+  var cSh=cu.role==='sotsu'||cu.role==='geneki'||cu.role==='admin'||cu.role==='shinnin'||cu.role==='jimukyoku';
   g('sotsuSection').style.display=cSo&&so.length?'block':'none';
   g('shinninSection').style.display=cSh&&sh.length?'block':'none';
   var sh2='';for(var i=0;i<so.length;i++)sh2+=cardHTML(so[i]);g('sotsuGrid').innerHTML=sh2;
@@ -605,7 +606,26 @@ function addMember(){
 
 fbGet('members/admin',function(data){if(!data){fbSet('members/admin',{key:'admin',name:'管理者',role:'admin',id:'admin',pw:'admin2025'});}});
 
-// 大野さんの追加と在任期間の自動書き込み
+// 事務局5名の自動登録
+var jimukyokuList=[
+  {key:'u_madzuru',name:'眞鶴勇登',id:'madzuru',pw:'0000'},
+  {key:'u_sano',name:'佐野貴大',id:'sano',pw:'0000'},
+  {key:'u_konno',name:'今野慎也',id:'konno',pw:'0000'},
+  {key:'u_watanabe_s',name:'渡邉駿',id:'watanabe_s',pw:'0000'},
+  {key:'u_kohinata',name:'小日向いずみ',id:'kohinata',pw:'0000'},
+  {key:'u_tachikawa',name:'立川順次',id:'tachikawa',pw:'0000'}
+];
+fbGet('members',function(data){
+  if(!data)return;
+  var ks=Object.keys(data);
+  for(var i=0;i<jimukyokuList.length;i++){
+    (function(m){
+      var exists=false;
+      for(var j=0;j<ks.length;j++){if(data[ks[j]].id===m.id){exists=true;break;}}
+      if(!exists){fbSet('members/'+m.key,{key:m.key,name:m.name,role:'jimukyoku',id:m.id,pw:m.pw},null);}
+    })(jimukyokuList[i]);
+  }
+});
 var yearsData={
   hosokawa:'8年',okamura:'10年',sekiguchi:'10年',ise:'10年',matsudaira:'10年',
   sakamoto:'2年',okubo:'8年',kanasaki:'2年',ikedo_t:'2年',narumi:'10年',
