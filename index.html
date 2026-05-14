@@ -3,179 +3,241 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
-<title>寄せ書きアプリ｜練馬区青少年委員会</title>
+<title>RELAY — 言葉のバトン</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#333;overflow-x:hidden}
-.screen{display:none;min-height:100vh;padding:20px;max-width:100vw}
+:root{--gold:#C9A84C;--gold-dim:rgba(201,168,76,.4);--gold-bg:rgba(201,168,76,.04);--white:#fff;--black:#0a0a0a;--surface:rgba(255,255,255,.03);--border:rgba(255,255,255,.06);--border-md:rgba(255,255,255,.12);--text-muted:rgba(255,255,255,.3);--text-dim:rgba(255,255,255,.5)}
+body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:var(--black);color:#fff;min-height:100vh;overflow-x:hidden}
+.screen{display:none;min-height:100vh;padding:0 20px 40px}
 .screen.active{display:block}
-#loginScreen.active{display:flex;align-items:center;justify-content:center;background:#764ba2;min-height:100vh}
-.login-box{background:#fff;border-radius:16px;padding:40px;width:100%;max-width:380px;text-align:center}
-.login-box h1{font-size:18px;font-weight:700;color:#4a3f8f;margin-bottom:6px}
-.login-box p{font-size:12px;color:#888;margin-bottom:24px}
-.inp{width:100%;padding:12px 16px;border:1.5px solid #ddd;border-radius:10px;font-size:14px;margin-bottom:12px;outline:none;display:block}
-.btn-login{width:100%;padding:13px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;display:block}
-.err{color:#e74c3c;font-size:12px;margin-top:8px}
-.hdr{background:#667eea;color:#fff;padding:20px;text-align:center;border-radius:0 0 24px 24px;margin:-20px -20px 24px}
-.hdr h2{font-size:20px;font-weight:700}
-.hdr p{font-size:12px;opacity:.85}
-.rbadge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:12px;margin-top:8px}
-.stitle{font-size:14px;font-weight:700;color:#555;margin-bottom:14px}
-.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:24px}
-.mcard{background:#fff;border-radius:14px;padding:16px;text-align:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.07)}
-.mcard:hover{box-shadow:0 6px 18px rgba(0,0,0,.13)}
-.ava{width:54px;height:54px;border-radius:50%;margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#fff}
-.ap{background:#f5576c}.ab{background:#4facfe}.ag{background:#43e97b}.agr{background:#a0a0a0}
-.mcard h3{font-size:13px;font-weight:700}
-.tbadge{display:inline-block;border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;margin-top:6px}
-.bs{background:#ffe4e4;color:#c0392b}.bn{background:#e4f0ff;color:#2471a3}.bg{background:#e8f8e8;color:#1e8449}.bj{background:#fef3e2;color:#b7660a}
-.mcnt{font-size:11px;color:#aaa;margin-top:4px}
-.btn-out{display:block;margin:16px auto 0;background:none;border:1.5px solid #ccc;border-radius:10px;padding:10px 30px;color:#888;font-size:13px;cursor:pointer}
-.yhdr{background:#667eea;color:#fff;padding:16px 20px;margin:-20px -20px 20px;display:flex;align-items:center;gap:12px;border-radius:0 0 24px 24px}
-.btn-bk{background:rgba(255,255,255,.25);border:none;color:#fff;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer}
-.yhdr h2{font-size:16px;font-weight:700}
-.shikishi{background:#fff9e6;border:3px solid #d4a017;border-radius:16px;padding:24px;min-height:180px;margin-bottom:14px}
-.shtitle{text-align:center;font-size:15px;font-weight:700;color:#8b6914;margin-bottom:18px;padding-bottom:10px;border-bottom:2px dashed #d4a017}
-.fgrid{display:flex;flex-wrap:wrap;gap:12px}
-.fusen{border-radius:4px;padding:12px;min-width:110px;max-width:150px;font-size:12px;line-height:1.5;box-shadow:2px 3px 8px rgba(0,0,0,.12)}
+#loginScreen.active{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px}
+
+/* LOGIN */
+.login-inner{width:100%;max-width:360px}
+.app-type{font-size:10px;letter-spacing:3px;color:rgba(255,255,255,.2);text-transform:uppercase;margin-bottom:24px;padding-bottom:16px;border-bottom:0.5px solid var(--border)}
+.brand{font-size:36px;font-weight:300;letter-spacing:8px;color:#fff;line-height:1}
+.brand-sub{font-size:11px;letter-spacing:3px;color:var(--gold);margin-top:6px;text-transform:uppercase}
+.brand-tagline{font-size:12px;color:var(--text-muted);margin-top:6px;letter-spacing:.5px}
+.fields{margin-top:32px}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:6px;text-transform:uppercase}
+.field input{width:100%;background:rgba(255,255,255,.05);border:0.5px solid var(--border-md);border-radius:4px;padding:12px 14px;color:#fff;font-size:14px;font-family:inherit;outline:none;transition:border .2s}
+.field input:focus{border-color:var(--gold)}
+.btn-primary{width:100%;padding:14px;background:var(--gold);color:#000;border:none;border-radius:4px;font-size:13px;font-weight:500;letter-spacing:1.5px;cursor:pointer;font-family:inherit;margin-top:8px;text-transform:uppercase}
+.login-footer{display:flex;justify-content:space-between;margin-top:16px;font-size:11px;color:rgba(255,255,255,.2);letter-spacing:.5px}
+.login-footer a{color:rgba(201,168,76,.6);text-decoration:none;font-size:11px}
+.err{color:#E74C3C;font-size:11px;margin-top:8px;letter-spacing:.5px}
+
+/* TOP */
+.top-hdr{padding:40px 0 24px;border-bottom:0.5px solid var(--border);margin-bottom:24px}
+.relay-badge{font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+.greeting{font-size:11px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px}
+.user-name{font-size:24px;font-weight:300;letter-spacing:2px;color:#fff}
+.role-pill{display:inline-block;margin-top:10px;padding:3px 12px;border:0.5px solid var(--gold-dim);border-radius:20px;font-size:10px;letter-spacing:1.5px;color:var(--gold)}
+.section-label{font-size:10px;letter-spacing:3px;color:var(--text-muted);text-transform:uppercase;margin:24px 0 12px;padding-bottom:8px;border-bottom:0.5px solid var(--border)}
+.mcard{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--surface);border:0.5px solid var(--border);border-radius:6px;margin-bottom:8px;cursor:pointer;transition:background .15s,border .15s}
+.mcard:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1)}
+.mcard-ava{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;flex-shrink:0}
+.ava-red{background:rgba(192,57,43,.15);color:#E74C3C;border:0.5px solid rgba(192,57,43,.3)}
+.ava-blue{background:rgba(36,113,163,.15);color:#3498DB;border:0.5px solid rgba(36,113,163,.3)}
+.ava-green{background:rgba(30,132,73,.15);color:#27AE60;border:0.5px solid rgba(30,132,73,.3)}
+.ava-orange{background:rgba(183,102,10,.15);color:#E67E22;border:0.5px solid rgba(183,102,10,.3)}
+.ava-gray{background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);border:0.5px solid var(--border-md)}
+.mcard-info{flex:1;min-width:0}
+.mcard-name{font-size:14px;font-weight:400;color:#fff;letter-spacing:.3px}
+.mcard-meta{font-size:11px;color:var(--text-muted);margin-top:2px;letter-spacing:.3px}
+.mcard-badge{font-size:10px;padding:2px 8px;border-radius:20px;letter-spacing:.5px;flex-shrink:0;white-space:nowrap}
+.badge-red{background:rgba(192,57,43,.15);color:#E74C3C;border:0.5px solid rgba(192,57,43,.25)}
+.badge-blue{background:rgba(36,113,163,.15);color:#3498DB;border:0.5px solid rgba(36,113,163,.25)}
+.badge-green{background:rgba(30,132,73,.15);color:#27AE60;border:0.5px solid rgba(30,132,73,.25)}
+.badge-orange{background:rgba(183,102,10,.15);color:#E67E22;border:0.5px solid rgba(183,102,10,.25)}
+.badge-gray{background:rgba(255,255,255,.06);color:rgba(255,255,255,.4);border:0.5px solid var(--border-md)}
+.bottom-btns{display:flex;gap:8px;margin-top:28px}
+.btn-sub{flex:1;padding:12px;border-radius:4px;font-size:11px;letter-spacing:1px;cursor:pointer;font-family:inherit;text-align:center;text-transform:uppercase}
+.btn-outline{background:transparent;border:0.5px solid var(--border-md);color:var(--text-dim)}
+.btn-gold-outline{background:transparent;border:0.5px solid var(--gold-dim);color:var(--gold)}
+.btn-admin{width:100%;padding:12px;background:transparent;border:0.5px solid var(--border-md);color:var(--text-dim);border-radius:4px;font-size:11px;letter-spacing:1.5px;cursor:pointer;font-family:inherit;text-transform:uppercase;margin-top:8px}
+
+/* YOSEGAKI */
+.yose-hdr{padding:32px 0 20px;border-bottom:0.5px solid var(--border);margin-bottom:20px}
+.back-btn{font-size:11px;letter-spacing:1.5px;color:var(--text-muted);cursor:pointer;margin-bottom:14px;display:inline-block;background:none;border:none;color:var(--text-muted);font-family:inherit;padding:0}
+.yose-name{font-size:22px;font-weight:300;letter-spacing:3px;color:#fff}
+.yose-sub{font-size:11px;color:var(--gold);letter-spacing:2px;margin-top:6px;text-transform:uppercase}
+.shikishi{background:var(--gold-bg);border:0.5px solid var(--gold-dim);border-radius:8px;padding:20px;margin-bottom:14px}
+.shikishi-title{text-align:center;font-size:11px;letter-spacing:3px;color:var(--gold);margin-bottom:16px;padding-bottom:12px;border-bottom:0.5px dashed rgba(201,168,76,.3);text-transform:uppercase}
+.fgrid{display:flex;flex-wrap:wrap;gap:10px}
+.fusen{border-radius:3px;padding:10px 12px;min-width:100px;max-width:140px;font-size:11px;line-height:1.6;box-shadow:none}
 .fusen-msg{margin-bottom:4px}
-.ffrom{font-size:10px;font-weight:700;margin-top:4px;opacity:.75;text-align:right}
+.ffrom{font-size:9px;margin-top:6px;opacity:.6;text-align:right;letter-spacing:.5px}
 .fusen-btns{display:flex;gap:4px;margin-top:6px;justify-content:flex-end}
-.fbtn{border:none;border-radius:4px;padding:2px 7px;font-size:10px;cursor:pointer;font-weight:700}
-.fbtn-edit{background:rgba(255,255,255,.7);color:#333}
-.fbtn-del{background:rgba(231,76,60,.15);color:#c0392b}
-.nomsg{text-align:center;padding:40px 20px;color:#b8a86a;font-size:13px}
-.wbox{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:14px}
-.wbox h3{font-size:14px;font-weight:700;margin-bottom:12px;color:#555}
-.wbox textarea{width:100%;height:90px;padding:12px;border:1.5px solid #ddd;border-radius:10px;font-size:13px;font-family:inherit;resize:vertical;outline:none;display:block}
-.btn-send{margin-top:10px;width:100%;padding:12px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;display:block}
-.btn-send:disabled{background:#ccc;cursor:default}
-.btn-pdf{margin-bottom:14px;width:100%;padding:12px;background:#f5576c;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;display:block}
-.edit-box{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.07);margin-bottom:14px;border:2px solid #667eea}
-.edit-box h3{font-size:14px;font-weight:700;margin-bottom:12px;color:#667eea}
-.edit-box textarea{width:100%;height:90px;padding:12px;border:1.5px solid #667eea;border-radius:10px;font-size:13px;font-family:inherit;resize:vertical;outline:none;display:block}
+.fbtn{border:none;border-radius:3px;padding:2px 7px;font-size:9px;cursor:pointer;font-weight:500;letter-spacing:.5px}
+.fbtn-edit{background:rgba(255,255,255,.2);color:#fff}
+.fbtn-del{background:rgba(231,76,60,.2);color:#E74C3C}
+.nomsg{text-align:center;padding:40px 20px;color:rgba(201,168,76,.3);font-size:12px;letter-spacing:1px}
+.btn-pdf{width:100%;padding:12px;background:transparent;border:0.5px solid var(--gold-dim);color:var(--gold);border-radius:4px;font-size:11px;letter-spacing:1.5px;cursor:pointer;font-family:inherit;margin-bottom:12px;text-transform:uppercase}
+.wbox{background:var(--surface);border:0.5px solid var(--border);border-radius:6px;padding:16px;margin-top:12px}
+.wbox-label{font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:10px;text-transform:uppercase}
+.wbox textarea{width:100%;background:transparent;border:none;color:#fff;font-size:13px;font-family:inherit;resize:none;outline:none;line-height:1.7;height:80px}
+.wbox textarea::placeholder{color:var(--text-muted)}
+.btn-send{width:100%;padding:12px;background:var(--gold);color:#000;border:none;border-radius:4px;font-size:12px;font-weight:500;letter-spacing:1.5px;cursor:pointer;font-family:inherit;margin-top:10px;text-transform:uppercase}
+.btn-send:disabled{background:rgba(201,168,76,.3);cursor:default;color:rgba(0,0,0,.4)}
+.edit-box{background:var(--surface);border:0.5px solid var(--gold-dim);border-radius:6px;padding:16px;margin-bottom:12px}
+.edit-label{font-size:10px;letter-spacing:2px;color:var(--gold);margin-bottom:10px;text-transform:uppercase}
+.edit-box textarea{width:100%;background:transparent;border:none;color:#fff;font-size:13px;font-family:inherit;resize:none;outline:none;line-height:1.7;height:80px}
 .edit-btns{display:flex;gap:8px;margin-top:10px}
-.btn-update{flex:1;padding:12px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
-.btn-cancel{flex:1;padding:12px;background:#aaa;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
-.ahdr{background:#2d3748;color:#fff;padding:16px 20px;margin:-20px -20px 20px;border-radius:0 0 24px 24px}
-.ahdr h2{font-size:18px;font-weight:700}
-.asec{background:#fff;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.asec h3{font-size:14px;font-weight:700;margin-bottom:12px;color:#444;padding-bottom:8px;border-bottom:1px solid #eee}
+.btn-update{flex:1;padding:11px;background:var(--gold);color:#000;border:none;border-radius:4px;font-size:11px;font-weight:500;letter-spacing:1px;cursor:pointer;text-transform:uppercase}
+.btn-cancel-edit{flex:1;padding:11px;background:transparent;border:0.5px solid var(--border-md);color:var(--text-dim);border-radius:4px;font-size:11px;letter-spacing:1px;cursor:pointer;font-family:inherit;text-transform:uppercase}
+
+/* PW SCREEN */
+.pw-hdr{padding:40px 0 24px;border-bottom:0.5px solid var(--border);margin-bottom:24px}
+.pw-hdr .title{font-size:22px;font-weight:300;letter-spacing:3px;color:#fff}
+.pw-hdr .sub{font-size:11px;color:var(--gold);letter-spacing:2px;margin-top:6px;text-transform:uppercase}
+
+/* ADMIN */
+.admin-hdr{padding:32px 0 20px;border-bottom:0.5px solid var(--border);margin-bottom:20px}
+.admin-hdr .title{font-size:22px;font-weight:300;letter-spacing:3px;color:#fff}
+.admin-hdr .sub{font-size:10px;color:var(--gold);letter-spacing:2px;margin-top:6px;text-transform:uppercase}
+.asec{background:var(--surface);border:0.5px solid var(--border);border-radius:6px;padding:18px;margin-bottom:14px}
+.asec-title{font-size:10px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:14px;padding-bottom:8px;border-bottom:0.5px solid var(--border)}
 .frow{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-.frow input,.frow select{flex:1;min-width:100px;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:13px;font-family:inherit;outline:none}
-.btn-add{padding:10px 18px;background:#667eea;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
-.btn-green{padding:10px 18px;background:#27ae60;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;margin-top:10px}
-.mrow{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f0f0f0;font-size:13px;gap:8px;flex-wrap:wrap}
+.frow input,.frow select{flex:1;min-width:100px;padding:10px 12px;background:rgba(255,255,255,.05);border:0.5px solid var(--border-md);border-radius:4px;font-size:13px;font-family:inherit;outline:none;color:#fff}
+.frow select option{background:#1a1a1a;color:#fff}
+.btn-add{padding:10px 18px;background:var(--gold);color:#000;border:none;border-radius:4px;font-size:12px;font-weight:500;letter-spacing:.5px;cursor:pointer;white-space:nowrap}
+.btn-green{padding:10px 18px;background:rgba(30,132,73,.8);color:#fff;border:none;border-radius:4px;font-size:12px;font-weight:500;cursor:pointer;margin-top:10px;letter-spacing:.5px}
+.mrow{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:0.5px solid var(--border);font-size:13px;gap:8px;flex-wrap:wrap;color:#fff}
 .mrow:last-child{border-bottom:none}
-.btn-del{background:none;border:1px solid #e74c3c;color:#e74c3c;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer}
-.btn-edit2{background:none;border:1px solid #667eea;color:#667eea;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer}
-.csv-area{border:2px dashed #ccc;border-radius:10px;padding:16px;text-align:center;cursor:pointer;margin-bottom:10px;font-size:13px;color:#888}
-.csv-preview{background:#f9f9f9;border-radius:8px;padding:12px;font-size:12px;margin-top:10px;max-height:200px;overflow-y:auto}
+.btn-del{background:none;border:0.5px solid rgba(231,76,60,.4);color:#E74C3C;border-radius:4px;padding:4px 10px;font-size:11px;cursor:pointer}
+.btn-edit2{background:none;border:0.5px solid var(--gold-dim);color:var(--gold);border-radius:4px;padding:4px 10px;font-size:11px;cursor:pointer}
+.hint-box{background:rgba(201,168,76,.06);border:0.5px solid var(--gold-dim);border-radius:4px;padding:10px 14px;font-size:11px;color:rgba(201,168,76,.7);line-height:1.8;margin-bottom:10px}
+.csv-area{border:0.5px dashed var(--border-md);border-radius:4px;padding:16px;text-align:center;cursor:pointer;margin-bottom:10px;font-size:12px;color:var(--text-muted);letter-spacing:.5px}
+.csv-preview{background:rgba(255,255,255,.03);border-radius:4px;padding:12px;font-size:12px;margin-top:10px;max-height:200px;overflow-y:auto}
 .csv-preview table{width:100%;border-collapse:collapse}
-.csv-preview th{background:#667eea;color:#fff;padding:6px 8px;font-size:11px;text-align:left}
-.csv-preview td{padding:5px 8px;border-bottom:1px solid #eee;font-size:11px}
-.hint-box{background:#f0f4ff;border-radius:8px;padding:10px 14px;font-size:11px;color:#555;line-height:1.8;margin-bottom:10px}
-.hint-box b{color:#4a3f8f}
-.loading{text-align:center;padding:40px;color:#aaa;font-size:13px}
+.csv-preview th{background:rgba(201,168,76,.15);color:var(--gold);padding:6px 8px;font-size:10px;text-align:left;letter-spacing:1px}
+.csv-preview td{padding:5px 8px;border-bottom:0.5px solid var(--border);font-size:11px;color:rgba(255,255,255,.7)}
+.back-to-top{display:block;margin:0 auto 20px;padding:12px 32px;background:transparent;border:0.5px solid var(--border-md);color:var(--text-dim);border-radius:4px;font-size:11px;letter-spacing:1.5px;cursor:pointer;font-family:inherit;text-transform:uppercase}
 </style>
 </head>
 <body>
 
+<!-- LOGIN -->
 <div id="loginScreen" class="screen active">
-  <div class="login-box">
-    <h1>&#127800; 寄せ書きアプリ</h1>
-    <p>練馬区青少年委員会</p>
-    <input class="inp" type="text" id="loginId" placeholder="ユーザーID" autocomplete="off">
-    <input class="inp" type="password" id="loginPw" placeholder="パスワード">
-    <button class="btn-login" id="loginBtn">ログイン</button>
-    <div class="err" id="loginErr"></div>
-    <a href="/manual.html" target="_blank" style="display:block;margin-top:16px;font-size:12px;color:#667eea;text-decoration:none">&#128214; 使い方ガイドを見る</a>
-    <div style="margin-top:14px;font-size:11px;color:#bbb">&#128337; 利用期限：2026年8月31日</div>
-  </div>
-</div>
-
-<div id="topScreen" class="screen">
-  <div class="hdr"><h2>&#127800; 寄せ書きアプリ</h2><p>練馬区青少年委員会</p><div class="rbadge" id="roleBadge"></div></div>
-  <div style="text-align:center;font-size:12px;color:#aaa;margin:-16px 0 20px">&#128337; 利用期限：2026年8月31日</div>
-  <div id="sotsuSection" style="display:none"><div class="stitle">&#128238; 退任委員への寄せ書き</div><div class="mgrid" id="sotsuGrid"></div></div>
-  <div id="shinninSection" style="display:none"><div class="stitle">&#127807; 新任委員への寄せ書き</div><div class="mgrid" id="shinninGrid"></div></div>
-  <div id="mySection" style="display:none"><div class="stitle">&#128140; 自分への寄せ書きを見る</div><div class="mgrid" id="myGrid"></div></div>
-  <div id="adminLink" style="display:none;text-align:center;margin-bottom:16px">
-    <button class="btn-add" id="adminMenuBtn" style="border-radius:10px;padding:12px 24px">&#9881; 管理者メニュー</button>
-  </div>
-  <div style="text-align:center;margin-top:12px">
-    <button class="btn-add" id="pwChangeBtn" style="background:#888;border-radius:10px;padding:10px 24px;font-size:13px">&#128274; パスワード変更</button>
-  </div>
-  <button class="btn-out" id="logoutBtn">ログアウト</button>
-</div>
-
-<div id="pwScreen" class="screen">
-  <div class="hdr"><h2>&#128274; パスワード変更</h2><p>練馬区青少年委員会</p></div>
-  <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:16px">
-    <p style="font-size:13px;color:#555;margin-bottom:16px">新しいパスワードを設定してください。</p>
-    <input class="inp" type="password" id="pwCurrent" placeholder="現在のパスワード">
-    <input class="inp" type="password" id="pwNew" placeholder="新しいパスワード">
-    <input class="inp" type="password" id="pwNew2" placeholder="新しいパスワード（確認）">
-    <button class="btn-login" id="pwChangeSubmit">変更する</button>
-    <div class="err" id="pwErr"></div>
-    <div style="color:#27ae60;font-size:12px;margin-top:8px" id="pwOk"></div>
-  </div>
-  <button class="btn-out" id="pwBackBtn">&#8592; トップへ戻る</button>
-</div>
-
-<div id="yosegakiScreen" class="screen">
-  <div class="yhdr"><button class="btn-bk" id="backBtn">&#8592; 戻る</button><h2 id="yoseTitle"></h2></div>
-  <div class="shikishi">
-    <div class="shtitle" id="shtitle"></div>
-    <div class="fgrid" id="fusenGrid"></div>
-    <div class="nomsg" id="noMsg" style="display:none">まだメッセージがありません</div>
-  </div>
-  <button class="btn-pdf" id="pdfBtn" style="display:none">&#128196; 印刷／PDF保存</button>
-  <div class="edit-box" id="editBox" style="display:none">
-    <h3>&#9997; メッセージを編集</h3>
-    <textarea id="editInput"></textarea>
-    <div class="edit-btns">
-      <button class="btn-update" id="updateBtn">更新する</button>
-      <button class="btn-cancel" id="cancelEditBtn">キャンセル</button>
+  <div class="login-inner">
+    <div class="app-type">寄せ書きアプリ &nbsp;/&nbsp; 練馬区青少年委員会</div>
+    <div class="brand">RELAY</div>
+    <div class="brand-sub">言葉のバトン</div>
+    <div class="brand-tagline">退任委員・新任委員へ想いを届ける</div>
+    <div class="fields">
+      <div class="field"><label>User ID</label><input class="inp" type="text" id="loginId" placeholder="ユーザーIDを入力" autocomplete="off"></div>
+      <div class="field"><label>Password</label><input class="inp" type="password" id="loginPw" placeholder="パスワードを入力"></div>
+      <button class="btn-primary" id="loginBtn">SIGN IN</button>
+      <div class="err" id="loginErr"></div>
+    </div>
+    <div class="login-footer">
+      <a href="/manual.html" target="_blank">使い方ガイドを見る</a>
+      <span>利用期限 2026.08.31</span>
     </div>
   </div>
-  <div class="wbox" id="writeBox" style="display:none">
-    <h3 id="writeTitle"></h3>
-    <textarea id="msgInput" placeholder="メッセージを入力してください..."></textarea>
-    <button class="btn-send" id="sendBtn">送る &#128140;</button>
+</div>
+
+<!-- TOP -->
+<div id="topScreen" class="screen">
+  <div class="top-hdr">
+    <div class="relay-badge">RELAY — 言葉のバトン</div>
+    <div class="greeting">Welcome back</div>
+    <div class="user-name" id="userName"></div>
+    <div class="role-pill" id="roleBadge"></div>
+  </div>
+  <div style="font-size:11px;color:rgba(201,168,76,.3);letter-spacing:.5px;margin-bottom:20px;text-align:right">利用期限 2026.08.31</div>
+  <div id="sotsuSection" style="display:none"><div class="section-label">退任委員への寄せ書き</div><div id="sotsuGrid"></div></div>
+  <div id="shinninSection" style="display:none"><div class="section-label">新任委員への寄せ書き</div><div id="shinninGrid"></div></div>
+  <div id="mySection" style="display:none"><div class="section-label">自分への寄せ書き</div><div id="myGrid"></div></div>
+  <div id="adminLink" style="display:none"><button class="btn-admin" id="adminMenuBtn">ADMIN MENU</button></div>
+  <div class="bottom-btns">
+    <button class="btn-sub btn-gold-outline" id="pwChangeBtn">パスワード変更</button>
+    <button class="btn-sub btn-outline" id="logoutBtn">ログアウト</button>
   </div>
 </div>
 
-<div id="adminScreen" class="screen">
-  <div class="ahdr"><h2>&#9881; 管理者メニュー</h2></div>
+<!-- PW CHANGE -->
+<div id="pwScreen" class="screen">
+  <div class="pw-hdr">
+    <div class="title">PASSWORD</div>
+    <div class="sub">パスワード変更</div>
+  </div>
   <div class="asec">
-    <h3>&#128196; CSV一括登録</h3>
-    <div class="hint-box"><b>CSVフォーマット（1行目はヘッダー）：</b><br>名前,役割,ユーザーID,パスワード<br>田中花子,退任委員,tanaka,0000<br>佐藤次郎,新任委員,sato,0000<br>伊藤健太,委員,ito,0000<br><b>役割：</b>退任委員 / 新任委員 / 委員 / 事務局</div>
-    <div class="csv-area" id="csvArea">&#128196; クリックしてCSVファイルを選択<input type="file" id="csvFile" accept=".csv" style="display:none"></div>
+    <div class="asec-title">新しいパスワードを設定</div>
+    <div class="field"><label>現在のパスワード</label><input class="inp" type="password" id="pwCurrent" placeholder="Current password"></div>
+    <div class="field"><label>新しいパスワード</label><input class="inp" type="password" id="pwNew" placeholder="New password"></div>
+    <div class="field"><label>確認</label><input class="inp" type="password" id="pwNew2" placeholder="Confirm password"></div>
+    <button class="btn-primary" id="pwChangeSubmit">UPDATE</button>
+    <div class="err" id="pwErr"></div>
+    <div style="color:rgba(30,132,73,.8);font-size:11px;margin-top:8px;letter-spacing:.5px" id="pwOk"></div>
+  </div>
+  <button class="back-to-top" id="pwBackBtn">← トップへ戻る</button>
+</div>
+
+<!-- YOSEGAKI -->
+<div id="yosegakiScreen" class="screen">
+  <div class="yose-hdr">
+    <button class="back-btn" id="backBtn">← BACK</button>
+    <div class="yose-name" id="yoseTitle"></div>
+    <div class="yose-sub" id="yoseSub"></div>
+  </div>
+  <button class="btn-pdf" id="pdfBtn" style="display:none">PDF保存 / 印刷</button>
+  <div class="edit-box" id="editBox" style="display:none">
+    <div class="edit-label">Edit Message</div>
+    <textarea id="editInput"></textarea>
+    <div class="edit-btns">
+      <button class="btn-update" id="updateBtn">UPDATE</button>
+      <button class="btn-cancel-edit" id="cancelEditBtn">CANCEL</button>
+    </div>
+  </div>
+  <div class="shikishi">
+    <div class="shikishi-title" id="shtitle"></div>
+    <div class="fgrid" id="fusenGrid"></div>
+    <div class="nomsg" id="noMsg" style="display:none">— No messages yet —</div>
+  </div>
+  <div class="wbox" id="writeBox" style="display:none">
+    <div class="wbox-label">Your Message</div>
+    <textarea id="msgInput" placeholder="メッセージを入力してください..."></textarea>
+    <button class="btn-send" id="sendBtn">SEND</button>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="adminScreen" class="screen">
+  <div class="admin-hdr">
+    <div class="title">ADMIN</div>
+    <div class="sub">管理者メニュー</div>
+  </div>
+  <div class="asec">
+    <div class="asec-title">CSV一括登録</div>
+    <div class="hint-box">名前,役割,ユーザーID,パスワード<br>役割：退任委員 / 新任委員 / 委員 / 事務局</div>
+    <div class="csv-area" id="csvArea">クリックしてCSVファイルを選択<input type="file" id="csvFile" accept=".csv" style="display:none"></div>
     <div id="csvPreview" style="display:none">
       <div class="csv-preview" id="csvTable"></div>
       <div style="margin-top:10px;display:flex;gap:8px;align-items:center">
-        <button class="btn-green" id="importBtn">&#10003; この内容で登録する</button>
-        <button class="btn-add" id="clearCsvBtn" style="background:#aaa">キャンセル</button>
-        <span id="csvCount" style="font-size:12px;color:#555"></span>
+        <button class="btn-add" id="importBtn">登録する</button>
+        <button class="btn-sub btn-outline" id="clearCsvBtn" style="flex:none;padding:10px 14px;font-size:11px">キャンセル</button>
+        <span id="csvCount" style="font-size:11px;color:var(--text-muted)"></span>
       </div>
       <div class="err" id="csvErr"></div>
     </div>
   </div>
   <div class="asec">
-    <h3>&#9997; 手動で1件登録</h3>
+    <div class="asec-title">手動登録</div>
     <div class="frow"><input type="text" id="newName" placeholder="氏名"><select id="newRole"><option value="sotsu">退任委員</option><option value="shinnin">新任委員</option><option value="geneki">委員</option><option value="jimukyoku">事務局</option></select></div>
     <div class="frow"><input type="text" id="newId" placeholder="ユーザーID（半角英数）"><input type="password" id="newPw" placeholder="パスワード"><button class="btn-add" id="addMemberBtn">追加</button></div>
     <div class="err" id="addErr"></div>
   </div>
   <div class="asec">
-    <h3>登録済み委員一覧</h3>
+    <div class="asec-title">委員一覧</div>
     <div id="adminMemberList"></div>
-    <button class="btn-green" id="printIdBtn">&#128438; ログインID一覧を印刷</button>
+    <button class="btn-green" id="printIdBtn">ログインID一覧を印刷</button>
   </div>
-  <div class="asec"><h3>&#128274; パスワード管理</h3><div id="adminPwList"></div></div>
-  <div class="asec"><h3>メッセージ管理</h3><div id="adminMsgList"></div></div>
-  <button class="btn-add" id="backToTopBtn" style="background:#555;border-radius:10px;padding:12px 24px;display:block;margin:0 auto 20px">&#8592; トップへ戻る</button>
+  <div class="asec"><div class="asec-title">パスワード管理</div><div id="adminPwList"></div></div>
+  <div class="asec"><div class="asec-title">メッセージ管理</div><div id="adminMsgList"></div></div>
+  <button class="back-to-top" id="backToTopBtn">← トップへ戻る</button>
 </div>
 
 <script>
@@ -188,8 +250,8 @@ var cu=null,ct=null,members={},messages={},csvData=[],editingMsgKey=null;
 function g(id){return document.getElementById(id);}
 function ss(id){var s=document.querySelectorAll('.screen');for(var i=0;i<s.length;i++)s[i].classList.remove('active');g(id).classList.add('active');}
 function rl(r){return {sotsu:'退任委員',shinnin:'新任委員',geneki:'委員',jimukyoku:'事務局',admin:'管理者'}[r]||r;}
-function bc(r){return r==='sotsu'?'bs':r==='shinnin'?'bn':r==='jimukyoku'?'bj':'bg';}
-function ac(r){return r==='sotsu'?'ap':r==='shinnin'?'ab':r==='admin'?'agr':'ag';}
+function bc(r){return r==='sotsu'?'badge-red':r==='shinnin'?'badge-blue':r==='jimukyoku'?'badge-orange':'badge-green';}
+function ac(r){return r==='sotsu'?'ava-red':r==='shinnin'?'ava-blue':r==='jimukyoku'?'ava-orange':r==='admin'?'ava-gray':'ava-green';}
 function mc(k){return messages[k]?Object.keys(messages[k]).length:0;}
 function parseRole(s){
   s=s.trim();
@@ -216,13 +278,14 @@ function fbDel(path,cb){var x=new XMLHttpRequest();x.open('DELETE',DB+'/'+path+'
 
 function cardHTML(key){
   var m=members[key];
-  var nensu=(m.role==='sotsu'&&m.years)?'<div class="mcnt" style="color:#c0392b">在任'+m.years+'</div>':'';
+  var nensu=(m.role==='sotsu'&&m.years)?'在任'+m.years+' &nbsp;/&nbsp; ':'';
   return '<div class="mcard" data-key="'+key+'">'
-    +'<div class="ava '+ac(m.role)+'">'+m.name.charAt(0)+'</div>'
-    +'<h3>'+m.name+'</h3>'
-    +'<span class="tbadge '+bc(m.role)+'">'+rl(m.role)+'</span>'
-    +nensu
-    +'<div class="mcnt">'+mc(key)+'件のメッセージ</div>'
+    +'<div class="mcard-ava '+ac(m.role)+'">'+m.name.charAt(0)+'</div>'
+    +'<div class="mcard-info">'
+    +'<div class="mcard-name">'+m.name+'</div>'
+    +'<div class="mcard-meta">'+nensu+mc(key)+'件のメッセージ</div>'
+    +'</div>'
+    +'<span class="mcard-badge '+bc(m.role)+'">'+rl(m.role)+'</span>'
     +'</div>';
 }
 
@@ -237,7 +300,7 @@ function doLogin(){
   var id=g('loginId').value.trim(),pw=g('loginPw').value;
   g('loginErr').textContent='';
   if(!id||!pw){g('loginErr').textContent='IDとパスワードを入力してください';return;}
-  g('loginErr').textContent='ログイン中...';
+  g('loginErr').textContent='Loading...';
   fbGet('members',function(data){
     if(!data){g('loginErr').textContent='通信エラー。時間をおいて再試行してください';return;}
     members=data;
@@ -250,6 +313,7 @@ function doLogin(){
 }
 
 function renderTop(){
+  g('userName').textContent=cu.name;
   g('roleBadge').textContent=rl(cu.role);
   var ks=Object.keys(members),so=[],sh=[];
   for(var i=0;i<ks.length;i++){
@@ -269,38 +333,32 @@ function renderTop(){
   bindCards();
 }
 
-function showTop(){
-  fbGet('members',function(data){
-    members=data||{};
-    fbGet('messages',function(mdata){messages=mdata||{};renderTop();ss('topScreen');});
-  });
-}
+function showTop(){fbGet('members',function(data){members=data||{};fbGet('messages',function(mdata){messages=mdata||{};renderTop();ss('topScreen');});});}
 
 function openY(tk){
   ct=tk;cancelEdit();
   fbGet('messages/'+tk,function(data){
     var msgs=data||{};messages[tk]=msgs;
     var t=members[tk];
-    g('yoseTitle').textContent=t.name+'さんへの寄せ書き';
-    var yearsStr=t.years?'<span style="font-size:13px;color:#c0392b;margin-left:8px">在任'+t.years+'</span>':'';
-    g('shtitle').innerHTML='&#127800; '+t.name+' さんへ &#127800;'+yearsStr;
+    g('yoseTitle').textContent=t.name;
+    g('yoseSub').textContent=t.role==='sotsu'?'FAREWELL MESSAGE':'WELCOME MESSAGE';
+    var yearsStr=t.years?'<span style="font-size:11px;color:rgba(201,168,76,.6);margin-left:8px">在任'+t.years+'</span>':'';
+    g('shtitle').innerHTML='To '+t.name+yearsStr;
     renderFusen(msgs);
     var canPdf=(cu.role==='sotsu'||cu.role==='shinnin'||cu.role==='admin')&&(tk===cu.key||cu.role==='admin');
     g('pdfBtn').style.display=canPdf?'block':'none';
     if(cw(tk)){
-      var me=Object.keys(msgs);
-      var alr=false;
+      var me=Object.keys(msgs),alr=false;
       for(var i=0;i<me.length;i++){if(msgs[me[i]].fromKey===cu.key){alr=true;break;}}
       if(alr){g('writeBox').style.display='none';}
-      else{g('writeBox').style.display='block';g('writeTitle').textContent=t.name+'さんへメッセージを書く';g('msgInput').value='';g('sendBtn').disabled=false;g('sendBtn').textContent='送る &#128140;';}
+      else{g('writeBox').style.display='block';g('writeTitle')&&(g('writeTitle').textContent=t.name+'さんへ');g('msgInput').value='';g('sendBtn').disabled=false;g('sendBtn').textContent='SEND';}
     } else {g('writeBox').style.display='none';}
     ss('yosegakiScreen');
   });
 }
 
 function renderFusen(msgs){
-  var me=Object.keys(msgs);
-  var grid=g('fusenGrid');grid.innerHTML='';
+  var me=Object.keys(msgs),grid=g('fusenGrid');grid.innerHTML='';
   if(me.length===0){g('noMsg').style.display='block';return;}
   g('noMsg').style.display='none';
   for(var i=0;i<me.length;i++){
@@ -324,9 +382,7 @@ function renderFusen(msgs){
 function startEdit(mk,msg){editingMsgKey=mk;g('editInput').value=msg;g('editBox').style.display='block';g('editInput').focus();g('editBox').scrollIntoView({behavior:'smooth'});}
 function cancelEdit(){editingMsgKey=null;g('editBox').style.display='none';g('editInput').value='';}
 function updateMsg(){
-  var msg=g('editInput').value.trim();
-  if(!msg){alert('メッセージを入力してください');return;}
-  if(!editingMsgKey)return;
+  var msg=g('editInput').value.trim();if(!msg){alert('メッセージを入力してください');return;}if(!editingMsgKey)return;
   var old=messages[ct][editingMsgKey];
   var updated={msg:msg,fromKey:old.fromKey,fromName:old.fromName,ts:old.ts||0,edited:true};
   fbSet('messages/'+ct+'/'+editingMsgKey,updated,function(){messages[ct][editingMsgKey]=updated;cancelEdit();renderFusen(messages[ct]);});
@@ -335,21 +391,16 @@ function delMsgUser(mk){
   if(!confirm('このメッセージを削除しますか？'))return;
   fbDel('messages/'+ct+'/'+mk,function(){
     delete messages[ct][mk];renderFusen(messages[ct]);
-    if(cw(ct)){g('writeBox').style.display='block';g('writeTitle').textContent=members[ct].name+'さんへメッセージを書く';g('msgInput').value='';g('sendBtn').disabled=false;}
+    if(cw(ct)){g('writeBox').style.display='block';g('msgInput').value='';g('sendBtn').disabled=false;g('sendBtn').textContent='SEND';}
   });
 }
 function sendMsg(){
-  var msg=g('msgInput').value.trim();
-  if(!msg){alert('メッセージを入力してください');return;}
+  var msg=g('msgInput').value.trim();if(!msg){alert('メッセージを入力してください');return;}
   if(g('sendBtn').getAttribute('data-sending')==='1')return;
-  g('sendBtn').setAttribute('data-sending','1');
-  g('sendBtn').disabled=true;g('sendBtn').textContent='送信中...';
+  g('sendBtn').setAttribute('data-sending','1');g('sendBtn').disabled=true;g('sendBtn').textContent='Sending...';
   fbPush('messages/'+ct,{msg:msg,fromKey:cu.key,fromName:cu.name,ts:Date.now()},function(){g('sendBtn').removeAttribute('data-sending');openY(ct);});
 }
-function downloadPDF(){
-  var url='/print.html?key='+encodeURIComponent(ct);
-  window.open(url,'_blank');
-}
+function downloadPDF(){window.open('/print.html?key='+encodeURIComponent(ct),'_blank');}
 
 function showPwChange(){g('pwCurrent').value='';g('pwNew').value='';g('pwNew2').value='';g('pwErr').textContent='';g('pwOk').textContent='';ss('pwScreen');}
 function doChangePw(){
@@ -359,26 +410,21 @@ function doChangePw(){
   if(cur!==cu.pw){g('pwErr').textContent='現在のパスワードが違います';return;}
   if(nw!==nw2){g('pwErr').textContent='新しいパスワードが一致しません';return;}
   if(nw.length<4){g('pwErr').textContent='4文字以上で設定してください';return;}
-  cu.pw=nw;
-  fbSet('members/'+cu.key+'/pw',nw,function(){members[cu.key].pw=nw;g('pwOk').textContent='パスワードを変更しました！';g('pwCurrent').value='';g('pwNew').value='';g('pwNew2').value='';});
+  cu.pw=nw;fbSet('members/'+cu.key+'/pw',nw,function(){members[cu.key].pw=nw;g('pwOk').textContent='パスワードを変更しました';g('pwCurrent').value='';g('pwNew').value='';g('pwNew2').value='';});
 }
 
-function showAdmin(){
-  fbGet('members',function(data){members=data||{};fbGet('messages',function(mdata){messages=mdata||{};renderAdminMemberList();renderAdminMsgList();renderAdminPwList();ss('adminScreen');});});
-}
+function showAdmin(){fbGet('members',function(data){members=data||{};fbGet('messages',function(mdata){messages=mdata||{};renderAdminMemberList();renderAdminMsgList();renderAdminPwList();ss('adminScreen');});});}
 
 function loadCSV(input){
   var file=input.files[0];if(!file)return;
   var reader=new FileReader();
   reader.onload=function(e){
-    var text=e.target.result;
-    if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);
+    var text=e.target.result;if(text.charCodeAt(0)===0xFEFF)text=text.slice(1);
     var lines=text.split(/\r?\n/).filter(function(l){return l.trim()!=='';});
     if(lines.length<2){g('csvErr').textContent='データがありません';return;}
     var rows=[],errs=[];
     for(var i=1;i<lines.length;i++){
-      var cols=lines[i].split(',');
-      if(cols.length<4){errs.push((i+1)+'行目：列数不足');continue;}
+      var cols=lines[i].split(',');if(cols.length<4){errs.push((i+1)+'行目：列数不足');continue;}
       var name=cols[0].trim(),roleStr=cols[1].trim(),uid=cols[2].trim(),pw=cols[3].trim();
       var role=parseRole(roleStr);
       if(!role){errs.push((i+1)+'行目：役割不正');continue;}
@@ -391,8 +437,7 @@ function loadCSV(input){
     for(var i=0;i<rows.length;i++){td+='<tr><td>'+rows[i].name+'</td><td>'+rl(rows[i].role)+'</td><td>'+rows[i].id+'</td><td>'+rows[i].pw+'</td></tr>';}
     g('csvTable').innerHTML='<table>'+th+td+'</table>';
     g('csvCount').textContent=rows.length+'件'+(errs.length?'（'+errs.length+'件エラー）':'');
-    g('csvErr').textContent=errs.join(' / ');
-    g('csvPreview').style.display='block';input.value='';
+    g('csvErr').textContent=errs.join(' / ');g('csvPreview').style.display='block';input.value='';
   };
   reader.readAsText(file,'UTF-8');
 }
@@ -417,11 +462,11 @@ function renderAdminMemberList(){
   var ks=Object.keys(members),h='';
   for(var i=0;i<ks.length;i++){
     var k=ks[i],v=members[k];
-    h+='<div class="mrow"><span>'+v.name+' <span class="tbadge '+bc(v.role)+'">'+rl(v.role)+'</span>'+(v.role==='sotsu'&&v.years?'<span style="font-size:11px;color:#c0392b;margin-left:4px">在任'+v.years+'</span>':'')+'</span>'
-      +'<span style="color:#aaa;font-size:12px">ID:'+v.id+'</span>'
+    h+='<div class="mrow"><span style="color:#fff">'+v.name+' <span class="mcard-badge '+bc(v.role)+'" style="font-size:10px;padding:2px 6px">'+rl(v.role)+'</span>'+(v.role==='sotsu'&&v.years?'<span style="font-size:10px;color:rgba(201,168,76,.5);margin-left:4px">'+v.years+'</span>':'')+'</span>'
+      +'<span style="color:var(--text-muted);font-size:11px">'+v.id+'</span>'
       +'<div style="display:flex;gap:4px">'
       +(v.role==='sotsu'?'<button class="btn-edit2" data-key="'+k+'" data-action="years">在任期間</button>':'')
-      +(k!=='admin'?'<button class="btn-del" data-key="'+k+'" data-action="del">削除</button>':'<span style="font-size:11px;color:#aaa">削除不可</span>')
+      +(k!=='admin'?'<button class="btn-del" data-key="'+k+'" data-action="del">削除</button>':'<span style="font-size:10px;color:var(--text-muted)">削除不可</span>')
       +'</div></div>';
   }
   g('adminMemberList').innerHTML=h;
@@ -430,7 +475,7 @@ function renderAdminMemberList(){
     (function(btn){btn.addEventListener('click',function(){
       var k=btn.getAttribute('data-key'),action=btn.getAttribute('data-action');
       if(action==='years'){
-        var val=prompt(members[k].name+'さんの在任期間を入力してください（例：10年）：',members[k].years||'');
+        var val=prompt(members[k].name+'さんの在任期間：',members[k].years||'');
         if(val===null)return;val=val.trim();
         fbSet('members/'+k+'/years',val,function(){members[k].years=val;renderAdminMemberList();});
       } else {
@@ -444,20 +489,16 @@ function renderAdminMemberList(){
 function renderAdminPwList(){
   var ks=Object.keys(members),h='';
   for(var i=0;i<ks.length;i++){
-    var k=ks[i],v=members[k];
-    if(k==='admin')continue;
-    h+='<div class="mrow"><span>'+v.name+' <span class="tbadge '+bc(v.role)+'">'+rl(v.role)+'</span></span>'
-      +'<span style="color:#555;font-size:12px;font-family:monospace">'+v.pw+'</span>'
-      +'<button class="btn-edit2" data-key="'+k+'">リセット</button></div>';
+    var k=ks[i],v=members[k];if(k==='admin')continue;
+    h+='<div class="mrow"><span style="color:#fff">'+v.name+'</span><span style="color:var(--text-muted);font-size:11px;font-family:monospace">'+v.pw+'</span><button class="btn-edit2" data-key="'+k+'">リセット</button></div>';
   }
-  g('adminPwList').innerHTML=h||'<div style="color:#aaa;font-size:13px">委員がいません</div>';
+  g('adminPwList').innerHTML=h||'<div style="color:var(--text-muted);font-size:12px">委員がいません</div>';
   var btns=g('adminPwList').querySelectorAll('.btn-edit2');
   for(var i=0;i<btns.length;i++){
     (function(btn){btn.addEventListener('click',function(){
       var k=btn.getAttribute('data-key'),m=members[k];
-      var newPw=prompt(m.name+'さんの新しいパスワードを入力してください：','0000');
-      if(newPw===null)return;newPw=newPw.trim();
-      if(!newPw||newPw.length<4){alert('4文字以上で設定してください');return;}
+      var newPw=prompt(m.name+'さんの新しいパスワード：','0000');
+      if(newPw===null)return;newPw=newPw.trim();if(!newPw||newPw.length<4){alert('4文字以上で設定してください');return;}
       fbSet('members/'+k+'/pw',newPw,function(){members[k].pw=newPw;renderAdminPwList();alert(m.name+'さんのパスワードをリセットしました');});
     });})(btns[i]);
   }
@@ -465,16 +506,16 @@ function renderAdminPwList(){
 
 function renderAdminMsgList(){
   var rks=Object.keys(messages);
-  if(!rks.length){g('adminMsgList').innerHTML='<div style="color:#aaa;font-size:13px">メッセージはまだありません</div>';return;}
+  if(!rks.length){g('adminMsgList').innerHTML='<div style="color:var(--text-muted);font-size:12px">メッセージはまだありません</div>';return;}
   var h='';
   for(var ri=0;ri<rks.length;ri++){
     var rk=rks[ri],ms=messages[rk]||{},mks=Object.keys(ms);
     var rn=members[rk]?members[rk].name:rk;
-    h+='<div style="margin-bottom:12px"><div style="font-size:13px;font-weight:700;margin-bottom:6px;color:#555">'+rn+'さんへ ('+mks.length+'件)</div>';
+    h+='<div style="margin-bottom:14px"><div style="font-size:11px;letter-spacing:1px;color:var(--gold);margin-bottom:8px;text-transform:uppercase">To '+rn+' ('+mks.length+'件)</div>';
     for(var mi=0;mi<mks.length;mi++){
       var mk=mks[mi],m=ms[mk];
-      h+='<div style="display:flex;align-items:flex-start;justify-content:space-between;padding:8px;background:#f9f9f9;border-radius:8px;margin-bottom:6px;gap:8px">'
-        +'<div style="font-size:12px;flex:1"><span style="color:#888">'+m.fromName+'：</span>'+m.msg+(m.edited?' <span style="font-size:10px;color:#aaa">（編集済）</span>':'')+'</div>'
+      h+='<div style="display:flex;align-items:flex-start;justify-content:space-between;padding:10px;background:var(--surface);border:0.5px solid var(--border);border-radius:4px;margin-bottom:6px;gap:8px">'
+        +'<div style="font-size:12px;flex:1;color:rgba(255,255,255,.7)"><span style="color:var(--text-muted)">'+m.fromName+'：</span>'+m.msg+(m.edited?' <span style="font-size:10px;color:var(--text-muted)">(編集済)</span>':'')+'</div>'
         +'<div style="display:flex;gap:4px">'
         +'<button class="btn-edit2" data-rkey="'+rk+'" data-mkey="'+mk+'">編集</button>'
         +'<button class="btn-del" data-rkey="'+rk+'" data-mkey="'+mk+'">削除</button>'
@@ -487,9 +528,7 @@ function renderAdminMsgList(){
   for(var i=0;i<editBtns.length;i++){
     (function(btn){btn.addEventListener('click',function(){
       var rk=btn.getAttribute('data-rkey'),mk=btn.getAttribute('data-mkey'),m=messages[rk][mk];
-      var newMsg=prompt('メッセージを編集してください：',m.msg);
-      if(newMsg===null)return;newMsg=newMsg.trim();
-      if(!newMsg){alert('メッセージを入力してください');return;}
+      var newMsg=prompt('メッセージを編集：',m.msg);if(newMsg===null)return;newMsg=newMsg.trim();if(!newMsg)return;
       var updated={msg:newMsg,fromKey:m.fromKey,fromName:m.fromName,ts:m.ts||0,edited:true};
       fbSet('messages/'+rk+'/'+mk,updated,function(){messages[rk][mk]=updated;renderAdminMsgList();});
     });})(editBtns[i]);
@@ -509,32 +548,23 @@ function addMember(){
   g('addErr').textContent='';
   if(!name||!id||!pw){g('addErr').textContent='全項目を入力してください';return;}
   if(!/^[a-zA-Z0-9_]+$/.test(id)){g('addErr').textContent='IDは半角英数字のみ';return;}
-  var ks=Object.keys(members);
-  for(var i=0;i<ks.length;i++){if(members[ks[i]].id===id){g('addErr').textContent='このIDはすでに使用されています';return;}}
-  var k='u'+Date.now();
-  var nm={key:k,name:name,role:role,id:id,pw:pw};
+  var ks=Object.keys(members);for(var i=0;i<ks.length;i++){if(members[ks[i]].id===id){g('addErr').textContent='このIDはすでに使用されています';return;}}
+  var k='u'+Date.now(),nm={key:k,name:name,role:role,id:id,pw:pw};
   fbSet('members/'+k,nm,function(){members[k]=nm;g('newName').value='';g('newId').value='';g('newPw').value='';renderAdminMemberList();renderAdminPwList();alert(name+'さんを登録しました');});
 }
 
 function printIdList(){
   var ks=Object.keys(members),sotsu=[],shinnin=[],geneki=[],jimukyoku=[];
-  for(var i=0;i<ks.length;i++){
-    var k=ks[i],v=members[k];
-    if(k==='admin')continue;
-    if(v.role==='sotsu')sotsu.push(v);
-    else if(v.role==='shinnin')shinnin.push(v);
-    else if(v.role==='jimukyoku')jimukyoku.push(v);
-    else geneki.push(v);
-  }
+  for(var i=0;i<ks.length;i++){var k=ks[i],v=members[k];if(k==='admin')continue;if(v.role==='sotsu')sotsu.push(v);else if(v.role==='shinnin')shinnin.push(v);else if(v.role==='jimukyoku')jimukyoku.push(v);else geneki.push(v);}
   function rows(list){var h='';for(var i=0;i<list.length;i++){h+='<tr><td>'+(i+1)+'</td><td>'+list[i].name+'</td><td>'+list[i].id+'</td><td>'+list[i].pw+'</td><td style="width:60px"></td></tr>';}return h;}
-  function sec(title,bg,list){if(!list.length)return '';return '<h2 style="font-size:13px;font-weight:700;padding:4px 10px;border-radius:4px;margin:14px 0 6px;color:#fff;background:'+bg+'">'+title+'</h2><table><thead><tr><th>No</th><th>氏名</th><th>ID</th><th>PW</th><th>確認</th></tr></thead><tbody>'+rows(list)+'</tbody></table>';}
+  function sec(title,bg,list){if(!list.length)return '';return '<h2 style="font-size:12px;font-weight:700;padding:4px 10px;border-radius:4px;margin:12px 0 6px;color:#fff;background:'+bg+'">'+title+'</h2><table><thead><tr><th>No</th><th>氏名</th><th>ID</th><th>PW</th><th>確認</th></tr></thead><tbody>'+rows(list)+'</tbody></table>';}
   var p=[];
   p.push('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>ログインID一覧</title>');
   p.push('<style>body{font-family:Hiragino Sans,Meiryo,sans-serif;padding:20px;font-size:12px}h1{font-size:16px;text-align:center;margin-bottom:4px}table{width:100%;border-collapse:collapse;margin-bottom:10px}th{background:#f0f0f0;padding:6px 8px;border:1px solid #ccc;text-align:left}td{padding:6px 8px;border:1px solid #ccc}.url{text-align:center;background:#EEEDFE;padding:7px;border-radius:6px;font-weight:700;color:#534AB7;margin-bottom:14px}.note{font-size:10px;color:#888;margin-top:12px;border-top:1px solid #eee;padding-top:8px}@media print{body{padding:10px}}</style></head><body>');
-  p.push('<h1>&#127800; 寄せ書きアプリ　ログインID一覧</h1><p style="text-align:center;font-size:11px;color:#666;margin-bottom:8px">練馬区青少年委員会</p>');
+  p.push('<h1>RELAY — 言葉のバトン　ログインID一覧</h1><p style="text-align:center;font-size:11px;color:#666;margin-bottom:8px">練馬区青少年委員会</p>');
   p.push('<div class="url">yosegaki-nerima.vercel.app</div>');
   p.push(sec('退任委員','#c0392b',sotsu)+sec('新任委員','#2471a3',shinnin)+sec('委員','#1e8449',geneki)+sec('事務局','#b7660a',jimukyoku));
-  p.push('<p class="note">※パスワードは各自ログイン後に変更できます。「確認」欄は受け取った方がサインしてください。</p>');
+  p.push('<p class="note">※パスワードは各自ログイン後に変更できます。</p>');
   p.push('<'+'script>window.addEventListener("load",function(){window.print();});<'+'/scr'+'ipt></body></html>');
   var blob=new Blob([p.join('')],{type:'text/html;charset=utf-8'});
   var url=URL.createObjectURL(blob);
@@ -542,7 +572,6 @@ function printIdList(){
   setTimeout(function(){URL.revokeObjectURL(url);},30000);
 }
 
-// イベント登録
 window.onload=function(){
   g('loginBtn').addEventListener('click',doLogin);
   g('loginId').addEventListener('keydown',function(e){if(e.key==='Enter')doLogin();});
@@ -566,35 +595,17 @@ window.onload=function(){
   g('clearCsvBtn').addEventListener('click',clearCSV);
 };
 
-// 初期化
 fbGet('members/admin',function(data){if(!data){fbSet('members/admin',{key:'admin',name:'管理者',role:'admin',id:'admin',pw:'admin2025'});}});
-
 var yearsData={hosokawa:'8年',okamura:'10年',sekiguchi:'10年',ise:'10年',matsudaira:'10年',sakamoto:'2年',okubo:'8年',kanasaki:'2年',ikedo_t:'2年',narumi:'10年',taguchi:'1年',ikeda:'10年',takeuchi:'7年',ikedo_n:'2年',iida:'8年',shindo:'10年',watanabe_f:'4年',noda:'10年',nose:'8年',matsunaga:'7年',uchibori:'8年',onomi:'7年'};
-
 fbGet('members',function(data){
   if(!data)return;
   var ks=Object.keys(data);
-  for(var i=0;i<ks.length;i++){
-    var k=ks[i],v=data[k];
-    if(v.role==='sotsu'&&yearsData[v.id]&&v.years!==yearsData[v.id]){fbSet('members/'+k+'/years',yearsData[v.id],null);}
-  }
-  var onomiExists=false;
-  for(var i=0;i<ks.length;i++){if(data[ks[i]].id==='onomi'){onomiExists=true;break;}}
+  for(var i=0;i<ks.length;i++){var k=ks[i],v=data[k];if(v.role==='sotsu'&&yearsData[v.id]&&v.years!==yearsData[v.id]){fbSet('members/'+k+'/years',yearsData[v.id],null);}}
+  var onomiExists=false;for(var i=0;i<ks.length;i++){if(data[ks[i]].id==='onomi'){onomiExists=true;break;}}
   if(!onomiExists){fbSet('members/u_onomi',{key:'u_onomi',name:'大野身和子',role:'sotsu',id:'onomi',pw:'0000',years:'7年'},null);}
-  var jimukyokuList=[
-    {key:'u_madzuru',name:'眞鶴勇登',id:'madzuru',pw:'0000'},
-    {key:'u_sano',name:'佐野貴大',id:'sano',pw:'0000'},
-    {key:'u_konno',name:'今野慎也',id:'konno',pw:'0000'},
-    {key:'u_watanabe_s',name:'渡邉駿',id:'watanabe_s',pw:'0000'},
-    {key:'u_kohinata',name:'小日向いずみ',id:'kohinata',pw:'0000'},
-    {key:'u_tachikawa',name:'立川順次',id:'tachikawa',pw:'0000'}
-  ];
+  var jimukyokuList=[{key:'u_madzuru',name:'眞鶴勇登',id:'madzuru',pw:'0000'},{key:'u_sano',name:'佐野貴大',id:'sano',pw:'0000'},{key:'u_konno',name:'今野慎也',id:'konno',pw:'0000'},{key:'u_watanabe_s',name:'渡邉駿',id:'watanabe_s',pw:'0000'},{key:'u_kohinata',name:'小日向いずみ',id:'kohinata',pw:'0000'},{key:'u_tachikawa',name:'立川順次',id:'tachikawa',pw:'0000'}];
   for(var i=0;i<jimukyokuList.length;i++){
-    (function(m){
-      var exists=false;
-      for(var j=0;j<ks.length;j++){if(data[ks[j]].id===m.id){exists=true;break;}}
-      if(!exists){fbSet('members/'+m.key,{key:m.key,name:m.name,role:'jimukyoku',id:m.id,pw:m.pw},null);}
-    })(jimukyokuList[i]);
+    (function(m){var exists=false;for(var j=0;j<ks.length;j++){if(data[ks[j]].id===m.id){exists=true;break;}}if(!exists){fbSet('members/'+m.key,{key:m.key,name:m.name,role:'jimukyoku',id:m.id,pw:m.pw},null);};})(jimukyokuList[i]);
   }
 });
 </script>
