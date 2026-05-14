@@ -129,7 +129,15 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
     <div class="fgrid" id="fusenGrid"></div>
     <div class="nomsg" id="noMsg" style="display:none">まだメッセージがありません</div>
   </div>
-  <button class="btn-pdf" id="pdfBtn" style="display:none">&#128196; PDFでダウンロード</button>
+  <button class="btn-pdf" id="pdfBtn" style="display:none">&#128196; 印刷／PDF保存</button>
+  <div id="printView" style="display:none">
+    <div class="shikishi" id="printShikishi">
+      <div class="shtitle" id="printTitle"></div>
+      <div class="fgrid" id="printFusen"></div>
+    </div>
+    <button class="btn-send" id="doPrintBtn" style="background:#f5576c;margin-bottom:14px">&#128196; この画面を印刷／PDF保存</button>
+    <button class="btn-cancel" id="closePrintBtn" style="margin-bottom:14px">&#8592; 戻る</button>
+  </div>
   <div class="edit-box" id="editBox" style="display:none">
     <h3>&#9997; メッセージを編集</h3>
     <textarea id="editInput"></textarea>
@@ -580,6 +588,8 @@ window.onload=function(){
   g('pwBackBtn').addEventListener('click',showTop);
   g('backBtn').addEventListener('click',function(){showTop();});
   g('pdfBtn').addEventListener('click',downloadPDF);
+  g('doPrintBtn').addEventListener('click',function(){window.print();});
+  g('closePrintBtn').addEventListener('click',function(){closePrintView();});
   g('updateBtn').addEventListener('click',updateMsg);
   g('cancelEditBtn').addEventListener('click',cancelEdit);
   g('sendBtn').addEventListener('click',sendMsg);
