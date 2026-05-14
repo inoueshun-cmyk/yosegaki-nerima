@@ -589,7 +589,15 @@ window.onload=function(){
   g('pwBackBtn').addEventListener('click',showTop);
   g('backBtn').addEventListener('click',function(){showTop();});
   g('pdfBtn').addEventListener('click',downloadPDF);
-  g('doPrintBtn').addEventListener('click',function(){window.print();});
+  g('doPrintBtn').addEventListener('click',function(){
+    g('doPrintBtn').textContent='準備中...';
+    g('doPrintBtn').disabled=true;
+    setTimeout(function(){
+      window.print();
+      g('doPrintBtn').textContent='&#128196; この画面を印刷／PDF保存';
+      g('doPrintBtn').disabled=false;
+    },600);
+  });
   g('closePrintBtn').addEventListener('click',function(){closePrintView();});
   g('updateBtn').addEventListener('click',updateMsg);
   g('cancelEditBtn').addEventListener('click',cancelEdit);
