@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RELAY — 寄せ書き</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;padding:24px;color:#333}
+.btn{display:block;margin:0 auto 20px;padding:12px 36px;background:#C9A84C;color:#000;border:none;border-radius:4px;font-size:14px;font-weight:500;letter-spacing:1.5px;cursor:pointer;text-transform:uppercase}
+.shikishi{background:#fff9e6;border:4px solid #d4a017;border-radius:16px;padding:28px;min-height:400px}
+.title{text-align:center;font-size:18px;font-weight:700;color:#8b6914;margin-bottom:22px;padding-bottom:12px;border-bottom:2px dashed #d4a017;letter-spacing:2px}
+.fgrid{display:flex;flex-wrap:wrap;gap:14px}
+.fusen{border-radius:4px;padding:12px;min-width:110px;max-width:150px;font-size:12px;line-height:1.5;box-shadow:2px 3px 8px rgba(0,0,0,.12)}
+.ffrom{font-size:10px;font-weight:700;margin-top:6px;opacity:.75;text-align:right}
+.nomsg{text-align:center;padding:40px;color:#b8a86a;font-size:14px;letter-spacing:1px}
+.loading{text-align:center;padding:60px;color:#aaa;font-size:14px;letter-spacing:1px}
+.footer{text-align:center;margin-top:20px;font-size:11px;color:#aaa;letter-spacing:1px}
+@media print{
+  .btn{display:none}
+  body{background:#fff;padding:14px}
+  .shikishi{border-color:#d4a017;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .fusen{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<button class="btn" id="printBtn">印刷 / PDF保存</button>
+<div class="shikishi">
+  <div class="title" id="pageTitle">読み込み中...</div>
+  <div class="fgrid" id="fusenGrid"></div>
+  <div class="nomsg" id="noMsg" style="display:none">— No messages yet —</div>
+  <div class="loading" id="loading">Loading...</div>
+</div>
+<div class="footer" id="pageFooter"></div>
+
+<script>
+var DB='https://yosegaki-nerima-default-rtdb.asia-southeast1.firebasedatabase.app';
+var FC=['#fff9c4','#f8bbd0','#b3e5fc','#c8e6c9','#ffe0b2','#e1bee7','#b2dfdb','#fce4ec','#dcedc8'];
+var FT=['#5d4037','#880e4f','#01579b','#1b5e20','#e65100','#4a148c','#004d40','#b71c1c','#33691e'];
+var RO=[-3,-2,-1,0,1,2,3,-2,1];
+
+function g(id){return document.getElementById(id);}
+
+function fbGet(path,cb){
+  var x=new XMLHttpRequest();
+  x.open('GET',DB+'/'+path+'.json');
+  x.onload=function(){cb(JSON.parse(x.responseText));};
+  x.onerror=function(){cb(null);};
+  x.send();
+}
+
+var params=new URLSearchParams(window.location.search);
+var key=params.get('key');
+
+if(!key){
+  g('loading').textContent='URLが正しくありません';
+} else {
+  fbGet('members/'+key,function(member){
+    if(!member){g('loading').textContent='データが見つかりません';return;}
+    var roleLabel=member.role==='sotsu'?'FAREWELL MESSAGE':'WELCOME MESSAGE';
+    g('pageTitle').innerHTML='&#127800; '+member.name+' さんへ &#127800;';
+    g('pageFooter').textContent='RELAY — 言葉のバトン　/　練馬区青少年委員会';
+    document.title=member.name+'さんへの寄せ書き';
+    fbGet('messages/'+key,function(msgs){
+      g('loading').style.display='none';
+      if(!msgs||Object.keys(msgs).length===0){
+        g('noMsg').style.display='block';
+        return;
+      }
+      var keys=Object.keys(msgs);
+      var grid=g('fusenGrid');
+      for(var i=0;i<keys.length;i++){
+        var v=msgs[keys[i]];
+        var ci=i%FC.length;
+        var div=document.createElement('div');
+        div.className='fusen';
+        div.style.background=FC[ci];
+        div.style.color=FT[ci];
+        div.style.transform='rotate('+RO[i%RO.length]+'deg)';
+        var msgDiv=document.createElement('div');
+        msgDiv.textContent=v.msg;
+        div.appendChild(msgDiv);
+        var fromDiv=document.createElement('div');
+        fromDiv.className='ffrom';
+        fromDiv.textContent='— '+v.fromName;
+        div.appendChild(fromDiv);
+        grid.appendChild(div);
+      }
+    });
+  });
+}
+
+g('printBtn').addEventListener('click',function(){window.print();});
+</script>
+</body>
+</html>
