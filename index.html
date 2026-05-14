@@ -6,11 +6,18 @@
 <title>RELAY — 言葉のバトン</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--gold:#C9A84C;--gold-dim:rgba(201,168,76,.4);--gold-bg:rgba(201,168,76,.04);--white:#fff;--black:#0a0a0a;--surface:rgba(255,255,255,.03);--border:rgba(255,255,255,.06);--border-md:rgba(255,255,255,.12);--text-muted:rgba(255,255,255,.3);--text-dim:rgba(255,255,255,.5)}
-body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:var(--black);color:#fff;min-height:100vh;overflow-x:hidden}
+:root{
+  --gold:#C9A84C;--gold-dim:rgba(201,168,76,.35);--gold-bg:rgba(201,168,76,.06);
+  --bg-light:linear-gradient(160deg,#F0F0EE 0%,#FFFFFF 100%);
+  --surface:#fff;--border:rgba(0,0,0,.08);--border-md:rgba(0,0,0,.13);
+  --text:#1A1A1A;--text-muted:#888;--text-dim:#555;
+  --dark-bg:#1C1C1E;--dark-surface:rgba(255,255,255,.07);--dark-border:rgba(255,255,255,.08);--dark-border-md:rgba(255,255,255,.15);
+}
+body{font-family:'Hiragino Sans','Meiryo',sans-serif;overflow-x:hidden}
 .screen{display:none;min-height:100vh;padding:0 20px 40px}
 .screen.active{display:block}
-#loginScreen.active{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px}
+#loginScreen.active{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px;background:var(--dark-bg)}
+#topScreen.active,#pwScreen.active,#yosegakiScreen.active,#adminScreen.active{background:linear-gradient(160deg,#F0F0EE 0%,#FFFFFF 100%);color:var(--text)}
 
 /* LOGIN */
 .login-inner{width:100%;max-width:360px}
@@ -32,26 +39,26 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:var(--black);col
 .top-hdr{padding:40px 0 24px;border-bottom:0.5px solid var(--border);margin-bottom:24px}
 .relay-badge{font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
 .greeting{font-size:11px;letter-spacing:2px;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px}
-.user-name{font-size:24px;font-weight:300;letter-spacing:2px;color:#fff}
+.user-name{font-size:24px;font-weight:300;letter-spacing:2px;color:var(--text)}
 .role-pill{display:inline-block;margin-top:10px;padding:3px 12px;border:0.5px solid var(--gold-dim);border-radius:20px;font-size:10px;letter-spacing:1.5px;color:var(--gold)}
 .section-label{font-size:10px;letter-spacing:3px;color:var(--text-muted);text-transform:uppercase;margin:24px 0 12px;padding-bottom:8px;border-bottom:0.5px solid var(--border)}
-.mcard{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--surface);border:0.5px solid var(--border);border-radius:6px;margin-bottom:8px;cursor:pointer;transition:background .15s,border .15s}
-.mcard:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.1)}
+.mcard{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--surface);border:0.5px solid var(--border);border-radius:8px;margin-bottom:8px;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.05);transition:box-shadow .15s}
+.mcard:hover{box-shadow:0 3px 10px rgba(0,0,0,.1)}
 .mcard-ava{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;flex-shrink:0}
-.ava-red{background:rgba(192,57,43,.15);color:#E74C3C;border:0.5px solid rgba(192,57,43,.3)}
-.ava-blue{background:rgba(36,113,163,.15);color:#3498DB;border:0.5px solid rgba(36,113,163,.3)}
-.ava-green{background:rgba(30,132,73,.15);color:#27AE60;border:0.5px solid rgba(30,132,73,.3)}
-.ava-orange{background:rgba(183,102,10,.15);color:#E67E22;border:0.5px solid rgba(183,102,10,.3)}
-.ava-gray{background:rgba(255,255,255,.08);color:rgba(255,255,255,.4);border:0.5px solid var(--border-md)}
+.ava-red{background:#ffeaea;color:#c0392b;border:0.5px solid rgba(192,57,43,.2)}
+.ava-blue{background:#eaf3ff;color:#2471a3;border:0.5px solid rgba(36,113,163,.2)}
+.ava-green{background:#eafff3;color:#1e8449;border:0.5px solid rgba(30,132,73,.2)}
+.ava-orange{background:#fff4e6;color:#b7660a;border:0.5px solid rgba(183,102,10,.2)}
+.ava-gray{background:#f0f0f0;color:#666;border:0.5px solid rgba(0,0,0,.1)}
 .mcard-info{flex:1;min-width:0}
-.mcard-name{font-size:14px;font-weight:400;color:#fff;letter-spacing:.3px}
+.mcard-name{font-size:14px;font-weight:400;color:var(--text);letter-spacing:.3px}
 .mcard-meta{font-size:11px;color:var(--text-muted);margin-top:2px;letter-spacing:.3px}
 .mcard-badge{font-size:10px;padding:2px 8px;border-radius:20px;letter-spacing:.5px;flex-shrink:0;white-space:nowrap}
-.badge-red{background:rgba(192,57,43,.15);color:#E74C3C;border:0.5px solid rgba(192,57,43,.25)}
-.badge-blue{background:rgba(36,113,163,.15);color:#3498DB;border:0.5px solid rgba(36,113,163,.25)}
-.badge-green{background:rgba(30,132,73,.15);color:#27AE60;border:0.5px solid rgba(30,132,73,.25)}
-.badge-orange{background:rgba(183,102,10,.15);color:#E67E22;border:0.5px solid rgba(183,102,10,.25)}
-.badge-gray{background:rgba(255,255,255,.06);color:rgba(255,255,255,.4);border:0.5px solid var(--border-md)}
+.badge-red{background:#ffeaea;color:#c0392b;border:0.5px solid rgba(192,57,43,.2)}
+.badge-blue{background:#eaf3ff;color:#2471a3;border:0.5px solid rgba(36,113,163,.2)}
+.badge-green{background:#eafff3;color:#1e8449;border:0.5px solid rgba(30,132,73,.2)}
+.badge-orange{background:#fff4e6;color:#b7660a;border:0.5px solid rgba(183,102,10,.2)}
+.badge-gray{background:#f0f0f0;color:#666;border:0.5px solid rgba(0,0,0,.1)}
 .bottom-btns{display:flex;gap:8px;margin-top:28px}
 .btn-sub{flex:1;padding:12px;border-radius:4px;font-size:11px;letter-spacing:1px;cursor:pointer;font-family:inherit;text-align:center;text-transform:uppercase}
 .btn-outline{background:transparent;border:0.5px solid var(--border-md);color:var(--text-dim)}
