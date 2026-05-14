@@ -76,6 +76,7 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
 .csv-preview td{padding:5px 8px;border-bottom:1px solid #eee;font-size:11px}
 .hint-box{background:#f0f4ff;border-radius:8px;padding:10px 14px;font-size:11px;color:#555;line-height:1.8;margin-bottom:10px}
 .hint-box b{color:#4a3f8f}
+.loading{text-align:center;padding:40px;color:#aaa;font-size:13px}
 </style>
 </head>
 <body>
@@ -149,7 +150,7 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
   <div class="ahdr"><h2>&#9881; 管理者メニュー</h2></div>
   <div class="asec">
     <h3>&#128196; CSV一括登録</h3>
-    <div class="hint-box"><b>CSVフォーマット（1行目はヘッダー）：</b><br>名前,役割,ユーザーID,パスワード<br>田中花子,退任委員,tanaka,0000<br>佐藤次郎,新任委員,sato,0000<br>伊藤健太,委員,ito,0000<br><b>役割：</b>退任委員 / 新任委員 / 委員</div>
+    <div class="hint-box"><b>CSVフォーマット（1行目はヘッダー）：</b><br>名前,役割,ユーザーID,パスワード<br>田中花子,退任委員,tanaka,0000<br>佐藤次郎,新任委員,sato,0000<br>伊藤健太,委員,ito,0000<br><b>役割：</b>退任委員 / 新任委員 / 委員 / 事務局</div>
     <div class="csv-area" id="csvArea">&#128196; クリックしてCSVファイルを選択<input type="file" id="csvFile" accept=".csv" style="display:none"></div>
     <div id="csvPreview" style="display:none">
       <div class="csv-preview" id="csvTable"></div>
@@ -163,7 +164,7 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#3
   </div>
   <div class="asec">
     <h3>&#9997; 手動で1件登録</h3>
-    <div class="frow"><input type="text" id="newName" placeholder="氏名"><select id="newRole"><option value="sotsu">退任委員</option><option value="shinnin">新任委員</option><option value="geneki">委員</option></select></div>
+    <div class="frow"><input type="text" id="newName" placeholder="氏名"><select id="newRole"><option value="sotsu">退任委員</option><option value="shinnin">新任委員</option><option value="geneki">委員</option><option value="jimukyoku">事務局</option></select></div>
     <div class="frow"><input type="text" id="newId" placeholder="ユーザーID（半角英数）"><input type="password" id="newPw" placeholder="パスワード"><button class="btn-add" id="addMemberBtn">追加</button></div>
     <div class="err" id="addErr"></div>
   </div>
@@ -225,6 +226,13 @@ function cardHTML(key){
     +'</div>';
 }
 
+function bindCards(){
+  var cards=document.querySelectorAll('.mcard');
+  for(var i=0;i<cards.length;i++){
+    (function(card){card.addEventListener('click',function(){openY(card.getAttribute('data-key'));});})(cards[i]);
+  }
+}
+
 function doLogin(){
   var id=g('loginId').value.trim(),pw=g('loginPw').value;
   g('loginErr').textContent='';
@@ -258,13 +266,15 @@ function renderTop(){
   g('mySection').style.display=my?'block':'none';
   if(my)g('myGrid').innerHTML=cardHTML(cu.key);
   g('adminLink').style.display=cu.role==='admin'?'block':'none';
-  var cards=document.querySelectorAll('.mcard');
-  for(var i=0;i<cards.length;i++){
-    (function(card){card.addEventListener('click',function(){openY(card.getAttribute('data-key'));});})(cards[i]);
-  }
+  bindCards();
 }
 
-function showTop(){fbGet('members',function(data){members=data||{};fbGet('messages',function(mdata){messages=mdata||{};renderTop();ss('topScreen');});});}
+function showTop(){
+  fbGet('members',function(data){
+    members=data||{};
+    fbGet('messages',function(mdata){messages=mdata||{};renderTop();ss('topScreen');});
+  });
+}
 
 function openY(tk){
   ct=tk;cancelEdit();
@@ -277,39 +287,26 @@ function openY(tk){
     renderFusen(msgs);
     var canPdf=(cu.role==='sotsu'||cu.role==='shinnin'||cu.role==='admin')&&(tk===cu.key||cu.role==='admin');
     g('pdfBtn').style.display=canPdf?'block':'none';
-    g('printView').style.display='none';
     if(cw(tk)){
       var me=Object.keys(msgs);
       var alr=false;
       for(var i=0;i<me.length;i++){if(msgs[me[i]].fromKey===cu.key){alr=true;break;}}
-      if(alr){
-        g('writeBox').style.display='none';
-      } else {
-        g('writeBox').style.display='block';
-        g('writeTitle').textContent=t.name+'さんへメッセージを書く';
-        g('msgInput').value='';
-        g('sendBtn').disabled=false;
-      }
-    } else {
-      g('writeBox').style.display='none';
-    }
+      if(alr){g('writeBox').style.display='none';}
+      else{g('writeBox').style.display='block';g('writeTitle').textContent=t.name+'さんへメッセージを書く';g('msgInput').value='';g('sendBtn').disabled=false;g('sendBtn').textContent='送る &#128140;';}
+    } else {g('writeBox').style.display='none';}
     ss('yosegakiScreen');
   });
 }
 
 function renderFusen(msgs){
   var me=Object.keys(msgs);
-  var grid=g('fusenGrid');
-  grid.innerHTML='';
+  var grid=g('fusenGrid');grid.innerHTML='';
   if(me.length===0){g('noMsg').style.display='block';return;}
   g('noMsg').style.display='none';
   for(var i=0;i<me.length;i++){
-    var mk=me[i],v=msgs[mk];
-    var ci=i%FC.length;
-    var div=document.createElement('div');
-    div.className='fusen';
-    div.style.background=FC[ci];div.style.color=FT[ci];
-    div.style.transform='rotate('+RO[i%RO.length]+'deg)';
+    var mk=me[i],v=msgs[mk],ci=i%FC.length;
+    var div=document.createElement('div');div.className='fusen';
+    div.style.background=FC[ci];div.style.color=FT[ci];div.style.transform='rotate('+RO[i%RO.length]+'deg)';
     var msgDiv=document.createElement('div');msgDiv.className='fusen-msg';msgDiv.textContent=v.msg;div.appendChild(msgDiv);
     var fromDiv=document.createElement('div');fromDiv.className='ffrom';fromDiv.textContent='— '+v.fromName;div.appendChild(fromDiv);
     if(canEditMsg(v)){
@@ -324,13 +321,7 @@ function renderFusen(msgs){
   }
 }
 
-function startEdit(mk,msg){
-  editingMsgKey=mk;
-  g('editInput').value=msg;
-  g('editBox').style.display='block';
-  g('editInput').focus();
-  g('editBox').scrollIntoView({behavior:'smooth'});
-}
+function startEdit(mk,msg){editingMsgKey=mk;g('editInput').value=msg;g('editBox').style.display='block';g('editInput').focus();g('editBox').scrollIntoView({behavior:'smooth'});}
 function cancelEdit(){editingMsgKey=null;g('editBox').style.display='none';g('editInput').value='';}
 function updateMsg(){
   var msg=g('editInput').value.trim();
@@ -338,10 +329,7 @@ function updateMsg(){
   if(!editingMsgKey)return;
   var old=messages[ct][editingMsgKey];
   var updated={msg:msg,fromKey:old.fromKey,fromName:old.fromName,ts:old.ts||0,edited:true};
-  fbSet('messages/'+ct+'/'+editingMsgKey,updated,function(){
-    messages[ct][editingMsgKey]=updated;
-    cancelEdit();renderFusen(messages[ct]);
-  });
+  fbSet('messages/'+ct+'/'+editingMsgKey,updated,function(){messages[ct][editingMsgKey]=updated;cancelEdit();renderFusen(messages[ct]);});
 }
 function delMsgUser(mk){
   if(!confirm('このメッセージを削除しますか？'))return;
@@ -353,45 +341,14 @@ function delMsgUser(mk){
 function sendMsg(){
   var msg=g('msgInput').value.trim();
   if(!msg){alert('メッセージを入力してください');return;}
-  // 送信中フラグで二重送信防止
   if(g('sendBtn').getAttribute('data-sending')==='1')return;
   g('sendBtn').setAttribute('data-sending','1');
   g('sendBtn').disabled=true;g('sendBtn').textContent='送信中...';
-  fbPush('messages/'+ct,{msg:msg,fromKey:cu.key,fromName:cu.name,ts:Date.now()},function(){
-    g('sendBtn').removeAttribute('data-sending');
-    openY(ct);
-  });
+  fbPush('messages/'+ct,{msg:msg,fromKey:cu.key,fromName:cu.name,ts:Date.now()},function(){g('sendBtn').removeAttribute('data-sending');openY(ct);});
 }
-
 function downloadPDF(){
-  var t=members[ct],msgs=messages[ct]||{},me=Object.keys(msgs),fh='';
-  if(me.length===0){fh='<p style="text-align:center;color:#b8a86a;margin-top:60px">まだメッセージがありません</p>';}
-  else{for(var i=0;i<me.length;i++){var v=msgs[me[i]];fh+='<div style="display:inline-block;background:'+FC[i%FC.length]+';color:'+FT[i%FT.length]+';border-radius:4px;padding:12px;min-width:100px;max-width:140px;font-size:11px;line-height:1.5;box-shadow:2px 3px 8px rgba(0,0,0,.15);transform:rotate('+RO[i%RO.length]+'deg);margin:8px;vertical-align:top"><div>'+v.msg+'</div><div style="font-size:9px;font-weight:700;margin-top:6px;opacity:.75;text-align:right">— '+v.fromName+'</div></div>';}}
-  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+t.name+'さんへの寄せ書き</title>'
-    +'<style>body{font-family:Hiragino Sans,Meiryo,sans-serif;background:#f5f0e8;margin:0;padding:20px}.s{background:#fff9e6;border:4px solid #d4a017;border-radius:16px;padding:30px}.tt{text-align:center;font-size:18px;font-weight:700;color:#8b6914;margin-bottom:24px;padding-bottom:14px;border-bottom:2px dashed #d4a017}.fa{display:flex;flex-wrap:wrap;gap:4px}.btn{display:block;margin:20px auto;padding:12px 32px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer}@media print{.btn{display:none}body{background:#fff}}</style>'
-    +'</head><body>'
-    +'<button class="btn" onclick="window.print()">&#128196; 印刷／PDF保存</button>'
-    +'<div class="s"><div class="tt">&#127800; '+t.name+' さんへ &#127800;</div><div class="fa">'+fh+'</div></div>'
-    +'<button class="btn" onclick="window.print()">&#128196; 印刷／PDF保存</button>'
-    +'</body></html>';
-
-  // Base64エンコードしてdata URIで開く（iOS Safari対応）
-  try{
-    var encoded=btoa(unescape(encodeURIComponent(html)));
-    var dataUri='data:text/html;base64,'+encoded;
-    var a=document.createElement('a');
-    a.href=dataUri;
-    a.target='_blank';
-    a.rel='noopener';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  }catch(e){
-    // fallback: window.open
-    var w=window.open('','_blank');
-    if(w){w.document.write(html);w.document.close();}
-    else{alert('ポップアップがブロックされています。ブラウザの設定でポップアップを許可してください。');}
-  }
+  var url='/print.html?key='+encodeURIComponent(ct);
+  window.open(url,'_blank');
 }
 
 function showPwChange(){g('pwCurrent').value='';g('pwNew').value='';g('pwNew2').value='';g('pwErr').textContent='';g('pwOk').textContent='';ss('pwScreen');}
@@ -406,7 +363,9 @@ function doChangePw(){
   fbSet('members/'+cu.key+'/pw',nw,function(){members[cu.key].pw=nw;g('pwOk').textContent='パスワードを変更しました！';g('pwCurrent').value='';g('pwNew').value='';g('pwNew2').value='';});
 }
 
-function showAdmin(){fbGet('members',function(data){members=data||{};fbGet('messages',function(mdata){messages=mdata||{};renderAdminMemberList();renderAdminMsgList();renderAdminPwList();ss('adminScreen');});});}
+function showAdmin(){
+  fbGet('members',function(data){members=data||{};fbGet('messages',function(mdata){messages=mdata||{};renderAdminMemberList();renderAdminMsgList();renderAdminPwList();ss('adminScreen');});});
+}
 
 function loadCSV(input){
   var file=input.files[0];if(!file)return;
@@ -433,8 +392,7 @@ function loadCSV(input){
     g('csvTable').innerHTML='<table>'+th+td+'</table>';
     g('csvCount').textContent=rows.length+'件'+(errs.length?'（'+errs.length+'件エラー）':'');
     g('csvErr').textContent=errs.join(' / ');
-    g('csvPreview').style.display='block';
-    input.value='';
+    g('csvPreview').style.display='block';input.value='';
   };
   reader.readAsText(file,'UTF-8');
 }
@@ -462,28 +420,24 @@ function renderAdminMemberList(){
     h+='<div class="mrow"><span>'+v.name+' <span class="tbadge '+bc(v.role)+'">'+rl(v.role)+'</span>'+(v.role==='sotsu'&&v.years?'<span style="font-size:11px;color:#c0392b;margin-left:4px">在任'+v.years+'</span>':'')+'</span>'
       +'<span style="color:#aaa;font-size:12px">ID:'+v.id+'</span>'
       +'<div style="display:flex;gap:4px">'
-      +(v.role==='sotsu'?'<button class="btn-edit2" data-key="'+k+'">在任期間</button>':'')
-      +(k!=='admin'?'<button class="btn-del" data-key="'+k+'">削除</button>':'<span style="font-size:11px;color:#aaa">削除不可</span>')
+      +(v.role==='sotsu'?'<button class="btn-edit2" data-key="'+k+'" data-action="years">在任期間</button>':'')
+      +(k!=='admin'?'<button class="btn-del" data-key="'+k+'" data-action="del">削除</button>':'<span style="font-size:11px;color:#aaa">削除不可</span>')
       +'</div></div>';
   }
   g('adminMemberList').innerHTML=h;
-  var yearBtns=g('adminMemberList').querySelectorAll('.btn-edit2');
-  for(var i=0;i<yearBtns.length;i++){
+  var btns=g('adminMemberList').querySelectorAll('button[data-action]');
+  for(var i=0;i<btns.length;i++){
     (function(btn){btn.addEventListener('click',function(){
-      var k=btn.getAttribute('data-key'),m=members[k];
-      var val=prompt(m.name+'さんの在任期間を入力してください（例：10年）：',m.years||'');
-      if(val===null)return;
-      val=val.trim();
-      fbSet('members/'+k+'/years',val,function(){members[k].years=val;renderAdminMemberList();});
-    });})(yearBtns[i]);
-  }
-  var delBtns=g('adminMemberList').querySelectorAll('.btn-del');
-  for(var i=0;i<delBtns.length;i++){
-    (function(btn){btn.addEventListener('click',function(){
-      if(!confirm('この委員を削除しますか？'))return;
-      var k=btn.getAttribute('data-key');
-      fbDel('members/'+k,function(){fbDel('messages/'+k,function(){delete members[k];delete messages[k];renderAdminMemberList();renderAdminPwList();renderAdminMsgList();});});
-    });})(delBtns[i]);
+      var k=btn.getAttribute('data-key'),action=btn.getAttribute('data-action');
+      if(action==='years'){
+        var val=prompt(members[k].name+'さんの在任期間を入力してください（例：10年）：',members[k].years||'');
+        if(val===null)return;val=val.trim();
+        fbSet('members/'+k+'/years',val,function(){members[k].years=val;renderAdminMemberList();});
+      } else {
+        if(!confirm('この委員を削除しますか？'))return;
+        fbDel('members/'+k,function(){fbDel('messages/'+k,function(){delete members[k];delete messages[k];renderAdminMemberList();renderAdminPwList();renderAdminMsgList();});});
+      }
+    });})(btns[i]);
   }
 }
 
@@ -504,7 +458,7 @@ function renderAdminPwList(){
       var newPw=prompt(m.name+'さんの新しいパスワードを入力してください：','0000');
       if(newPw===null)return;newPw=newPw.trim();
       if(!newPw||newPw.length<4){alert('4文字以上で設定してください');return;}
-      fbSet('members/'+k+'/pw',newPw,function(){members[k].pw=newPw;renderAdminPwList();alert(m.name+'さんのパスワードを「'+newPw+'」にリセットしました');});
+      fbSet('members/'+k+'/pw',newPw,function(){members[k].pw=newPw;renderAdminPwList();alert(m.name+'さんのパスワードをリセットしました');});
     });})(btns[i]);
   }
 }
@@ -550,17 +504,36 @@ function renderAdminMsgList(){
   }
 }
 
+function addMember(){
+  var name=g('newName').value.trim(),role=g('newRole').value,id=g('newId').value.trim(),pw=g('newPw').value.trim();
+  g('addErr').textContent='';
+  if(!name||!id||!pw){g('addErr').textContent='全項目を入力してください';return;}
+  if(!/^[a-zA-Z0-9_]+$/.test(id)){g('addErr').textContent='IDは半角英数字のみ';return;}
+  var ks=Object.keys(members);
+  for(var i=0;i<ks.length;i++){if(members[ks[i]].id===id){g('addErr').textContent='このIDはすでに使用されています';return;}}
+  var k='u'+Date.now();
+  var nm={key:k,name:name,role:role,id:id,pw:pw};
+  fbSet('members/'+k,nm,function(){members[k]=nm;g('newName').value='';g('newId').value='';g('newPw').value='';renderAdminMemberList();renderAdminPwList();alert(name+'さんを登録しました');});
+}
+
 function printIdList(){
-  var ks=Object.keys(members),sotsu=[],shinnin=[],geneki=[];
-  for(var i=0;i<ks.length;i++){var k=ks[i],v=members[k];if(k==='admin')continue;if(v.role==='sotsu')sotsu.push(v);else if(v.role==='shinnin')shinnin.push(v);else geneki.push(v);}
+  var ks=Object.keys(members),sotsu=[],shinnin=[],geneki=[],jimukyoku=[];
+  for(var i=0;i<ks.length;i++){
+    var k=ks[i],v=members[k];
+    if(k==='admin')continue;
+    if(v.role==='sotsu')sotsu.push(v);
+    else if(v.role==='shinnin')shinnin.push(v);
+    else if(v.role==='jimukyoku')jimukyoku.push(v);
+    else geneki.push(v);
+  }
   function rows(list){var h='';for(var i=0;i<list.length;i++){h+='<tr><td>'+(i+1)+'</td><td>'+list[i].name+'</td><td>'+list[i].id+'</td><td>'+list[i].pw+'</td><td style="width:60px"></td></tr>';}return h;}
-  function sec(title,list){if(!list.length)return '';return '<h2>'+title+'</h2><table><thead><tr><th>No</th><th>氏名</th><th>ログインID</th><th>パスワード</th><th>確認</th></tr></thead><tbody>'+rows(list)+'</tbody></table>';}
+  function sec(title,bg,list){if(!list.length)return '';return '<h2 style="font-size:13px;font-weight:700;padding:4px 10px;border-radius:4px;margin:14px 0 6px;color:#fff;background:'+bg+'">'+title+'</h2><table><thead><tr><th>No</th><th>氏名</th><th>ID</th><th>PW</th><th>確認</th></tr></thead><tbody>'+rows(list)+'</tbody></table>';}
   var p=[];
   p.push('<!DOCTYPE html><html><head><meta charset="UTF-8"><title>ログインID一覧</title>');
-  p.push('<style>body{font-family:Hiragino Sans,Meiryo,sans-serif;padding:20px;color:#333;font-size:12px}h1{font-size:16px;margin-bottom:4px;text-align:center}.sub{text-align:center;font-size:11px;color:#666;margin-bottom:16px}h2{font-size:13px;font-weight:700;margin:16px 0 6px;padding:4px 10px;background:#667eea;color:#fff;border-radius:4px}table{width:100%;border-collapse:collapse;margin-bottom:12px}th{background:#f0f0f0;padding:6px 8px;border:1px solid #ccc;font-size:11px;text-align:left}td{padding:6px 8px;border:1px solid #ccc;font-size:12px}.url{font-size:12px;font-weight:700;text-align:center;margin-bottom:16px;padding:8px;background:#f0f4ff;border-radius:6px;border:1px solid #667eea}.note{font-size:11px;color:#888;margin-top:16px;border-top:1px solid #eee;padding-top:10px}@media print{body{padding:10px}}</style></head><body>');
-  p.push('<h1>&#127800; 寄せ書きアプリ　ログインID一覧</h1><p class="sub">練馬区青少年委員会</p>');
-  p.push('<div class="url">アクセス先：yosegaki-nerima.vercel.app</div>');
-  p.push(sec('退任委員',sotsu)+sec('新任委員',shinnin)+sec('委員',geneki));
+  p.push('<style>body{font-family:Hiragino Sans,Meiryo,sans-serif;padding:20px;font-size:12px}h1{font-size:16px;text-align:center;margin-bottom:4px}table{width:100%;border-collapse:collapse;margin-bottom:10px}th{background:#f0f0f0;padding:6px 8px;border:1px solid #ccc;text-align:left}td{padding:6px 8px;border:1px solid #ccc}.url{text-align:center;background:#EEEDFE;padding:7px;border-radius:6px;font-weight:700;color:#534AB7;margin-bottom:14px}.note{font-size:10px;color:#888;margin-top:12px;border-top:1px solid #eee;padding-top:8px}@media print{body{padding:10px}}</style></head><body>');
+  p.push('<h1>&#127800; 寄せ書きアプリ　ログインID一覧</h1><p style="text-align:center;font-size:11px;color:#666;margin-bottom:8px">練馬区青少年委員会</p>');
+  p.push('<div class="url">yosegaki-nerima.vercel.app</div>');
+  p.push(sec('退任委員','#c0392b',sotsu)+sec('新任委員','#2471a3',shinnin)+sec('委員','#1e8449',geneki)+sec('事務局','#b7660a',jimukyoku));
   p.push('<p class="note">※パスワードは各自ログイン後に変更できます。「確認」欄は受け取った方がサインしてください。</p>');
   p.push('<'+'script>window.addEventListener("load",function(){window.print();});<'+'/scr'+'ipt></body></html>');
   var blob=new Blob([p.join('')],{type:'text/html;charset=utf-8'});
@@ -593,64 +566,35 @@ window.onload=function(){
   g('clearCsvBtn').addEventListener('click',clearCSV);
 };
 
-function addMember(){
-  var name=g('newName').value.trim(),role=g('newRole').value,id=g('newId').value.trim(),pw=g('newPw').value.trim();
-  g('addErr').textContent='';
-  if(!name||!id||!pw){g('addErr').textContent='全項目を入力してください';return;}
-  if(!/^[a-zA-Z0-9_]+$/.test(id)){g('addErr').textContent='IDは半角英数字のみ';return;}
-  var ks=Object.keys(members);
-  for(var i=0;i<ks.length;i++){if(members[ks[i]].id===id){g('addErr').textContent='このIDはすでに使用されています';return;}}
-  var k='u'+Date.now();
-  var nm={key:k,name:name,role:role,id:id,pw:pw};
-  fbSet('members/'+k,nm,function(){members[k]=nm;g('newName').value='';g('newId').value='';g('newPw').value='';renderAdminMemberList();renderAdminPwList();alert(name+'さんを登録しました');});
-}
-
+// 初期化
 fbGet('members/admin',function(data){if(!data){fbSet('members/admin',{key:'admin',name:'管理者',role:'admin',id:'admin',pw:'admin2025'});}});
 
-// 事務局5名の自動登録
-var jimukyokuList=[
-  {key:'u_madzuru',name:'眞鶴勇登',id:'madzuru',pw:'0000'},
-  {key:'u_sano',name:'佐野貴大',id:'sano',pw:'0000'},
-  {key:'u_konno',name:'今野慎也',id:'konno',pw:'0000'},
-  {key:'u_watanabe_s',name:'渡邉駿',id:'watanabe_s',pw:'0000'},
-  {key:'u_kohinata',name:'小日向いずみ',id:'kohinata',pw:'0000'},
-  {key:'u_tachikawa',name:'立川順次',id:'tachikawa',pw:'0000'}
-];
+var yearsData={hosokawa:'8年',okamura:'10年',sekiguchi:'10年',ise:'10年',matsudaira:'10年',sakamoto:'2年',okubo:'8年',kanasaki:'2年',ikedo_t:'2年',narumi:'10年',taguchi:'1年',ikeda:'10年',takeuchi:'7年',ikedo_n:'2年',iida:'8年',shindo:'10年',watanabe_f:'4年',noda:'10年',nose:'8年',matsunaga:'7年',uchibori:'8年',onomi:'7年'};
+
 fbGet('members',function(data){
   if(!data)return;
   var ks=Object.keys(data);
+  for(var i=0;i<ks.length;i++){
+    var k=ks[i],v=data[k];
+    if(v.role==='sotsu'&&yearsData[v.id]&&v.years!==yearsData[v.id]){fbSet('members/'+k+'/years',yearsData[v.id],null);}
+  }
+  var onomiExists=false;
+  for(var i=0;i<ks.length;i++){if(data[ks[i]].id==='onomi'){onomiExists=true;break;}}
+  if(!onomiExists){fbSet('members/u_onomi',{key:'u_onomi',name:'大野身和子',role:'sotsu',id:'onomi',pw:'0000',years:'7年'},null);}
+  var jimukyokuList=[
+    {key:'u_madzuru',name:'眞鶴勇登',id:'madzuru',pw:'0000'},
+    {key:'u_sano',name:'佐野貴大',id:'sano',pw:'0000'},
+    {key:'u_konno',name:'今野慎也',id:'konno',pw:'0000'},
+    {key:'u_watanabe_s',name:'渡邉駿',id:'watanabe_s',pw:'0000'},
+    {key:'u_kohinata',name:'小日向いずみ',id:'kohinata',pw:'0000'},
+    {key:'u_tachikawa',name:'立川順次',id:'tachikawa',pw:'0000'}
+  ];
   for(var i=0;i<jimukyokuList.length;i++){
     (function(m){
       var exists=false;
       for(var j=0;j<ks.length;j++){if(data[ks[j]].id===m.id){exists=true;break;}}
       if(!exists){fbSet('members/'+m.key,{key:m.key,name:m.name,role:'jimukyoku',id:m.id,pw:m.pw},null);}
     })(jimukyokuList[i]);
-  }
-});
-var yearsData={
-  hosokawa:'8年',okamura:'10年',sekiguchi:'10年',ise:'10年',matsudaira:'10年',
-  sakamoto:'2年',okubo:'8年',kanasaki:'2年',ikedo_t:'2年',narumi:'10年',
-  taguchi:'1年',ikeda:'10年',takeuchi:'7年',ikedo_n:'2年',iida:'8年',
-  shindo:'10年',watanabe_f:'4年',noda:'10年',nose:'8年',matsunaga:'7年',
-  uchibori:'8年',onomi:'7年'
-};
-
-fbGet('members',function(data){
-  if(!data)return;
-  var ks=Object.keys(data);
-  // 在任期間の書き込み
-  for(var i=0;i<ks.length;i++){
-    var k=ks[i],v=data[k];
-    if(v.role==='sotsu'&&yearsData[v.id]&&v.years!==yearsData[v.id]){
-      fbSet('members/'+k+'/years',yearsData[v.id],null);
-    }
-  }
-  // 大野さんが未登録なら追加
-  var onomiExists=false;
-  for(var i=0;i<ks.length;i++){if(data[ks[i]].id==='onomi'){onomiExists=true;break;}}
-  if(!onomiExists){
-    var k='u_onomi';
-    fbSet('members/'+k,{key:k,name:'大野身和子',role:'sotsu',id:'onomi',pw:'0000',years:'7年'},null);
   }
 });
 </script>
