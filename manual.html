@@ -2,187 +2,199 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>寄せ書きアプリ 使い方ガイド</title>
+<title>寄せ書きアプリのご案内</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Hiragino Sans','Meiryo',sans-serif;background:#f5f0e8;color:#333;font-size:14px}
-.container{max-width:720px;margin:0 auto;padding:24px 16px 60px}
-.hdr{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:16px;padding:28px 24px;text-align:center;margin-bottom:28px}
-.hdr h1{font-size:22px;font-weight:700;margin-bottom:6px}
-.hdr p{font-size:13px;opacity:.85}
-.url-box{background:rgba(255,255,255,.2);border-radius:8px;padding:8px 16px;margin-top:12px;font-size:13px;font-weight:700}
-.section{background:#fff;border-radius:14px;padding:20px;margin-bottom:20px;box-shadow:0 2px 8px rgba(0,0,0,.07)}
-.section-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;background:#667eea;color:#fff;border-radius:50%;font-size:14px;font-weight:700;margin-right:10px;flex-shrink:0}
-.section-title{display:flex;align-items:center;font-size:16px;font-weight:700;color:#4a3f8f;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #eef}
-.step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start}
-.step-num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:#e8f0ff;color:#667eea;border-radius:50%;font-size:12px;font-weight:700;flex-shrink:0;margin-top:1px}
-.step-body{flex:1;font-size:13px;line-height:1.7}
-.step-body b{color:#4a3f8f}
-.tip{background:#f0f4ff;border-left:3px solid #667eea;border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:#555;margin-top:10px;line-height:1.7}
-.tip b{color:#4a3f8f}
-.warn{background:#fff8e1;border-left:3px solid #ffc107;border-radius:0 8px 8px 0;padding:10px 14px;font-size:12px;color:#555;margin-top:10px;line-height:1.7}
-.warn b{color:#e65100}
-.role-box{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
-.role-badge{border-radius:20px;padding:6px 14px;font-size:12px;font-weight:700}
-.rb-sotsu{background:#ffe4e4;color:#c0392b}
-.rb-shinnin{background:#e4f0ff;color:#2471a3}
-.rb-geneki{background:#e8f8e8;color:#1e8449}
-.screen-img{background:#f5f0e8;border:2px solid #ddd;border-radius:10px;padding:16px;margin:12px 0;font-size:12px;color:#888;text-align:center}
-.btn-sample{display:inline-block;padding:6px 16px;border-radius:8px;font-size:12px;font-weight:700;margin:2px}
-.btn-blue-s{background:#667eea;color:#fff}
-.btn-red-s{background:#f5576c;color:#fff}
-.btn-gray-s{background:#888;color:#fff}
-.btn-outline-s{background:#fff;color:#667eea;border:1.5px solid #667eea}
-.divider{border:none;border-top:1px solid #eee;margin:14px 0}
-.faq-q{font-weight:700;color:#4a3f8f;margin-bottom:4px;font-size:13px}
-.faq-a{font-size:13px;color:#555;margin-bottom:14px;line-height:1.7;padding-left:12px;border-left:2px solid #ddd}
-.print-btn{display:block;margin:0 auto 20px;padding:12px 32px;background:#667eea;color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer}
-.back-btn{display:block;margin:0 auto;padding:10px 28px;background:none;border:1.5px solid #aaa;border-radius:10px;font-size:13px;color:#888;cursor:pointer}
+body{font-family:'Hiragino Sans','Meiryo',sans-serif;font-size:11px;color:#333;background:#fff;padding:20px 28px}
+h1{font-size:17px;font-weight:700;text-align:center;margin-bottom:4px;color:#3C3489}
+.subtitle{text-align:center;font-size:11px;color:#666;margin-bottom:4px}
+.date{text-align:right;font-size:10px;color:#888;margin-bottom:12px}
+.lead{background:#EEEDFE;border-radius:8px;padding:10px 14px;font-size:11px;line-height:1.8;margin-bottom:12px;color:#3C3489}
+.url-box{border:2px solid #534AB7;border-radius:10px;padding:8px 14px;margin-bottom:12px}
+.url{font-size:15px;font-weight:700;color:#534AB7;letter-spacing:1px}
+.url-label{font-size:10px;color:#888;margin-bottom:3px}
+.qr-area{display:flex;align-items:center;gap:16px}
+.qr-box{width:80px;height:80px;border:1.5px dashed #ccc;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#bbb;flex-shrink:0;text-align:center;line-height:1.5}
+.section{margin-bottom:12px}
+.section-title{font-size:11px;font-weight:700;color:#fff;background:#534AB7;padding:4px 10px;border-radius:6px;margin-bottom:8px;display:inline-block}
+.step-list{list-style:none;padding:0}
+.step-list li{display:flex;gap:8px;margin-bottom:7px;align-items:flex-start}
+.step-num{width:20px;height:20px;border-radius:50%;background:#534AB7;color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{font-size:11px;line-height:1.7;flex:1}
+.step-body b{color:#3C3489}
+.role-table{width:100%;border-collapse:collapse;margin-bottom:6px}
+.role-table th{background:#f0f0f0;padding:5px 8px;border:1px solid #ddd;font-size:10px;text-align:left}
+.role-table td{padding:5px 8px;border:1px solid #ddd;font-size:10px;line-height:1.6;vertical-align:top}
+.badge-sotsu{background:#ffe4e4;color:#c0392b;border-radius:10px;padding:2px 7px;font-size:10px;font-weight:700;white-space:nowrap}
+.badge-shinnin{background:#e4f0ff;color:#2471a3;border-radius:10px;padding:2px 7px;font-size:10px;font-weight:700;white-space:nowrap}
+.badge-geneki{background:#e8f8e8;color:#1e8449;border-radius:10px;padding:2px 7px;font-size:10px;font-weight:700;white-space:nowrap}
+.note-box{background:#fff8e1;border-left:3px solid #ffc107;border-radius:0 6px 6px 0;padding:7px 10px;font-size:10px;line-height:1.7;margin-bottom:8px;color:#555}
+.note-box b{color:#e65100}
+.home-table{width:100%;border-collapse:collapse;font-size:10px;margin-top:8px;margin-bottom:10px}
+.home-table th{background:#f0f0f0;padding:5px 8px;border:1px solid #ddd;text-align:left;font-weight:700}
+.home-table td{padding:6px 8px;border:1px solid #ddd;vertical-align:top;line-height:1.8}
+.contact{text-align:center;font-size:10px;color:#888;margin-top:8px}
+.page-break{page-break-after:always;margin-bottom:0}
+.faq-q{font-weight:700;color:#3C3489;margin-bottom:3px;font-size:11px}
+.faq-a{font-size:11px;color:#555;margin-bottom:10px;line-height:1.7;padding-left:10px;border-left:2px solid #EEEDFE}
+.pw-box{background:#f9f9f9;border:1px solid #ddd;border-radius:8px;padding:10px 14px;font-size:11px;line-height:1.9;margin-bottom:12px}
+.pw-box b{color:#3C3489}
+.footer{margin-top:14px;border-top:1px solid #eee;padding-top:8px;font-size:10px;color:#aaa;text-align:center}
+.print-btn{display:block;margin:0 auto 16px;padding:8px 24px;background:#534AB7;color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer}
 @media print{
-  .print-btn,.back-btn{display:none}
-  body{background:#fff;font-size:12px}
-  .container{padding:10px}
-  .hdr{border-radius:8px;padding:16px}
-  .section{box-shadow:none;border:1px solid #eee;break-inside:avoid}
+  .print-btn{display:none}
+  body{padding:16px 22px}
+  .page-break{page-break-after:always}
 }
 </style>
 </head>
 <body>
-<div class="container">
 
-<button class="print-btn" onclick="window.print()">&#128438; 印刷する</button>
+<button class="print-btn" onclick="window.print()">印刷する（2枚）</button>
 
-<div class="hdr">
-  <h1>&#127800; 寄せ書きアプリ<br>使い方ガイド</h1>
-  <p>練馬区青少年委員会</p>
-  <div class="url-box">&#127760; yosegaki-nerima.vercel.app</div>
+<!-- ========== ページ1 ========== -->
+<div class="page-break">
+
+<div class="date">令和8年5月</div>
+<h1>🌸 デジタル寄せ書きアプリのご案内</h1>
+<p class="subtitle">練馬区青少年委員会</p>
+
+<div style="height:14px"></div>
+
+<div class="lead">
+このたび、改選期を迎えるにあたり、退任委員・新任委員の皆さまへ感謝と歓迎のメッセージを届けるため、デジタル寄せ書きアプリを作りました。スマートフォンやPCからいつでも簡単にメッセージを送ることができます。ぜひご参加ください。
 </div>
 
-<!-- ログイン -->
+<!-- アクセス -->
 <div class="section">
-  <div class="section-title"><span class="section-num">1</span>ログイン方法</div>
-  <div class="step">
-    <span class="step-num">1</span>
-    <div class="step-body">ブラウザで <b>yosegaki-nerima.vercel.app</b> にアクセスします。</div>
+  <div class="section-title">📱 アクセス方法</div>
+  <div class="url-box">
+    <div class="qr-area">
+      <div class="qr-box">QRコード<br>をここに<br>貼付</div>
+      <div style="flex:1">
+        <div class="url-label">ブラウザのアドレスバーに入力 または QRコードを読み取り</div>
+        <div class="url">yosegaki-nerima.vercel.app</div>
+        <div style="font-size:10px;color:#aaa;margin-top:6px">※ スマートフォン・PC・タブレット、どの端末からでもアクセスできます</div>
+      </div>
+    </div>
   </div>
-  <div class="step">
-    <span class="step-num">2</span>
-    <div class="step-body">配布された<b>ユーザーID</b>と<b>パスワード</b>を入力して <span class="btn-sample btn-blue-s">ログイン</span> を押します。</div>
-  </div>
-  <div class="step">
-    <span class="step-num">3</span>
-    <div class="step-body">ログインするとトップ画面が表示されます。画面上部に自分の役割が表示されます。</div>
-  </div>
-  <div class="tip"><b>&#128161; ヒント：</b>スマートフォンのブラウザ（Safari・Chrome）からもアクセスできます。ホーム画面に追加しておくと便利です。</div>
-  <div class="warn"><b>&#9888; 注意：</b>IDとパスワードは他の人に教えないでください。</div>
 </div>
 
-<!-- 寄せ書きを書く -->
+<!-- 役割 -->
 <div class="section">
-  <div class="section-title"><span class="section-num">2</span>寄せ書きを書く</div>
-
-  <div class="role-box">
-    <span>送れる相手：</span>
-    <span class="role-badge rb-sotsu">退任委員</span>
-    <span style="font-size:13px;align-self:center">&#8594; 新任委員・委員から送れます</span>
-  </div>
-  <div class="role-box">
-    <span class="role-badge rb-shinnin">新任委員</span>
-    <span style="font-size:13px;align-self:center">&#8594; 退任委員・委員から送れます</span>
-  </div>
-
-  <hr class="divider">
-
-  <div class="step">
-    <span class="step-num">1</span>
-    <div class="step-body">トップ画面から、寄せ書きを送りたい委員のカードをタップします。</div>
-  </div>
-  <div class="step">
-    <span class="step-num">2</span>
-    <div class="step-body">色紙画面が開きます。下部のメッセージ入力欄にメッセージを入力します。</div>
-  </div>
-  <div class="step">
-    <span class="step-num">3</span>
-    <div class="step-body"><span class="btn-sample btn-blue-s">送る</span> を押すと付箋として色紙に追加されます。</div>
-  </div>
-  <div class="tip"><b>&#128161; ヒント：</b>1人の委員へ送れるメッセージは1件のみです。送信後に編集・削除することもできます（次のページ参照）。</div>
+  <div class="section-title">👥 参加できる内容</div>
+  <table class="role-table">
+    <thead><tr><th>役割</th><th>できること</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="badge-geneki">委員</span></td>
+        <td>退任委員・新任委員の両方へメッセージを送ることができます</td>
+      </tr>
+      <tr>
+        <td><span class="badge-sotsu">退任委員</span></td>
+        <td>新任委員へメッセージを送ることができます<br>自分への寄せ書きを閲覧・PDF保存することができます</td>
+      </tr>
+      <tr>
+        <td><span class="badge-shinnin">新任委員</span></td>
+        <td>退任委員へメッセージを送ることができます<br>自分への寄せ書きを閲覧・PDF保存することができます</td>
+      </tr>
+    </tbody>
+  </table>
+  <div style="font-size:10.5px;color:#666">※ 退任委員・新任委員はお互いにもメッセージを送り合うことができます</div>
 </div>
 
-<!-- メッセージの編集・削除 -->
+<!-- 使い方 -->
 <div class="section">
-  <div class="section-title"><span class="section-num">3</span>メッセージの編集・削除</div>
-  <div class="step">
-    <span class="step-num">1</span>
-    <div class="step-body">寄せ書き画面を開くと、自分が送った付箋に <span class="btn-sample btn-outline-s">編集</span> <span class="btn-sample" style="background:rgba(231,76,60,.15);color:#c0392b;border:none">削除</span> ボタンが表示されます。</div>
-  </div>
-  <div class="step">
-    <span class="step-num">2</span>
-    <div class="step-body"><b>編集</b>する場合：<span class="btn-sample btn-outline-s">編集</span> を押すと編集欄が開きます。内容を修正して <span class="btn-sample btn-blue-s">更新する</span> を押します。</div>
-  </div>
-  <div class="step">
-    <span class="step-num">3</span>
-    <div class="step-body"><b>削除</b>する場合：<span class="btn-sample" style="background:rgba(231,76,60,.15);color:#c0392b;border:none">削除</span> を押して確認ダイアログで「OK」を押します。削除後は再投稿できます。</div>
-  </div>
-  <div class="warn"><b>&#9888; 注意：</b>削除したメッセージは元に戻せません。</div>
+  <div class="section-title">📝 使い方</div>
+  <ul class="step-list">
+    <li>
+      <div class="step-num">1</div>
+      <div class="step-body">上記URLにアクセスし、配布された<b>ユーザーID</b>と<b>パスワード（初期値：0000）</b>でログインしてください。</div>
+    </li>
+    <li>
+      <div class="step-num">2</div>
+      <div class="step-body">トップ画面から、メッセージを送りたい委員のカードをタップ・クリックしてください。</div>
+    </li>
+    <li>
+      <div class="step-num">3</div>
+      <div class="step-body">メッセージを入力し、<b>「送る」</b>ボタンを押してください。送信したメッセージは後から編集・削除することもできます。</div>
+    </li>
+    <li>
+      <div class="step-num">4</div>
+      <div class="step-body">退任委員・新任委員の方は、自分への寄せ書き画面から<b>PDF保存</b>することができます。</div>
+    </li>
+  </ul>
 </div>
 
-<!-- 自分への寄せ書きを見る -->
-<div class="section">
-  <div class="section-title"><span class="section-num">4</span>自分への寄せ書きを見る</div>
-  <div class="role-box">
-    <span style="font-size:13px">この機能を使えるのは</span>
-    <span class="role-badge rb-sotsu">退任委員</span>
-    <span class="role-badge rb-shinnin">新任委員</span>
-    <span style="font-size:13px;align-self:center">のみです</span>
-  </div>
-  <div class="step">
-    <span class="step-num">1</span>
-    <div class="step-body">トップ画面の「&#128140; 自分への寄せ書きを見る」セクションに自分のカードが表示されます。</div>
-  </div>
-  <div class="step">
-    <span class="step-num">2</span>
-    <div class="step-body">カードをタップすると、みんなから届いた寄せ書きを色紙風に見ることができます。</div>
-  </div>
-  <div class="step">
-    <span class="step-num">3</span>
-    <div class="step-body"><span class="btn-sample btn-red-s">&#128196; PDFでダウンロード</span> を押すと印刷用のファイルが開きます。印刷ダイアログで「PDFとして保存」を選ぶとPDF保存できます。</div>
-  </div>
-  <div class="tip"><b>&#128161; ヒント：</b>メッセージが増えてから改めてPDFを保存するとより多くのメッセージを印刷できます。</div>
+<div class="note-box">
+  <b>ご注意：</b>1人の委員に送れるメッセージは<b>1件</b>です。内容を変えたい場合は編集機能をご利用ください。<br>
+  利用期限は <b>2026年8月31日</b> です。期限までに寄せ書きのPDF保存をお済ませください。
 </div>
 
-<!-- パスワード変更 -->
+<!-- ホーム画面追加 -->
 <div class="section">
-  <div class="section-title"><span class="section-num">5</span>パスワードの変更</div>
-  <div class="step">
-    <span class="step-num">1</span>
-    <div class="step-body">トップ画面の <span class="btn-sample btn-gray-s">&#128274; パスワード変更</span> を押します。</div>
+  <div class="section-title">📲 ホーム画面にアイコンを追加する（希望者のみ）</div>
+  <table class="home-table">
+    <thead><tr><th>iPhone（Safari）</th><th>Android（Chrome）</th></tr></thead>
+    <tbody><tr>
+      <td>① Safariでアプリを開く<br>② 画面下の<b>共有ボタン（□↑）</b>をタップ<br>③「<b>ホーム画面に追加</b>」をタップ<br>④「追加」をタップして完了</td>
+      <td>① Chromeでアプリを開く<br>② 右上の<b>メニュー（⋮）</b>をタップ<br>③「<b>ホーム画面に追加</b>」をタップ<br>④「追加」をタップして完了</td>
+    </tr></tbody>
+  </table>
+</div>
+
+<div class="contact">ご不明な点は大泉地区青少年委員　井上までお問い合わせください</div>
+
+</div><!-- end page1 -->
+
+
+<!-- ========== ページ2 ========== -->
+
+<div class="date" style="margin-top:20px">令和8年5月</div>
+<h1>🔑 ログイン情報・よくある質問</h1>
+<p class="subtitle">練馬区青少年委員会　寄せ書きアプリ</p>
+
+<div style="height:14px"></div>
+
+<!-- ログイン情報 -->
+<div class="section">
+  <div class="section-title">🔑 あなたのログイン情報</div>
+  <div class="pw-box">
+    <b>アクセス先：</b>yosegaki-nerima.vercel.app<br>
+    <b>ユーザーID：</b>　　　　　　　　　　　　　　　　　<br>
+    <b>パスワード（初期値）：</b>0000<br>
+    <div style="margin-top:8px;font-size:10.5px;color:#888">※ ログイン後にパスワードを変更することをおすすめします。トップ画面の「🔒 パスワード変更」から設定できます。</div>
   </div>
-  <div class="step">
-    <span class="step-num">2</span>
-    <div class="step-body">現在のパスワード・新しいパスワード（2回）を入力して <span class="btn-sample btn-blue-s">変更する</span> を押します。</div>
-  </div>
-  <div class="tip"><b>&#128161; ヒント：</b>パスワードは4文字以上で設定してください。忘れた場合は管理者にリセットを依頼してください。</div>
 </div>
 
 <!-- よくある質問 -->
 <div class="section">
-  <div class="section-title"><span class="section-num">6</span>よくある質問</div>
-  <div class="faq-q">&#10067; ログインできません</div>
-  <div class="faq-a">IDとパスワードを確認してください。パスワードを変更済みの場合は新しいパスワードでログインしてください。それでもログインできない場合は管理者にお問い合わせください。</div>
-  <div class="faq-q">&#10067; 自分のメッセージが見当たりません</div>
-  <div class="faq-a">送った相手のカードをタップして色紙画面を開いてください。自分のメッセージには「編集」「削除」ボタンが表示されます。</div>
-  <div class="faq-q">&#10067; 同じ人に2件目のメッセージを送れません</div>
-  <div class="faq-a">1人の委員に送れるメッセージは1件のみです。内容を変えたい場合は「編集」ボタンをご利用ください。</div>
-  <div class="faq-q">&#10067; PDFボタンが表示されません</div>
-  <div class="faq-a">PDFダウンロードは退任委員・新任委員のみ利用できます。委員（一般）の方はご利用いただけません。</div>
-  <div class="faq-q">&#10067; パスワードを忘れました</div>
-  <div class="faq-a">管理者にパスワードのリセットを依頼してください。リセット後、ログインしてパスワードを変更することをおすすめします。</div>
+  <div class="section-title">❓ よくある質問</div>
+
+  <div class="faq-q">Q. ログインできません</div>
+  <div class="faq-a">ユーザーIDとパスワードをご確認ください。パスワードを変更済みの場合は新しいパスワードでお試しください。それでもログインできない場合は管理者にご連絡ください。管理者がパスワードをリセットいたします。</div>
+
+  <div class="faq-q">Q. メッセージを送ったのに表示されません</div>
+  <div class="faq-a">送り先の委員のカードをタップして寄せ書き画面を開いてご確認ください。自分が送ったメッセージには「編集」「削除」ボタンが表示されます。</div>
+
+  <div class="faq-q">Q. 同じ人に2件目のメッセージを送りたい</div>
+  <div class="faq-a">1人の委員に送れるメッセージは1件のみです。内容を変えたい場合は、寄せ書き画面の「編集」ボタンからメッセージを修正してください。</div>
+
+  <div class="faq-q">Q. PDFが保存できません</div>
+  <div class="faq-a">PDF保存は退任委員・新任委員の方のみご利用いただけます。保存ボタンを押すと印刷画面が開きますので、「PDFとして保存」を選択してください。うまくいかない場合はブラウザのポップアップ許可設定をご確認ください。</div>
+
+  <div class="faq-q">Q. パスワードを忘れました</div>
+  <div class="faq-a">管理者にご連絡ください。パスワードを初期値（0000）にリセットいたします。リセット後はログインして新しいパスワードに変更することをおすすめします。</div>
+
+  <div class="faq-q">Q. スマートフォンからアクセスできますか</div>
+  <div class="faq-a">はい、iOS・Android問わずスマートフォンのブラウザ（Safari・Chrome等）からアクセスいただけます。ホーム画面にアイコンを追加しておくと便利です。</div>
+
+  <div class="faq-q">Q. いつまで使えますか</div>
+  <div class="faq-a">利用期限は2026年8月31日です。期限を過ぎるとアクセスできなくなりますので、退任委員・新任委員の方は期限までにPDF保存をお済ませください。</div>
+
 </div>
 
-<button class="print-btn" onclick="window.print()">&#128438; 印刷する</button>
-<button class="back-btn" onclick="history.back()">&#8592; アプリに戻る</button>
+<div class="footer">練馬区青少年委員会　寄せ書きアプリ　yosegaki-nerima.vercel.app　｜　利用期限：2026年8月31日</div>
 
-</div>
 </body>
 </html>
