@@ -283,8 +283,9 @@ function openY(tk){
     var yearsStr=t.years?'<span style="font-size:13px;color:#c0392b;margin-left:8px">在任'+t.years+'</span>':'';
     g('shtitle').innerHTML='&#127800; '+t.name+' さんへ &#127800;'+yearsStr;
     renderFusen(msgs);
-    var canPdf=cu.role==='sotsu'||cu.role==='shinnin'||cu.role==='admin';
+    var canPdf=(cu.role==='sotsu'||cu.role==='shinnin'||cu.role==='admin')&&(tk===cu.key||cu.role==='admin');
     g('pdfBtn').style.display=canPdf?'block':'none';
+    g('printView').style.display='none';
     if(cw(tk)){
       var me=Object.keys(msgs);
       var alr=false;
