@@ -471,7 +471,7 @@ function renderAdminMemberList(){
   var ks=Object.keys(members),h='';
   for(var i=0;i<ks.length;i++){
     var k=ks[i],v=members[k];
-    h+='<div class="mrow"><span style="color:#fff">'+v.name+' <span class="mcard-badge '+bc(v.role)+'" style="font-size:10px;padding:2px 6px">'+rl(v.role)+'</span>'+(v.role==='sotsu'&&v.years?'<span style="font-size:10px;color:rgba(201,168,76,.5);margin-left:4px">'+v.years+'</span>':'')+'</span>'
+    h+='<div class="mrow"><span style="color:var(--text)">'+v.name+' <span class="mcard-badge '+bc(v.role)+'" style="font-size:10px;padding:2px 6px">'+rl(v.role)+'</span>'+(v.role==='sotsu'&&v.years?'<span style="font-size:10px;color:rgba(140,100,20,.7);margin-left:4px">'+v.years+'</span>':'')+'</span>'
       +'<span style="color:var(--text-muted);font-size:11px">'+v.id+'</span>'
       +'<div style="display:flex;gap:4px">'
       +(v.role==='sotsu'?'<button class="btn-edit2" data-key="'+k+'" data-action="years">在任期間</button>':'')
@@ -499,7 +499,7 @@ function renderAdminPwList(){
   var ks=Object.keys(members),h='';
   for(var i=0;i<ks.length;i++){
     var k=ks[i],v=members[k];if(k==='admin')continue;
-    h+='<div class="mrow"><span style="color:#fff">'+v.name+'</span><span style="color:var(--text-muted);font-size:11px;font-family:monospace">'+v.pw+'</span><button class="btn-edit2" data-key="'+k+'">リセット</button></div>';
+    h+='<div class="mrow"><span style="color:var(--text)">'+v.name+'</span><span style="color:var(--text-muted);font-size:11px;font-family:monospace">'+v.pw+'</span><button class="btn-edit2" data-key="'+k+'">リセット</button></div>';
   }
   g('adminPwList').innerHTML=h||'<div style="color:var(--text-muted);font-size:12px">委員がいません</div>';
   var btns=g('adminPwList').querySelectorAll('.btn-edit2');
@@ -523,8 +523,8 @@ function renderAdminMsgList(){
     h+='<div style="margin-bottom:14px"><div style="font-size:11px;letter-spacing:1px;color:var(--gold);margin-bottom:8px;text-transform:uppercase">To '+rn+' ('+mks.length+'件)</div>';
     for(var mi=0;mi<mks.length;mi++){
       var mk=mks[mi],m=ms[mk];
-      h+='<div style="display:flex;align-items:flex-start;justify-content:space-between;padding:10px;background:var(--surface);border:0.5px solid var(--border);border-radius:4px;margin-bottom:6px;gap:8px">'
-        +'<div style="font-size:12px;flex:1;color:rgba(255,255,255,.7)"><span style="color:var(--text-muted)">'+m.fromName+'：</span>'+m.msg+(m.edited?' <span style="font-size:10px;color:var(--text-muted)">(編集済)</span>':'')+'</div>'
+      h+='<div style="display:flex;align-items:flex-start;justify-content:space-between;padding:10px;background:#fafafa;border:0.5px solid var(--border);border-radius:4px;margin-bottom:6px;gap:8px">'
+        +'<div style="font-size:12px;flex:1;color:var(--text)"><span style="color:var(--text-muted)">'+m.fromName+'：</span>'+m.msg+(m.edited?' <span style="font-size:10px;color:var(--text-muted)">(編集済)</span>':'')+'</div>'
         +'<div style="display:flex;gap:4px">'
         +'<button class="btn-edit2" data-rkey="'+rk+'" data-mkey="'+mk+'">編集</button>'
         +'<button class="btn-del" data-rkey="'+rk+'" data-mkey="'+mk+'">削除</button>'
