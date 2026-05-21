@@ -16,10 +16,56 @@ textarea,input{color:#1A1A1A;-webkit-text-fill-color:#1A1A1A}
   --dark-bg:#1C1C1E;--dark-surface:rgba(255,255,255,.07);--dark-border:rgba(255,255,255,.08);--dark-border-md:rgba(255,255,255,.15);
 }
 body{font-family:'Hiragino Sans','Meiryo',sans-serif;overflow-x:hidden}
-.screen{display:none;min-height:100vh;padding:0 20px 40px}
+.screen{display:none;min-height:100vh;padding:0 20px 60px}
 .screen.active{display:block}
-#loginScreen.active{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px;background:var(--dark-bg)}
+#loginScreen.active{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:40px 20px;background:var(--dark-bg)}
 #topScreen.active,#pwScreen.active,#yosegakiScreen.active,#adminScreen.active{background:linear-gradient(160deg,#F0F0EE 0%,#FFFFFF 100%);color:var(--text)}
+
+/* BEAR SYSTEM CREDIT — 全画面共通フッター */
+.bs-credit{
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(28,28,30,.85);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  border-top:0.5px solid rgba(201,168,76,.2);
+  padding:7px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  z-index:9999;
+}
+.bs-credit-left{display:flex;align-items:center;gap:8px}
+.bs-bear-logo{
+  width:22px;height:22px;border-radius:4px;
+  background:linear-gradient(135deg,#C9A84C,#8B6914);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:#000;letter-spacing:0;flex-shrink:0
+}
+.bs-credit-text{font-size:10px;color:rgba(255,255,255,.45);letter-spacing:.5px}
+.bs-credit-text strong{color:rgba(201,168,76,.7);font-weight:500}
+.bs-credit-link{font-size:10px;color:rgba(201,168,76,.4);text-decoration:none;letter-spacing:.5px;transition:color .2s}
+.bs-credit-link:hover{color:rgba(201,168,76,.8)}
+
+/* LOGIN BANNER */
+.bs-banner{
+  width:100%;max-width:360px;
+  margin-bottom:20px;
+  background:rgba(201,168,76,.08);
+  border:0.5px solid rgba(201,168,76,.25);
+  border-radius:6px;
+  padding:12px 16px;
+  display:flex;align-items:center;gap:12px;
+  cursor:pointer;
+  transition:background .2s;
+}
+.bs-banner:hover{background:rgba(201,168,76,.14)}
+.bs-banner-logo{
+  width:36px;height:36px;border-radius:6px;flex-shrink:0;
+  background:linear-gradient(135deg,#C9A84C,#8B6914);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:800;color:#000;letter-spacing:-.5px;
+}
+.bs-banner-body{}
+.bs-banner-name{font-size:12px;font-weight:600;color:rgba(255,255,255,.85);letter-spacing:1px}
+.bs-banner-desc{font-size:10px;color:rgba(201,168,76,.6);margin-top:2px;letter-spacing:.5px}
+.bs-banner-cta{margin-left:auto;font-size:9px;color:rgba(201,168,76,.5);letter-spacing:1px;white-space:nowrap;text-transform:uppercase}
 
 /* LOGIN */
 .login-inner{width:100%;max-width:360px}
@@ -127,6 +173,15 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;overflow-x:hidden}
 </style>
 </head>
 <body>
+
+<!-- Bear System クレジット（全画面固定） -->
+<div class="bs-credit">
+  <div class="bs-credit-left">
+    <div class="bs-bear-logo">BS</div>
+    <div class="bs-credit-text">Powered by <strong>株式会社ベアシステム</strong></div>
+  </div>
+  <a class="bs-credit-link" href="https://www.bear-system.net" target="_blank">bear-system.net →</a>
+</div>
 
 <!-- LOGIN -->
 <div id="loginScreen" class="screen active">
@@ -360,7 +415,7 @@ function openY(tk){
       var me=Object.keys(msgs),alr=false;
       for(var i=0;i<me.length;i++){if(msgs[me[i]].fromKey===cu.key){alr=true;break;}}
       if(alr){g('writeBox').style.display='none';}
-      else{g('writeBox').style.display='block';g('writeTitle')&&(g('writeTitle').textContent=t.name+'さんへ');g('msgInput').value='';g('sendBtn').disabled=false;g('sendBtn').textContent='SEND';}
+      else{g('writeBox').style.display='block';g('msgInput').value='';g('sendBtn').disabled=false;g('sendBtn').textContent='SEND';}
     } else {g('writeBox').style.display='none';}
     ss('yosegakiScreen');
   });
