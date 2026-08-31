@@ -350,6 +350,7 @@ function doLogin(){
     var ks=Object.keys(members),found=null;
     for(var i=0;i<ks.length;i++){if(members[ks[i]].id===id&&members[ks[i]].pw===pw){found=members[ks[i]];break;}}
     if(!found){g('loginErr').textContent='IDまたはパスワードが違います';return;}
+    if(found.role!=='admin'){g('loginErr').textContent='現在このアプリはご利用いただけません';return;}
     cu=found;
     fbGet('messages',function(mdata){messages=mdata||{};fbGet('reactions',function(rdata){reactions=rdata||{};renderTop();ss('topScreen');});});
   });
