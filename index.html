@@ -189,7 +189,10 @@ body{font-family:'Hiragino Sans','Meiryo',sans-serif;overflow-x:hidden}
   <div id="sotsuSection" style="display:none"><div class="section-label">退任委員への寄せ書き</div><div id="sotsuGrid"></div></div>
   <div id="shinninSection" style="display:none"><div class="section-label">新任委員への寄せ書き</div><div id="shinninGrid"></div></div>
   <div id="mySection" style="display:none"><div class="section-label">自分への寄せ書き</div><div id="myGrid"></div></div>
-  <div id="adminLink" style="display:none"><button class="btn-admin" id="adminMenuBtn">ADMIN MENU</button></div>
+  <div id="adminLink" style="display:none">
+    <button class="btn-admin" id="adminMenuBtn">ADMIN MENU</button>
+    <button class="btn-admin" id="allPdfBtn" style="margin-top:6px;border-color:var(--gold-dim);color:var(--gold)">📄 全員の寄せ書きを一括PDF保存</button>
+  </div>
   <div class="bottom-btns">
     <button class="btn-sub btn-gold-outline" id="pwChangeBtn">パスワード変更</button>
     <button class="btn-sub btn-outline" id="logoutBtn">ログアウト</button>
@@ -663,6 +666,69 @@ function addMember(){
   fbSet('members/'+k,nm,function(){members[k]=nm;g('newName').value='';g('newId').value='';g('newPw').value='';renderAdminMemberList();renderAdminPwList();alert(name+'さんを登録しました');});
 }
 
+function allPdf(){
+  fbGet('members',function(mdata){
+    if(!mdata){alert('データ取得失敗');return;}
+    fbGet('messages',function(msgdata){
+      msgdata=msgdata||{};
+      var targets=[];
+      var ks=Object.keys(mdata);
+      for(var i=0;i<ks.length;i++){
+        var k=ks[i],v=mdata[k];
+        if(v.role==='sotsu'||v.role==='shinnin')targets.push({key:k,member:v,msgs:msgdata[k]||{}});
+      }
+      if(!targets.length){alert('退任委員・新任委員が登録されていません');return;}
+      var FC2=['#fff9c4','#f8bbd0','#b3e5fc','#c8e6c9','#ffe0b2','#e1bee7','#b2dfdb','#fce4ec','#dcedc8'];
+      var FT2=['#5d4037','#880e4f','#01579b','#1b5e20','#e65100','#4a148c','#004d40','#b71c1c','#33691e'];
+      var RO2=[-3,-2,-1,0,1,2,3,-2,1];
+      var sections='';
+      for(var i=0;i<targets.length;i++){
+        var t=targets[i],mks=Object.keys(t.msgs);
+        var roleLabel=t.member.role==='sotsu'?'退任委員':'新任委員';
+        var roleColor=t.member.role==='sotsu'?'#c0392b':'#2471a3';
+        var yearsStr=t.member.years?'<span style="font-size:11px;color:#b8860b;margin-left:8px">在任'+t.member.years+'</span>':'';
+        var fusen='';
+        if(mks.length===0){
+          fusen='<p style="color:#aaa;font-size:12px;text-align:center;padding:20px">— メッセージはまだありません —</p>';
+        } else {
+          for(var j=0;j<mks.length;j++){
+            var mk=mks[j],mv=t.msgs[mk],ci=j%FC2.length;
+            fusen+='<div style="display:inline-block;vertical-align:top;margin:6px;padding:10px 12px;min-width:100px;max-width:140px;background:'+FC2[ci]+';color:'+FT2[ci]+';border-radius:3px;font-size:11px;line-height:1.6;transform:rotate('+RO2[j%RO2.length]+'deg)">'
+              +'<div>'+mv.msg.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'</div>'
+              +'<div style="font-size:9px;margin-top:6px;opacity:.6;text-align:right">— '+mv.fromName+'</div>'
+              +'</div>';
+          }
+        }
+        sections+='<div style="page-break-after:always;padding:24px 20px">'
+          +'<div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">'
+          +'<span style="background:'+roleColor+';color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;letter-spacing:1px">'+roleLabel+'</span>'
+          +'<span style="font-size:22px;font-weight:300;letter-spacing:3px">'+t.member.name+'</span>'+yearsStr
+          +'</div>'
+          +'<div style="font-size:10px;color:#b8860b;letter-spacing:2px;margin-bottom:12px;text-transform:uppercase">'+(t.member.role==='sotsu'?'FAREWELL MESSAGE':'WELCOME MESSAGE')+' &nbsp;／&nbsp; '+mks.length+'件</div>'
+          +'<div style="background:rgba(201,168,76,.06);border:0.5px solid rgba(201,168,76,.35);border-radius:8px;padding:16px;min-height:120px">'
+          +'<div style="text-align:center;font-size:10px;letter-spacing:2px;color:#b8860b;margin-bottom:12px;padding-bottom:10px;border-bottom:0.5px dashed rgba(201,168,76,.3)">To '+t.member.name+'</div>'
+          +'<div>'+fusen+'</div>'
+          +'</div>'
+          +'</div>';
+      }
+      var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>RELAY — 寄せ書き一覧</title>'
+        +'<style>*{box-sizing:border-box;margin:0;padding:0}body{font-family:Hiragino Sans,Meiryo,sans-serif}@media print{@page{margin:10mm}}</style>'
+        +'</head><body>'
+        +'<div style="background:#1C1C1E;color:#fff;padding:20px 24px;display:flex;align-items:center;justify-content:space-between">'
+        +'<div><div style="font-size:10px;letter-spacing:3px;color:rgba(201,168,76,.6)">練馬区青少年委員会</div><div style="font-size:28px;font-weight:300;letter-spacing:8px;margin-top:4px">RELAY</div><div style="font-size:10px;letter-spacing:2px;color:rgba(201,168,76,.8);margin-top:4px">言葉のバトン — 寄せ書き一覧</div></div>'
+        +'<div style="font-size:10px;color:rgba(255,255,255,.3)">出力日：'+new Date().toLocaleDateString('ja-JP')+'</div>'
+        +'</div>'
+        +sections
+        +'<script>window.addEventListener("load",function(){window.print();});<\/script>'
+        +'</body></html>';
+      var blob=new Blob([html],{type:'text/html;charset=utf-8'});
+      var url=URL.createObjectURL(blob);
+      var a=document.createElement('a');a.href=url;a.target='_blank';a.click();
+      setTimeout(function(){URL.revokeObjectURL(url);},60000);
+    });
+  });
+}
+
 function printIdList(){
   var ks=Object.keys(members),sotsu=[],shinnin=[],geneki=[],jimukyoku=[];
   for(var i=0;i<ks.length;i++){var k=ks[i],v=members[k];if(k==='admin')continue;if(v.role==='sotsu')sotsu.push(v);else if(v.role==='shinnin')shinnin.push(v);else if(v.role==='jimukyoku')jimukyoku.push(v);else geneki.push(v);}
@@ -699,6 +765,7 @@ window.onload=function(){
   g('addMemberBtn').addEventListener('click',addMember);
   g('backToTopBtn').addEventListener('click',showTop);
   g('printIdBtn').addEventListener('click',printIdList);
+  g('allPdfBtn').addEventListener('click',allPdf);
   g('csvArea').addEventListener('click',function(){g('csvFile').click();});
   g('csvFile').addEventListener('change',function(){loadCSV(this);});
   g('importBtn').addEventListener('click',importCSV);
